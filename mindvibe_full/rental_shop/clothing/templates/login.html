@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindVibe - Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=National+Park&display=swap" rel="stylesheet">
+    <style>
+        /* ใส่ CSS ตามที่คุณต้องการ */
+    </style>
+</head>
+
+<body>
+    <h1>Login</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn">Login</button>
+    </form>
+</body>
+
+</html>

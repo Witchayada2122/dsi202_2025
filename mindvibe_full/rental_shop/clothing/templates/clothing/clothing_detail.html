@@ -1,0 +1,253 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindVibe - Product Details</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=National+Park&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Bebas Neue', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #FFF1E6; /* เบจอ่อน */
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header Section */
+        .header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #FDFD95; /* สีเหลือง */
+            padding: 30px 20px;
+            color: #333;
+            flex-direction: column;
+            text-align: center;
+            gap: 5px;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .header .logo {
+            font-size: 3em;
+            font-weight: bold;
+            color: #FF3377; /* สีชมพู */
+            margin: 0;
+        }
+
+        .header .slogan {
+            font-size: 1.4em;
+            color: #333;
+            margin: 0;
+        }
+
+        /* Product Detail Section */
+        .product-detail {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 3px;
+            padding: 20px;
+            background-color: #FFF1E6; /* เบจอ่อน */
+        }
+
+        .product-image {
+            flex: 1;
+            text-align: center;
+        }
+
+        .product-image img {
+            width: 80%;
+            max-width: 400px;
+            border-radius: 10px;
+        }
+
+        .product-info {
+            flex: 1.5;
+            padding-left: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .product-info h2 {
+            font-size: 2.2em; /* ขนาดฟอนต์ชื่อสินค้า */
+            color: #60C4B4; /* สีเขียวสด */
+            margin-bottom: 0px;
+        }
+
+        .product-description, .product-details-section {
+            font-family: 'National Park', sans-serif;
+            margin-top: 1px;
+            text-align: left;
+            font-size: 1em;
+            color: #333;
+        }
+
+        .product-description h3 {
+            font-size: 1.6em;
+            color: #FF3377;
+            margin-bottom: 1px;
+        }
+
+        /* Product Details Section */
+        .product-details-section p {
+            margin: 1px 0;
+        }
+
+        .product-info .price-options {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            font-size: 1em;
+        }
+
+        .product-info .price-options button {
+            padding: 8px 18px;
+            background-color: #FFB6C1; /* สีชมพูพีช */
+            color: #fff;
+            font-size: 1em;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .product-info .price-options button:hover {
+            background-color: #FF3377; /* สีชมพูสด */
+        }
+
+        .product-info .buttons {
+            margin-top: 15px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            font-size: 1.2em;
+            padding: 12px 25px;
+            background-color: #00A300; /* สีเขียวสด */
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #FF3377; /* สีชมพูสด */
+        }
+
+        /* Reviews Section */
+        .reviews {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .reviews h3 {
+            font-size: 2em;
+            color: #60C4B4;
+            margin-bottom: 20px;
+        }
+
+        .review {
+            border-bottom: 1px solid #ddd;
+            padding: 20px;
+        }
+
+        .review:last-child {
+            border-bottom: none;
+        }
+
+        .review .reviewer-name {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .review .rating {
+            color: #FF3377; /* สีชมพูสด */
+            margin-top: 10px;
+        }
+
+        .review .review-text {
+            color: #555;
+            font-size: 1.1em;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header with Logo and Slogan -->
+    <div class="header">
+        <div>
+            <h1 class="logo">MindVibe</h1>
+            <p class="slogan">Look good. Feel right. Live true. | Mindfully curated outfits for every emotion and moment.</p>
+        </div>
+    </div>
+
+    <div class="product-detail">
+        <div class="product-image">
+            <img src="{{ clothing.image.url }}" alt="{{ clothing.name }}">
+        </div>
+
+        <div class="product-info">
+            <h2>{{ clothing.name }}</h2>
+
+            <!-- Product Details -->
+            <div class="product-description">
+                <h3>Product Details</h3>
+                <p>{{ clothing.product_details }}</p>
+            </div>
+
+            <div class="product-details-section">
+                <p><strong>Color:</strong> {{ clothing.color }}</p>
+                <p><strong>Material:</strong> {{ clothing.material }}</p>
+                <p><strong>Fit:</strong> {{ clothing.fit }}</p>
+                <p><strong>Design:</strong> {{ clothing.design }}</p>
+                <p><strong>Versatility:</strong> {{ clothing.versatility }}</p>
+                <p><strong>Sizes Available:</strong> {{ clothing.sizes_available }}</p>
+                <p><strong>Care Instructions:</strong> {{ clothing.care_instructions }}</p>
+                <p><strong>Perfect For:</strong> {{ clothing.perfect_for }}</p>
+            </div>
+
+            <div class="price-options">
+                <button>1 Day: ${{ clothing.price_per_day_1 }}</button>
+                <button>3 Days: ${{ clothing.price_per_day_3 }}</button>
+                <button>5 Days: ${{ clothing.price_per_day_5 }}</button>
+                <button>7 Days: ${{ clothing.price_per_day_7 }}</button>
+            </div>
+
+            <div class="buttons">
+                <a href="#" class="btn">Add to Cart</a>
+                <a href="#" class="btn">Buy Now</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="reviews">
+        <h3>Customer Reviews</h3>
+        <div class="review">
+            <div class="reviewer-name">Kristin Watson</div>
+            <div class="rating">⭐⭐⭐⭐⭐</div>
+            <div class="review-text">
+                Love it! From the fit to the fabric, everything about these pieces is just perfect. They're comfortable, stylish, and exactly what I was looking for.
+            </div>
+        </div>
+
+        <div class="review">
+            <div class="reviewer-name">Bessie Cooper</div>
+            <div class="rating">⭐⭐⭐⭐⭐</div>
+            <div class="review-text">
+                Excellent product, I like it! The fit is spot-on, and the fabric feels amazing against my skin. These pieces are not only comfortable but incredibly stylish as well.
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

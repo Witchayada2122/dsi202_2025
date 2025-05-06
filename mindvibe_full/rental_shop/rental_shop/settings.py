@@ -42,8 +42,8 @@ ROOT_URLCONF = 'rental_shop.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
+        'DIRS': [],  # ใช้การค้นหาจากโฟลเดอร์ภายในแอป
+        'APP_DIRS': True,  # กำหนดให้ค้นหาจาก app directories
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',

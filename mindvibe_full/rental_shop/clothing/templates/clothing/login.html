@@ -1,0 +1,156 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindVibe - Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=National+Park&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Bebas Neue', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #FFF1E6; /* เบจอ่อน */
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header Section */
+        .header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #FDFD95; /* สีเหลือง */
+            padding: 30px 20px;
+            color: #333;
+            flex-direction: column;
+            text-align: center;
+            gap: 5px;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .header .logo {
+            font-size: 3em;
+            font-weight: bold;
+            color: #FF3377; /* สีชมพู */
+            margin: 0;
+        }
+
+        .header .slogan {
+            font-size: 1.4em;
+            color: #333;
+            margin: 0;
+        }
+
+        /* Main Content Section */
+        .main-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            padding: 50px 10px;
+            background-color: #FFF1E6;
+            max-width: 600px;
+            margin: 0 auto;
+            flex-direction: column;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .main-content h1 {
+            font-size: 2.8em;
+            font-weight: bold;
+            color: #60C4B4; /* โลโก้สีฟ้า */
+            margin-bottom: 20px;
+        }
+
+        .main-content .form-container {
+            width: 100%;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .main-content .form-container input {
+            width: 100%;
+            padding: 12px;
+            font-size: 1.1em;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            margin-bottom: 15px;
+            background-color: #F9F9F9;
+        }
+
+        .main-content .form-container input:focus {
+            outline: none;
+            border-color: #60C4B4;
+        }
+
+        .main-content .form-container button {
+            width: 100%;
+            padding: 15px;
+            background-color: #FFB6C1; /* สีชมพูพีช */
+            color: white;
+            font-size: 1.2em;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .main-content .form-container button:hover {
+            background-color: #FF3377; /* สีชมพูสด */
+        }
+
+        .main-content .form-container .signup-link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.1em;
+        }
+
+        .footer {
+            background-color: #A0D8F1; /* สีฟ้าอ่อน */
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- Header with Logo and Slogan -->
+    <div class="header">
+        <div>
+            <h1 class="logo">MindVibe</h1>
+            <p class="slogan">Look good. Feel right. Live true. | Mindfully curated outfits for every emotion and moment.</p>
+        </div>
+    </div>
+
+    <!-- Main Content Section -->
+    <div class="main-content">
+        <h1>Login</h1>
+        <div class="form-container">
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn">Login</button>
+            </form>
+            <p class="signup-link">Don't have an account? <a href="{% url 'signup' %}">Sign up here</a></p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2025 MindVibe. All rights reserved.</p>
+    </div>
+
+</body>
+
+</html>

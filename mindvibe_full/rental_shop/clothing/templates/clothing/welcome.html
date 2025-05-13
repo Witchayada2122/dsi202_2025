@@ -20,29 +20,47 @@
         /* Header Section */
         .header {
             display: flex;
-            justify-content: center;
-            align-items: center;
+            justify-content: space-between; /* จัดให้ส่วนซ้ายและขวาสุดขอบ */
+            align-items: center; /* จัดให้ตรงกลางแนวตั้ง */
             background-color: #FDFD95; /* สีเหลือง */
-            padding: 30px 20px;  /* ลด padding ด้านบนและล่าง */
+            padding: 15px 20px; /* ปรับ padding ให้เหมาะสม */
             color: #333;
-            flex-direction: column;
-            text-align: center;
-            gap: 5px; /* ลดระยะห่างระหว่างโลโก้กับสโลแกน */
-            max-width: 100%;  /* จำกัดความกว้างให้เหลือ 80% ของความกว้างหน้าจอ */
-            margin: 0 auto;  /* จัดให้อยู่กลาง */
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .header-left {
+            display: flex;
+            flex-direction: column; /* จัดโลโก้และสโลแกนให้อยู่แนวตั้ง */
+            align-items: flex-start; /* จัดชิดซ้าย */
         }
 
         .header .logo {
             font-size: 3em;
             font-weight: bold;
             color: #FF3377; /* สีชมพู */
-            margin: 0;
+            margin: 0 0 5px 0; /* เพิ่ม margin ด้านล่างเล็กน้อย */
         }
 
         .header .slogan {
-            font-size: 1.4em;
+            font-size: 1.2em;
             color: #333;
             margin: 0;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center; /* จัดไอคอนให้อยู่ตรงกลางแนวตั้ง */
+            gap: 15px; /* ระยะห่างระหว่างไอคอน */
+        }
+
+        .header-right a {
+            display: block; /* ทำให้ a ครอบคลุมทั้งรูปภาพ */
+        }
+
+        .header-right img {
+            width: 24px; /* ปรับขนาดไอคอนตามต้องการ */
+            height: 24px;
         }
 
         /* Main Content Section */
@@ -50,11 +68,11 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 30px;  /* ลดระยะห่างระหว่างส่วนซ้ายและขวา */
-            padding: 30px 10px;  /* ลด padding ด้านข้าง */
+            gap: 30px;
+            padding: 30px 10px;
             background-color: #FFF1E6;
-            max-width: 900px;  /* ลดความกว้างสูงสุดให้แคบลง */
-            margin: 0 auto;  /* จัดกลาง */
+            max-width: 900px;
+            margin: 0 auto;
         }
 
         /* Left Section (Images of Clothes) */
@@ -146,15 +164,19 @@
 
 <body>
 
-    <!-- Header with Logo and Slogan -->
     <div class="header">
-        <div>
+        <div class="header-left">
             <h1 class="logo">MindVibe</h1>
             <p class="slogan">Look good. Feel right. Live true. | Mindfully curated outfits for every emotion and moment.</p>
         </div>
+        <div class="header-right">
+            <a href="/search/"><img src="{% static 'images/search_icon.png' %}" alt="Search"></a>
+            <a href="/wishlist/"><img src="{% static 'images/heart_icon.png' %}" alt="Wishlist"></a>
+            <a href="/cart/"><img src="{% static 'images/cart_icon.png' %}" alt="Cart"></a>
+            <a href="/profile/"><img src="{% static 'images/profile_icon.png' %}" alt="Profile"></a>
+        </div>
     </div>
 
-    <!-- Main Content Section -->
     <div class="main-content">
         <div class="product-image">
             <img src="{% static 'images/homepage.png' %}" alt="Homepage Image">
@@ -172,7 +194,6 @@
         </div>
     </div>
 
-    <!-- Footer -->
     <div class="footer">
         <p>&copy; 2025 MindVibe. All rights reserved.</p>
     </div>

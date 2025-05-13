@@ -1,0 +1,204 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="th"> {# เปลี่ยนเป็น lang="th" ถ้าเนื้อหาส่วนใหญ่เป็นภาษาไทย #}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindVibe - Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Sarabun:wght@400;700&display=swap" rel="stylesheet">
+    {# ^^^ เปลี่ยน National Park เป็น Sarabun เพื่อรองรับภาษาไทยได้ดีขึ้น ถ้าต้องการ #}
+    
+    {# ถ้าคุณมีไฟล์ CSS ที่จัดการ static files ให้ยกเลิกคอมเมนต์บรรทัดด้านล่างและแก้ path ให้ถูกต้อง #}
+    {# <link rel="stylesheet" type="text/css" href="{% static 'clothing/css/your_style.css' %}"> #}
+    
+    <style>
+        body {
+            font-family: 'Sarabun', sans-serif; /* เปลี่ยนเป็น Sarabun เพื่อภาษาไทย */
+            margin: 0;
+            padding: 0;
+            background-color: #FFF1E6; /* เบจอ่อน */
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #FDFD95; /* สีเหลือง */
+            padding: 20px; /* ลด padding ลงเล็กน้อย */
+            color: #333;
+            flex-direction: column;
+            text-align: center;
+            gap: 5px;
+        }
+
+        .header .logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.8em; /* ปรับขนาดให้เหมาะสม */
+            font-weight: bold;
+            color: #FF3377; /* สีชมพู */
+            margin: 0;
+        }
+
+        .header .slogan {
+            font-size: 1.2em; /* ปรับขนาด */
+            color: #333;
+            margin: 0;
+            padding: 0 15px; /* เพิ่ม padding ซ้ายขวาให้สโลแกน */
+        }
+
+        .main-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 30px 20px;
+            background-color: transparent; /* ทำให้กลืนไปกับ body */
+            max-width: 450px; /* ปรับความกว้างสูงสุด */
+            margin: 30px auto;
+        }
+
+        .main-content h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #60C4B4; /* สีเขียวมิ้นต์ */
+            margin-bottom: 25px;
+        }
+
+        .form-container {
+            width: 100%;
+            background-color: #ffffff;
+            padding: 25px 30px; /* ปรับ padding */
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-container p { /* สำหรับ {{ form.as_p }} */
+            margin-bottom: 18px;
+        }
+        .form-container label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+            color: #444;
+            font-size: 0.95em;
+        }
+
+        .form-container input[type="text"],
+        .form-container input[type="password"],
+        .form-container input[type="email"] {
+            width: 100%;
+            padding: 10px 12px;
+            font-size: 1em;
+            font-family: 'Sarabun', sans-serif;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 5px;
+            background-color: #fdfdfd;
+            box-sizing: border-box;
+        }
+        .form-container ul.errorlist {
+            list-style-type: none;
+            padding: 0;
+            color: #d9534f; /* สีแดงสำหรับ error */
+            font-size: 0.85em;
+            margin-top: -10px;
+            margin-bottom: 12px;
+        }
+        .form-container ul.errorlist li {
+            padding: 2px 0;
+        }
+
+        .form-container input:focus {
+            outline: none;
+            border-color: #60C4B4;
+            box-shadow: 0 0 0 0.2rem rgba(96, 196, 180, 0.25);
+        }
+
+        .form-container button[type="submit"] {
+            width: 100%;
+            padding: 12px 15px;
+            background-color: #FFB6C1; /* สีชมพูพีช */
+            color: white;
+            font-size: 1.1em;
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 0.5px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .form-container button[type="submit"]:hover {
+            background-color: #FF3377; /* สีชมพูสด */
+        }
+
+        .signup-link-container { /* เปลี่ยนชื่อคลาสเพื่อให้ชัดเจน */
+            text-align: center;
+            margin-top: 25px;
+            font-size: 1em;
+        }
+        .signup-link-container a {
+            color: #FF3377;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .signup-link-container a:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            background-color: #A0D8F1; /* สีฟ้าอ่อน */
+            color: #333;
+            text-align: center;
+            padding: 15px 20px;
+            margin-top: 40px; /* ลด margin บน */
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="header">
+        <div>
+            <h1 class="logo">MindVibe</h1>
+            <p class="slogan">Look good. Feel right. Live true. | Mindfully curated outfits for every emotion and moment.</p>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <h1>Login</h1>
+        <section class="form-container">
+            {# ตรวจสอบให้แน่ใจว่า URL name 'login' และ app_name 'clothing' ถูกต้องตาม urls.py ของคุณ #}
+            <form method="POST" action="{% url 'clothing:login' %}">
+                {% csrf_token %}
+                
+                {# แสดงฟอร์ม field ต่างๆ และ error messages ถ้ามี #}
+                {{ form.as_p }}
+
+                {# เพิ่ม hidden input สำหรับ 'next' parameter ถ้ามี #}
+                {% if next %}
+                    <input type="hidden" name="next" value="{{ next }}">
+                {% endif %}
+                
+                <button type="submit">Login</button>
+            </form>
+            <div class="signup-link-container">
+                <p>ยังไม่มีบัญชี? <a href="{% url 'clothing:signup' %}">สมัครสมาชิกที่นี่</a></p>
+                 {# ^^^ ตรวจสอบ URL name 'signup' และ app_name 'clothing' #}
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; {% now "Y" %} MindVibe. All rights reserved.</p>
+    </footer>
+
+</body>
+
+</html>

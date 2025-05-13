@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User # <--- เพิ่มบรรทัดนี้!
 
 class Clothing(models.Model):
     name = models.CharField(max_length=100)
@@ -24,3 +25,15 @@ class Clothing(models.Model):
 
     def __str__(self):
         return self.name
+
+class Favorite(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='favorites')
+    clothing = models.ForeignKey(Clothing, on_delete=models.CASCADE, related_name='favorited_by')
+    added_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'clothing') # ป้องกันการกดโปรดซ้ำสำหรับสินค้าชิ้นเดียวกันโดยผู้ใช้คนเดียว
+        ordering = ['-added_at'] # เรียงจากรายการที่เพิ่มล่าสุดก่อน
+
+    def __str__(self):
+        return f"{self.user.username} favorites {self.clothing.name}"

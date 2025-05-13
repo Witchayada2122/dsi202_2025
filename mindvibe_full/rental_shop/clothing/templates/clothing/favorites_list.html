@@ -1,0 +1,40 @@
+{# clothing/templates/clothing/favorites_list.html #}
+{% extends "clothing/base.html" %} {# สมมติว่าคุณมี base template ชื่อ base.html #}
+
+{% block title %}My Favorites{% endblock %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h2>My Favorite Items</h2>
+    <hr>
+    {% if favorite_clothes %}
+      <div class="row">
+        {% for item in favorite_clothes %}
+          <div class="col-md-4 mb-3">
+            <div class="card">
+              {# สมมติว่า Clothing model ของคุณมี field 'image' และ 'price' #}
+              {% if item.image %}
+                <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.name }}" style="height: 200px; object-fit: cover;">
+              {% else %}
+                <div style="height: 200px; background-color: #f0f0f0; display:flex; align-items:center; justify-content:center;">No Image</div>
+              {% endif %}
+              <div class="card-body">
+                <h5 class="card-title">
+                  <a href="{% url 'clothing:clothing_detail' pk=item.pk %}">{{ item.name }}</a>
+                </h5>
+                <p class="card-text">Color: {{ item.color }}</p>
+                {% if item.price %}
+                  <p class="card-text">Price: ${{ item.price }}</p>
+                {% endif %}
+                {# คุณสามารถเพิ่มปุ่ม "Remove from Favorites" ที่นี่ได้ในอนาคต #}
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p>You haven't added any items to your favorites yet.</p>
+      <p><a href="{% url 'clothing:clothing_list' %}" class="btn btn-primary">Browse Items</a></p>
+    {% endif %}
+  </div>
+{% endblock %}

@@ -135,7 +135,7 @@
 
     <!-- Search Bar -->
     <div class="search-bar">
-        <form method="GET" action="{% url 'clothing_list' %}">
+        <form method="GET" action="{% url 'clothing:clothing_list' %}">
             <input type="text" name="search" placeholder="Search for clothing..." value="{{ request.GET.search }}">
             <button type="submit">Search</button>
         </form>
@@ -147,7 +147,7 @@
                 <img src="{{ clothing.image.url }}" alt="{{ clothing.name }}">
                 <h3>{{ clothing.name }}</h3>
                 <p class="price">Price for 1 day: ${{ clothing.price_per_day_1 }}</p>
-                <a href="{% url 'clothing_detail' pk=clothing.pk %}" class="btn">View Details</a>
+                <a href="{% url 'clothing:clothing_detail' pk=clothing.pk %}" class="btn">View Details</a>
             </div>
         {% empty %}
             <p>No products found matching your criteria.</p>

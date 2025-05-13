@@ -98,6 +98,10 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static',  # ควรตั้งให้ `static` อยู่ในโปรเจกต์นี้
 ]
 
+LOGIN_URL = 'clothing:login' # ชื่อ URL pattern ของหน้า login ของคุณ
+                            # (ถ้าไม่ได้ใช้ app_name 'clothing' ใน include ก็จะเป็น 'login')
+LOGIN_REDIRECT_URL = 'clothing:clothing_list' # หน้าที่ให้ redirect ไปหลัง login สำเร็จ (ถ้าไม่ได้ระบุ next)
+
 # การเก็บไฟล์ static เมื่อใช้คำสั่ง collectstatic สำหรับ production
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 

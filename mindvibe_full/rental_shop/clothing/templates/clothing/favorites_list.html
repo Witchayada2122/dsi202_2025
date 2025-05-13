@@ -1,40 +1,95 @@
-{# clothing/templates/clothing/favorites_list.html #}
-{% extends "clothing/base.html" %} {# สมมติว่าคุณมี base template ชื่อ base.html #}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block title %}My Favorites{% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Favorite Items</title>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* คุณสามารถเพิ่ม CSS ที่นี่เพื่อจัดรูปแบบหน้า */
+        body {
+            font-family: 'Prompt', sans-serif;
+            background-color: #FFF1E6;
+            color: #333;
+        }
 
-{% block content %}
-  <div class="container mt-4">
-    <h2>My Favorite Items</h2>
-    <hr>
-    {% if favorite_clothes %}
-      <div class="row">
-        {% for item in favorite_clothes %}
-          <div class="col-md-4 mb-3">
-            <div class="card">
-              {# สมมติว่า Clothing model ของคุณมี field 'image' และ 'price' #}
-              {% if item.image %}
-                <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.name }}" style="height: 200px; object-fit: cover;">
-              {% else %}
-                <div style="height: 200px; background-color: #f0f0f0; display:flex; align-items:center; justify-content:center;">No Image</div>
-              {% endif %}
-              <div class="card-body">
-                <h5 class="card-title">
-                  <a href="{% url 'clothing:clothing_detail' pk=item.pk %}">{{ item.name }}</a>
-                </h5>
-                <p class="card-text">Color: {{ item.color }}</p>
-                {% if item.price %}
-                  <p class="card-text">Price: ${{ item.price }}</p>
-                {% endif %}
-                {# คุณสามารถเพิ่มปุ่ม "Remove from Favorites" ที่นี่ได้ในอนาคต #}
-              </div>
+        .container {
+            margin-top: 20px;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .card img {
+            width: 100%;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .card-body {
+            padding: 10px 0;
+        }
+
+        .card-title {
+            font-size: 1.5em;
+            color: #60C4B4;
+        }
+
+        .card-text {
+            color: #555;
+        }
+
+        .btn-primary {
+            background-color: #60C4B4;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>My Favorite Items</h2>
+        <hr>
+        {% if favorite_clothes %}
+            <div class="row">
+                {% for item in favorite_clothes %}
+                    <div class="col-md-4 mb-3">
+                        <div class="card">
+                            {% if item.image %}
+                                <img src="{{ item.image.url }}" alt="{{ item.name }}">
+                            {% else %}
+                                <div style="height: 200px; background-color: #f0f0f0; display: flex; align-items:center; justify-content:center;">No Image</div>
+                            {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <a href="{% url 'clothing:clothing_detail' pk=item.pk %}">{{ item.name }}</a>
+                                </h5>
+                                <p class="card-text">Color: {{ item.color }}</p>
+                                {% if item.price %}
+                                    <p class="card-text">Price: ${{ item.price }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
-          </div>
-        {% endfor %}
-      </div>
-    {% else %}
-      <p>You haven't added any items to your favorites yet.</p>
-      <p><a href="{% url 'clothing:clothing_list' %}" class="btn btn-primary">Browse Items</a></p>
-    {% endif %}
-  </div>
-{% endblock %}
+        {% else %}
+            <p>You haven't added any items to your favorites yet.</p>
+            <p><a href="{% url 'clothing:clothing_list' %}" class="btn-primary">Browse Items</a></p>
+        {% endif %}
+    </div>
+
+</body>
+
+</html>

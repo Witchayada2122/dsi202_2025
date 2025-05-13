@@ -11,4 +11,5 @@ urlpatterns = [
     path('signup/', views.signup, name='signup'),
     path('login/', views.login_view, name='login'),
     path('favorites/', views.favorites_list, name='favorites_list'),
+    path('add_to_favorites/<int:pk>/', views.add_to_favorites, name='add_to_favorites'),  # เพิ่มเส้นทางนี้
 ]

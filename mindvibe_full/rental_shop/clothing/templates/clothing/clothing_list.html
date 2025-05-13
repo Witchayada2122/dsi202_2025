@@ -9,13 +9,14 @@
     <title>MindVibe - Clothing Collection</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;700&display=swap" rel="stylesheet">
 
     <style>
         body {
-            font-family: 'Bebas Neue', sans-serif;
+            font-family: 'Prompt', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #FFF1E6; /* เบจอ่อน */
+            background-color: #FFF1E6;
             color: #333;
             line-height: 1.6;
         }
@@ -24,8 +25,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #FDFD95; /* สีเหลือง */
-            padding: 30px 20px;
+            background-color: #FDFD95;
+            padding: 25px 20px;
             color: #333;
             flex-direction: column;
             text-align: center;
@@ -35,51 +36,57 @@
         }
 
         .header .logo {
+            font-family: 'Bebas Neue', sans-serif;
             font-size: 3em;
             font-weight: bold;
-            color: #FF3377; /* สีชมพู */
+            color: #FF3377;
             margin: 0;
         }
 
         .header .slogan {
-            font-size: 1.4em;
+            font-size: 1.2em;
             color: #333;
             margin: 0;
         }
 
         .search-bar {
-            margin: 20px 0;
+            margin: 25px 0;
             text-align: center;
         }
 
         .search-bar input[type="text"] {
-            font-size: 1.2em;
-            padding: 10px;
-            width: 250px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
+            font-family: 'Prompt', sans-serif;
+            font-size: 1em;
+            padding: 12px 15px;
+            width: 280px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
         .search-bar button {
-            font-size: 1.2em;
-            padding: 10px 20px;
-            background-color: #FF3377; /* สีชมพูสด */
+            font-family: 'Prompt', sans-serif;
+            font-size: 1em;
+            padding: 12px 22px;
+            background-color: #FF3377;
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             margin-left: 10px;
             cursor: pointer;
+            transition: background-color 0.3s ease;
         }
 
         .search-bar button:hover {
-            background-color: #FFB6C1; /* สีชมพูพีช */
+            background-color: #e6005c;
         }
 
         .products {
             display: flex;
             justify-content: center;
             gap: 30px;
-            margin-top: 50px;
+            margin-top: 30px;
+            padding: 0 20px;
             flex-wrap: wrap;
         }
 
@@ -87,38 +94,87 @@
             background-color: #ffffff;
             border-radius: 15px;
             padding: 20px;
-            width: 250px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            width: 260px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
-        .product-card img {
-            width: 100%;
-            border-radius: 10px;
+        /* --- CSS สำหรับรูปภาพสินค้า (แก้ไขกลับไปแบบเดิม) --- */
+        .product-card img.product-image {
+            width: 100%; /* ความกว้างเต็มการ์ด */
+            /* ไม่มีการกำหนด max-height หรือ object-fit เพื่อให้ภาพแสดงสัดส่วนเดิม */
+            border-radius: 10px; /* คงความโค้งมนของขอบรูป */
+            margin-bottom: 15px; /* ระยะห่างด้านล่างรูป */
         }
+        /* --- สิ้นสุด CSS สำหรับรูปภาพสินค้า --- */
+
 
         .product-card h3 {
-            margin: 20px 0;
-            font-size: 1.5em;
-            color: #60C4B4; /* สีฟ้า */
+            font-family: 'Bebas Neue', sans-serif;
+            margin: 0 0 10px 0;
+            font-size: 1.6em;
+            color: #60C4B4;
         }
 
-        .product-card p {
+        .product-card p { /* สไตล์นี้จะใช้กับ <p> ที่ไม่ใช่ราคาด้วย ถ้ามี */
             color: #555;
-            font-size: 1.1em;
+            font-size: 1em;
+            margin-bottom: 10px;
         }
 
         .product-card .price {
-            color: #FF3377; /* สีชมพูสด */
-            font-size: 1.2em;
-            margin-top: 10px;
+            color: #FF3377;
+            font-size: 1.1em;
+            font-weight: 500;
+            /* margin-top: auto; ถูกเอาออกเพื่อให้ content ดันลงมาตามปกติ */
+            margin-bottom: 15px;
         }
 
-        .footer {
-            background-color: #A0D8F1; /* สีฟ้าอ่อน */
+        .product-card .actions {
+            margin-top: 15px; /* อาจจะต้องปรับถ้า content ด้านบนสูงไม่เท่ากัน */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-card .btn {
+            font-family: 'Prompt', sans-serif;
+            background-color: #60C4B4;
             color: white;
+            padding: 8px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 0.9em;
+            transition: background-color 0.3s ease;
+        }
+
+        .product-card .btn:hover {
+            background-color: #4aa090;
+        }
+
+        .product-card .heart-icon-link {
+            display: inline-block;
+        }
+
+        .product-card .heart-icon {
+            width: 24px;
+            height: 24px;
+            vertical-align: middle;
+            transition: transform 0.2s ease-in-out;
+        }
+        .product-card .heart-icon:hover {
+            transform: scale(1.2);
+        }
+
+
+        .footer {
+            background-color: #A0D8F1;
+            color: #333;
             text-align: center;
-            padding: 20px;
+            padding: 25px 20px;
             margin-top: 50px;
         }
     </style>
@@ -133,7 +189,6 @@
         </div>
     </div>
 
-    <!-- Search Bar -->
     <div class="search-bar">
         <form method="GET" action="{% url 'clothing:clothing_list' %}">
             <input type="text" name="search" placeholder="Search for clothing..." value="{{ request.GET.search }}">
@@ -144,21 +199,26 @@
     <div class="products">
         {% for clothing in clothes %}
             <div class="product-card">
-                <img src="{{ clothing.image.url }}" alt="{{ clothing.name }}">
-                <h3>{{ clothing.name }}</h3>
-                <p class="price">Price for 1 day: ${{ clothing.price_per_day_1 }}</p>
-                <a href="{% url 'clothing:clothing_detail' pk=clothing.pk %}" class="btn">View Details</a>
+                <img src="{{ clothing.image.url }}" alt="{{ clothing.name }}" class="product-image">
+                <div>
+                    <h3>{{ clothing.name }}</h3>
+                    <p class="price">Price for 1 day: ${{ clothing.price_per_day_1 }}</p>
+                </div>
+                <div class="actions">
+                    <a href="{% url 'clothing:clothing_detail' pk=clothing.pk %}" class="btn">View Details</a>
+                    <a href="{% url 'clothing:add_to_favorites' pk=clothing.pk %}" class="heart-icon-link">
+                        <img src="{% static 'images/heart_icon.png' %}" alt="Add to Favorites" class="heart-icon">
+                    </a>
+                </div>
             </div>
         {% empty %}
             <p>No products found matching your criteria.</p>
         {% endfor %}
     </div>
 
-    <!-- Footer -->
     <div class="footer">
-        <p>&copy; 2025 MindVibe. All rights reserved.</p>
+        <p>&copy; {% now "Y" %} MindVibe. All rights reserved.</p>
     </div>
 
 </body>
-
 </html>

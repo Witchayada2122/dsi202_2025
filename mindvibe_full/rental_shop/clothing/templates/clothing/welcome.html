@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -192,7 +193,10 @@
         </div>
         <div class="header-right">
             <a href="/search/"><img src="{% static 'images/search_icon.png' %}" alt="Search"></a>
-            <a href="/wishlist/"><img src="{% static 'images/heart_icon.png' %}" alt="Wishlist"></a>
+            <!-- เพิ่มเงื่อนไขการเช็คล็อกอิน -->
+            <a href="{% if user.is_authenticated %}{% url 'clothing:favorites_list' %}{% else %}{% url 'clothing:login' %}{% endif %}">
+                <img src="{% static 'images/heart_icon.png' %}" alt="Wishlist">
+            </a>
             <a href="/cart/"><img src="{% static 'images/cart_icon.png' %}" alt="Cart"></a>
             <a href="/profile/"><img src="{% static 'images/profile_icon.png' %}" alt="Profile"></a>
         </div>

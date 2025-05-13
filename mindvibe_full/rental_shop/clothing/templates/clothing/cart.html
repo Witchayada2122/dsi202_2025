@@ -14,34 +14,74 @@
             font-family: 'Prompt', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #FFF1E6;
+            background-color: #FFF1E6; /* เบจอ่อน */
             color: #333;
             line-height: 1.6;
         }
 
+        /* Header Section (คัดลอกจาก welcome.html) */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: #FDFD95;
-            padding: 15px 30px;
+            background-color: #FDFD95; /* สีเหลือง */
+            padding: 15px 30px; /* เพิ่ม padding ด้านข้าง */
             color: #333;
         }
 
-        .header-left .logo {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 2.5em;
-            font-weight: bold;
-            color: #FF3377;
+        .header-left {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
         }
 
+        .header .logo {
+            font-family: 'Bebas Neue', sans-serif; /* โลโก้ MINDVIBE ยังคงใช้ Bebas Neue */
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #FF3377; /* สีชมพู */
+            margin: 0 0 2px 0;
+        }
+
+        .header .slogan {
+            font-size: 0.9em;
+            color: #333;
+            margin: 0;
+            /* Slogan จะใช้ 'Prompt' ที่สืบทอดมาจาก body ซึ่งดีสำหรับภาษาไทย */
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px; /* เพิ่มระยะห่างไอคอน */
+        }
+
+        .header-right a {
+            display: block;
+        }
+
+        .header-right img {
+            width: 20px;
+            height: 20px;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .header-right img:hover {
+            opacity: 1;
+        }
+
+        /* Main Content Section */
         .main-content {
             padding: 50px;
             background-color: #FFF1E6;
+            display: flex;
+            justify-content: center;
         }
 
         .cart-container {
             max-width: 900px;
+            width: 100%;
             margin: 0 auto;
             background-color: rgba(255, 255, 255, 0.8);
             padding: 40px;
@@ -49,36 +89,87 @@
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
         }
 
+        .cart-container h1 {
+            font-family: 'Prompt', sans-serif; /* เปลี่ยนเป็น Prompt สำหรับหัวข้อภาษาไทย */
+            font-size: 2.8em; /* อาจปรับขนาดตามความเหมาะสมเมื่อเปลี่ยนฟอนต์ */
+            color: #60C4B4;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 700; /* เพิ่มความหนาเพื่อให้ดูเป็นหัวข้อ */
+        }
+
         .cart-table {
             width: 100%;
             border-collapse: collapse;
+            margin-bottom: 30px;
         }
 
         .cart-table th, .cart-table td {
             padding: 15px;
             text-align: left;
+            border-bottom: 1px solid #ddd;
+            /* font-family: 'Prompt', sans-serif; /* มั่นใจว่าตารางใช้ Prompt */
         }
 
         .cart-table th {
             background-color: #FF3377;
             color: white;
+            font-weight: 500;
+            /* font-family: 'Prompt', sans-serif; /* มั่นใจว่าหัวตารางใช้ Prompt */
         }
 
         .cart-table tr:nth-child(even) {
-            background-color: #f2f2f2;
+            background-color: #f9f9f9;
+        }
+        .cart-table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .cart-summary {
+            text-align: right;
+            margin-top: 20px;
+        }
+
+        .cart-summary p {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+            /* font-family: 'Prompt', sans-serif; /* มั่นใจว่าสรุปใช้ Prompt */
         }
 
         .btn-checkout {
-            padding: 10px 20px;
+            display: inline-block;
+            padding: 12px 25px;
             background-color: #60C4B4;
             color: white;
             text-decoration: none;
             border-radius: 5px;
-            margin-top: 20px;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease;
+            /* font-family: 'Prompt', sans-serif; /* มั่นใจว่าปุ่มใช้ Prompt */
         }
 
         .btn-checkout:hover {
             background-color: #4b98a2;
+        }
+
+        .empty-cart-message {
+            text-align: center;
+            font-size: 1.2em;
+            color: #777;
+            padding: 40px 0;
+            /* font-family: 'Prompt', sans-serif; /* มั่นใจว่าข้อความตะกร้าว่างใช้ Prompt */
+        }
+
+        /* Footer (คัดลอกจาก welcome.html) */
+        .footer {
+            background-color: #A0D8F1;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+            font-size: 0.8em;
         }
     </style>
 </head>
@@ -87,9 +178,22 @@
     <div class="header">
         <div class="header-left">
             <h1 class="logo">MINDVIBE</h1>
+            <p class="slogan">LOOK GOOD. FEEL RIGHT. LIVE TRUE. | MINDFULLY CURATED OUTFITS FOR EVERY EMOTION AND MOMENT.</p>
         </div>
         <div class="header-right">
-            <a href="/cart/"><img src="{% static 'images/cart_icon.png' %}" alt="Cart"></a>
+            <a href="/search/"><img src="{% static 'images/search_icon.png' %}" alt="Search"></a>
+            <a href="{% if user.is_authenticated %}{% url 'clothing:favorites_list' %}{% else %}{% url 'clothing:login' %}{% endif %}">
+                <img src="{% static 'images/heart_icon.png' %}" alt="Wishlist">
+            </a>
+            <a href="{% if user.is_authenticated %}{% url 'clothing:cart' %}{% else %}{% url 'clothing:login' %}{% endif %}">
+                <img src="{% static 'images/cart_icon.png' %}" alt="Cart">
+            </a>
+            <a href="{% if user.is_authenticated %}{% url 'clothing:status' %}{% else %}{% url 'clothing:login' %}{% endif %}">
+                <img src="{% static 'images/status_icon.png' %}" alt="Status">
+            </a>
+            <a href="{% if user.is_authenticated %}{% url 'clothing:profile' %}{% else %}{% url 'clothing:login' %}{% endif %}">
+                <img src="{% static 'images/profile_icon.png' %}" alt="Profile">
+            </a>
         </div>
     </div>
 
@@ -102,8 +206,8 @@
                     <tr>
                         <th>สินค้า</th>
                         <th>จำนวน</th>
-                        <th>ราคา</th>
-                        <th>รวม</th>
+                        <th>ราคาต่อหน่วย</th>
+                        <th>ราคารวม</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -111,21 +215,25 @@
                     <tr>
                         <td>{{ item.product.name }}</td>
                         <td>{{ item.quantity }}</td>
-                        <td>{{ item.product.price }}</td>
-                        <td>{{ item.total }}</td>
+                        <td>฿{{ item.product.price|floatformat:2 }}</td>
+                        <td>฿{{ item.total|floatformat:2 }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
             <div class="cart-summary">
-                <p>รวมทั้งหมด: {{ total_price }}</p>
-                <a href="{% url 'clothing:checkout' %}" class="btn-checkout">ดำเนินการเช็คเอาท์</a>
+                <p>ยอดรวมทั้งหมด: ฿{{ total_price|floatformat:2 }}</p>
+                <a href="{% url 'clothing:checkout' %}" class="btn-checkout">ดำเนินการชำระเงิน</a>
             </div>
             {% else %}
-            <p>ตะกร้าของคุณยังไม่มีสินค้า</p>
+            <p class="empty-cart-message">ตะกร้าของคุณยังว่างอยู่ ไปเลือกสินค้าที่ชอบกันเลย!</p>
             {% endif %}
         </div>
     </div>
-</body>
 
+    <div class="footer">
+        <p>&copy; 2025 MINDVIBE. ALL RIGHTS RESERVED.</p>
+    </div>
+
+</body>
 </html>

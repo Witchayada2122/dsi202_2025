@@ -92,6 +92,14 @@ USE_TZ = True
 
 # ตั้งค่า URL สำหรับการเข้าถึงไฟล์ static
 STATIC_URL = '/static/'
+# settings.py
+
+STATIC_URL = '/static/'
+
+# เพิ่ม STATICFILES_DIRS เพื่อบอก Django ว่าให้ดูไฟล์ static จากที่ไหน
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),  # พูดถึงโฟลเดอร์ 'static' ที่อยู่ในระดับโปรเจกต์
+]
 
 # กำหนดที่เก็บไฟล์ static ของโปรเจกต์
 STATICFILES_DIRS = [
@@ -108,5 +116,6 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 # ตั้งค่าพื้นที่จัดเก็บไฟล์สื่อ (media files)
 MEDIA_URL = '/media/'  # URL ที่จะใช้ในการเข้าถึงไฟล์สื่อ
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # เส้นทางที่เก็บไฟล์ในเครื่อง
+
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

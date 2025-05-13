@@ -1,0 +1,79 @@
+/* ไฟล์ C:\mindvibe_full\rental_shop\static\css\style.css */
+
+body {
+    font-family: 'Prompt', sans-serif; /* กำหนดฟอนต์หลักสำหรับทั้งหน้าเว็บ */
+    margin: 0;
+    padding: 0;
+    background-color: #FFF1E6; /* สีพื้นหลังเว็บ (เบจอ่อน) */
+    color: #333; /* สีตัวอักษรหลัก */
+    line-height: 1.6;
+}
+
+/* Header Section - สไตล์สำหรับส่วนหัวทั้งหมด */
+.header {
+    display: flex; /* จัดเรียง item ข้างใน header (logo และ icons) ในแนวนอน */
+    justify-content: space-between; /* ให้มีช่องว่างระหว่าง logo (ซ้าย) กับ icons (ขวา) */
+    align-items: center; /* จัดให้ item อยู่กึ่งกลางแนวตั้ง */
+    background-color: #FDFD95; /* สีพื้นหลังของ header (สีเหลือง) */
+    padding: 15px 30px; /* ระยะห่างภายใน header (บน-ล่าง 15px, ซ้าย-ขวา 30px) */
+    color: #333; /* สีตัวอักษรใน header */
+    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* เพิ่มเงาเล็กน้อยใต้ header (ถ้าต้องการ) */
+}
+
+/* ส่วนด้านซ้ายของ Header (ที่มี Logo และ Slogan) */
+.header-left {
+    display: flex;
+    flex-direction: column; /* จัดเรียง Logo กับ Slogan ในแนวตั้ง */
+    align-items: flex-start; /* จัดชิดซ้าย */
+}
+
+.header .logo {
+    font-family: 'Bebas Neue', sans-serif; /* ฟอนต์สำหรับ Logo */
+    font-size: 2.5em; /* ขนาดตัวอักษรของ Logo */
+    font-weight: bold; /* ทำให้ตัวอักษรหนา */
+    color: #FF3377; /* สีของ Logo (สีชมพู) */
+    margin: 0 0 2px 0; /* ระยะห่างรอบ Logo (บน 0, ขวา 0, ล่าง 2px, ซ้าย 0) */
+    text-decoration: none; /* เอาเส้นใต้ลิงก์ออก (ถ้าโลโก้เป็นลิงก์) */
+}
+
+.header .slogan {
+    font-size: 0.9em; /* ขนาดตัวอักษรของ Slogan */
+    color: #333; /* สีของ Slogan */
+    margin: 0; /* ไม่มีระยะห่างรอบ Slogan */
+}
+
+/* ส่วนด้านขวาของ Header (ที่มี Icons ต่างๆ) */
+.header-right {
+    display: flex; /* จัดเรียง Icons ในแนวนอน */
+    align-items: center; /* จัดให้ Icons อยู่กึ่งกลางแนวตั้ง */
+    gap: 20px; /* ระยะห่างระหว่างแต่ละ Icon */
+}
+
+.header-right a { /* สไตล์สำหรับลิงก์ครอบ Icon */
+    display: block; /* ทำให้คลิกได้ทั้งพื้นที่ของ Icon */
+}
+
+.header-right img { /* สไตล์สำหรับรูปภาพ Icon */
+    width: 20px; /* ความกว้างของ Icon */
+    height: 20px; /* ความสูงของ Icon */
+    opacity: 0.8; /* ความโปร่งใสของ Icon เล็กน้อย (ให้ดูนุ่มนวลขึ้น) */
+    transition: opacity 0.3s ease; /* เพิ่ม animation ตอนเอาเมาส์ไปชี้ */
+}
+
+.header-right img:hover { /* สไตล์เมื่อเอาเมาส์ไปชี้ที่ Icon */
+    opacity: 1; /* ทำให้ Icon ทึบแสง (ชัดขึ้น) */
+}
+
+/* --- สามารถเพิ่มสไตล์อื่นๆ สำหรับส่วนที่เหลือของเว็บได้ที่นี่ --- */
+
+/* ตัวอย่างสไตล์สำหรับ Footer (ถ้าต้องการให้เหมือน welcome.html) */
+.footer {
+    background-color: #A0D8F1; /* สีฟ้าอ่อน */
+    color: white; /* ควรเป็น white หรือ #333 ตามดีไซน์ welcome.html */
+    text-align: center;
+    padding: 20px;
+    margin-top: 50px;
+    font-size: 0.8em;
+}
+
+/* คุณสามารถเพิ่ม CSS Class อื่นๆ ที่ใช้บ่อยๆ ในเว็บของคุณที่นี่ได้ */

@@ -1,0 +1,54 @@
+<!-- payment.html -->
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindVibe - Payment</title>
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+</head>
+
+<body>
+
+    <h1>Payment Information</h1>
+
+    <h3>Your Order Summary</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Days</th>
+                <th>Total Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cart_items %}
+                <tr>
+                    <td>{{ item.clothing.name }}</td>
+                    <td>{{ item.days }}</td>
+                    <td>{{ item.clothing.price_per_day_1 * item.days }} THB</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <p>Total: {{ total_price }} THB</p>
+
+    <h3>Payment Method: PromptPay</h3>
+    <p>Scan the QR code or use the bank account details below:</p>
+    <img src="{% static 'images/promtpay_qr.png' %}" alt="PromptPay QR Code">
+    <p>Bank Account: 123-456-7890</p>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="payment_proof">Upload Payment Proof:</label>
+        <input type="file" name="payment_proof" accept="image/*" required>
+        <button type="submit">Submit Payment</button>
+    </form>
+
+</body>
+
+</html>

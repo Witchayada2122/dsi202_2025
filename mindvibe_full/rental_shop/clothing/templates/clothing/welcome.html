@@ -197,8 +197,16 @@
             <a href="{% if user.is_authenticated %}{% url 'clothing:favorites_list' %}{% else %}{% url 'clothing:login' %}{% endif %}">
                 <img src="{% static 'images/heart_icon.png' %}" alt="Wishlist">
             </a>
-            <a href="/cart/"><img src="{% static 'images/cart_icon.png' %}" alt="Cart"></a>
-            <a href="/profile/"><img src="{% static 'images/profile_icon.png' %}" alt="Profile"></a>
+            <a href="{% if user.is_authenticated %}{% url 'clothing:cart' %}{% else %}{% url 'clothing:login' %}{% endif %}">
+                <img src="{% static 'images/cart_icon.png' %}" alt="Cart">
+            </a>
+            <!-- เพิ่มลิงค์สำหรับ status_icon -->
+            <a href="{% if user.is_authenticated %}{% url 'clothing:status' %}{% else %}{% url 'clothing:login' %}{% endif %}">
+                <img src="{% static 'images/status_icon.png' %}" alt="Status">
+            </a>
+            <a href="{% if user.is_authenticated %}{% url 'clothing:profile' %}{% else %}{% url 'clothing:login' %}{% endif %}">
+                <img src="{% static 'images/profile_icon.png' %}" alt="Profile">
+            </a>
         </div>
     </div>
 

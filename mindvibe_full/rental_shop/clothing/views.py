@@ -81,3 +81,15 @@ def add_to_favorites(request, pk):
         Favorite.objects.create(user=request.user, clothing=clothing_item)
     
     return redirect('clothing:favorites_list')  # ไปหน้า favorites_list เมื่อเพิ่มเสร็จแล้ว
+
+# ฟังก์ชันสำหรับหน้าตะกร้าสินค้า
+def cart(request):
+    return render(request, 'clothing/cart.html')
+
+# ฟังก์ชันสำหรับหน้าสถานะการจัดส่ง
+def status(request):
+    return render(request, 'clothing/status.html')
+
+# ฟังก์ชันสำหรับหน้าข้อมูลโปรไฟล์
+def profile(request):
+    return render(request, 'clothing/profile.html')

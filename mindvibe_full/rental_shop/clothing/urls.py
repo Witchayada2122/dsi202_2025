@@ -15,4 +15,6 @@ urlpatterns = [
     path('cart/', views.cart, name='cart'),  # ลิงค์ไปที่หน้าตะกร้าสินค้า
     path('status/', views.status, name='status'),  # ลิงค์ไปที่หน้าสถานะการจัดส่ง
     path('profile/', views.profile, name='profile'),
+    path('profile/edit/', views.edit_profile, name='edit_profile'),
+    path('profile/change_password/', views.change_password, name='change_password'),
 ]

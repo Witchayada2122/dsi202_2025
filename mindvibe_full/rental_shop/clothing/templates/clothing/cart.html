@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -109,14 +111,14 @@
                     <tr>
                         <td>{{ item.product.name }}</td>
                         <td>{{ item.quantity }}</td>
-                        <td>{{ item.product.price|currency }}</td>
-                        <td>{{ item.product.price|multiply:item.quantity|currency }}</td>
+                        <td>{{ item.product.price }}</td>
+                        <td>{{ item.total }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
             <div class="cart-summary">
-                <p>รวมทั้งหมด: {{ total_price|currency }}</p>
+                <p>รวมทั้งหมด: {{ total_price }}</p>
                 <a href="{% url 'clothing:checkout' %}" class="btn-checkout">ดำเนินการเช็คเอาท์</a>
             </div>
             {% else %}

@@ -1,9 +1,45 @@
-from django.shortcuts import render, get_object_or_404, redirect, resolve_url
-from .models import Clothing, Favorite  # เพิ่ม Favorite Model
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import Clothing, Favorite
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, authenticate
-from django.contrib.auth.decorators import login_required  # สำหรับ @login_required
-from django.conf import settings  # สำหรับ settings.LOGIN_REDIRECT_URL
+from django.contrib.auth.decorators import login_required
+from django.conf import settings
+
+# ฟังก์ชันสำหรับดึงข้อมูลสินค้าจากตะกร้า
+def get_cart_items(request):
+    cart = request.session.get('cart', [])
+    cart_items = []
+    
+    for item in cart:
+        try:
+            product = get_object_or_404(Clothing, pk=item['product_id'])
+            cart_items.append({
+                'product': product,
+                'quantity': item['quantity'],
+                'total': product.price * item['quantity']
+            })
+        except (KeyError, Clothing.DoesNotExist):
+            # ข้ามรายการที่มีปัญหา (เช่น product_id ไม่ถูกต้อง)
+            continue
+    return cart_items
+
+# ฟังก์ชันสำหรับหน้าตะกร้าสินค้า
+def cart(request):
+    cart_items = get_cart_items(request)
+    total_price = 0
+
+    for item in cart_items:
+        total_price += item['total']
+
+    formatted_total_price = f"฿ {total_price:,.2f}"
+
+    # คืนค่า HttpResponse เสมอ โดยส่ง cart_items และ total_price ไปยังเทมเพลต
+    return render(request, 'clothing/cart.html', {
+        'cart_items': cart_items,
+        'total_price': formatted_total_price
+    })
+
+# ฟังก์ชันอื่นๆ
 
 # หน้า Welcome
 def welcome(request):
@@ -25,7 +61,7 @@ def clothing_detail(request, pk):
     clothing = get_object_or_404(Clothing, pk=pk)
     return render(request, 'clothing/clothing_detail.html', {'clothing': clothing})
 
-# ฟังก์ชันค้นหาสินค้า (อันนี้ดูเหมือนจะซ้ำกับ logic ใน clothing_list นะครับ อาจจะพิจารณารวมกันหรือปรับปรุง)
+# ฟังก์ชันค้นหาสินค้า
 def search_clothing(request):
     query = request.GET.get('q', '')
     clothes = Clothing.objects.filter(name__icontains=query)
@@ -65,7 +101,6 @@ def login_view(request):
 # หน้า Favorites (ต้องล็อกอิน)
 @login_required
 def favorites_list(request):
-    # ดึงรายการ Favorite ของผู้ใช้ที่ล็อกอิน
     favorite_objects = Favorite.objects.filter(user=request.user).select_related('clothing')
     favorite_clothes = [fav.clothing for fav in favorite_objects]
     return render(request, 'clothing/favorites_list.html', {'favorite_clothes': favorite_clothes})
@@ -74,22 +109,43 @@ def favorites_list(request):
 @login_required
 def add_to_favorites(request, pk):
     clothing_item = get_object_or_404(Clothing, pk=pk)
-    
-    # เช็คว่าผู้ใช้ได้เพิ่มสินค้าลงในรายการโปรดหรือยัง
     if not Favorite.objects.filter(user=request.user, clothing=clothing_item).exists():
-        # เพิ่มสินค้าไปในรายการโปรด
         Favorite.objects.create(user=request.user, clothing=clothing_item)
-    
-    return redirect('clothing:favorites_list')  # ไปหน้า favorites_list เมื่อเพิ่มเสร็จแล้ว
-
-# ฟังก์ชันสำหรับหน้าตะกร้าสินค้า
-def cart(request):
-    return render(request, 'clothing/cart.html')
+    return redirect('clothing:favorites_list')
 
 # ฟังก์ชันสำหรับหน้าสถานะการจัดส่ง
 def status(request):
     return render(request, 'clothing/status.html')
 
-# ฟังก์ชันสำหรับหน้าข้อมูลโปรไฟล์
+
+# ฟังก์ชันสำหรับหน้า profile
+@login_required
 def profile(request):
     return render(request, 'clothing/profile.html')
+
+# ฟังก์ชันสำหรับการแก้ไขโปรไฟล์
+@login_required
+def edit_profile(request):
+    if request.method == 'POST':
+        # สมมติว่าคุณมีฟอร์มที่ใช้งานสำหรับแก้ไขข้อมูลโปรไฟล์
+        user = request.user
+        user.email = request.POST.get('email', user.email)
+        user.profile.address = request.POST.get('address', user.profile.address)
+        user.save()
+        user.profile.save()
+        return redirect('clothing:profile')
+    
+    return render(request, 'clothing/edit_profile.html', {'user': request.user})
+# ฟังก์ชันสำหรับเปลี่ยนรหัสผ่าน
+@login_required
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user)  # คำนึงถึง session หลังการเปลี่ยนรหัสผ่าน
+            return redirect('clothing:profile')
+    else:
+        form = PasswordChangeForm(request.user)
+    
+    return render(request, 'clothing/change_password.html', {'form': form})

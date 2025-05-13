@@ -1,0 +1,26 @@
+{% load static %}
+
+<div class="header">
+    <div class="header-left">
+        <h1 class="logo">MINDVIBE</h1>
+        <p class="slogan">LOOK GOOD. FEEL RIGHT. LIVE TRUE. | MINDFULLY CURATED OUTFITS FOR EVERY EMOTION AND MOMENT.</p>
+    </div>
+    <div class="header-right">
+        {% if request.resolver_match.url_name != 'welcome' %}
+            <a href="{% url 'clothing:welcome' %}"><img src="{% static 'images/home_icon.png' %}" alt="Home"></a>
+        {% endif %}
+        <a href="{% url 'clothing:search_clothing' %}"><img src="{% static 'images/search_icon.png' %}" alt="Search"></a>
+        <a href="{% if user.is_authenticated %}{% url 'clothing:favorites_list' %}{% else %}{% url 'clothing:login' %}{% endif %}">
+            <img src="{% static 'images/heart_icon.png' %}" alt="Wishlist">
+        </a>
+        <a href="{% if user.is_authenticated %}{% url 'clothing:cart' %}{% else %}{% url 'clothing:login' %}{% endif %}">
+            <img src="{% static 'images/cart_icon.png' %}" alt="Cart">
+        </a>
+        <a href="{% if user.is_authenticated %}{% url 'clothing:status' %}{% else %}{% url 'clothing:login' %}{% endif %}">
+            <img src="{% static 'images/status_icon.png' %}" alt="Status">
+        </a>
+        <a href="{% if user.is_authenticated %}{% url 'clothing:profile' %}{% else %}{% url 'clothing:login' %}{% endif %}">
+            <img src="{% static 'images/profile_icon.png' %}" alt="Profile">
+        </a>
+    </div>
+</div>

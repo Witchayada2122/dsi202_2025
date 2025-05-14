@@ -14,18 +14,17 @@
             font-family: 'Prompt', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #FFF1E6; /* เบจอ่อน */
+            background-color: #FFF1E6;
             color: #333;
             line-height: 1.6;
         }
 
-        /* Header Section (คัดลอกจาก welcome.html) */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: #FDFD95; /* สีเหลือง */
-            padding: 15px 30px; /* เพิ่ม padding ด้านข้าง */
+            background-color: #FDFD95;
+            padding: 15px 30px;
             color: #333;
         }
 
@@ -36,10 +35,10 @@
         }
 
         .header .logo {
-            font-family: 'Bebas Neue', sans-serif; /* โลโก้ MINDVIBE ยังคงใช้ Bebas Neue */
+            font-family: 'Bebas Neue', sans-serif;
             font-size: 2.5em;
             font-weight: bold;
-            color: #FF3377; /* สีชมพู */
+            color: #FF3377;
             margin: 0 0 2px 0;
         }
 
@@ -47,13 +46,12 @@
             font-size: 0.9em;
             color: #333;
             margin: 0;
-            /* Slogan จะใช้ 'Prompt' ที่สืบทอดมาจาก body ซึ่งดีสำหรับภาษาไทย */
         }
 
         .header-right {
             display: flex;
             align-items: center;
-            gap: 20px; /* เพิ่มระยะห่างไอคอน */
+            gap: 20px;
         }
 
         .header-right a {
@@ -71,7 +69,6 @@
             opacity: 1;
         }
 
-        /* Main Content Section */
         .main-content {
             padding: 50px;
             background-color: #FFF1E6;
@@ -90,12 +87,12 @@
         }
 
         .cart-container h1 {
-            font-family: 'Prompt', sans-serif; /* เปลี่ยนเป็น Prompt สำหรับหัวข้อภาษาไทย */
-            font-size: 2.8em; /* อาจปรับขนาดตามความเหมาะสมเมื่อเปลี่ยนฟอนต์ */
+            font-family: 'Prompt', sans-serif;
+            font-size: 2.8em;
             color: #60C4B4;
             text-align: center;
             margin-bottom: 30px;
-            font-weight: 700; /* เพิ่มความหนาเพื่อให้ดูเป็นหัวข้อ */
+            font-weight: 700;
         }
 
         .cart-table {
@@ -104,23 +101,23 @@
             margin-bottom: 30px;
         }
 
-        .cart-table th, .cart-table td {
+        .cart-table th,
+        .cart-table td {
             padding: 15px;
             text-align: left;
             border-bottom: 1px solid #ddd;
-            /* font-family: 'Prompt', sans-serif; /* มั่นใจว่าตารางใช้ Prompt */
         }
 
         .cart-table th {
             background-color: #FF3377;
             color: white;
             font-weight: 500;
-            /* font-family: 'Prompt', sans-serif; /* มั่นใจว่าหัวตารางใช้ Prompt */
         }
 
         .cart-table tr:nth-child(even) {
             background-color: #f9f9f9;
         }
+
         .cart-table tr:hover {
             background-color: #f1f1f1;
         }
@@ -135,7 +132,6 @@
             font-weight: bold;
             color: #333;
             margin-bottom: 15px;
-            /* font-family: 'Prompt', sans-serif; /* มั่นใจว่าสรุปใช้ Prompt */
         }
 
         .btn-checkout {
@@ -147,7 +143,6 @@
             border-radius: 5px;
             font-size: 1.1em;
             transition: background-color 0.3s ease;
-            /* font-family: 'Prompt', sans-serif; /* มั่นใจว่าปุ่มใช้ Prompt */
         }
 
         .btn-checkout:hover {
@@ -159,10 +154,8 @@
             font-size: 1.2em;
             color: #777;
             padding: 40px 0;
-            /* font-family: 'Prompt', sans-serif; /* มั่นใจว่าข้อความตะกร้าว่างใช้ Prompt */
         }
 
-        /* Footer (คัดลอกจาก welcome.html) */
         .footer {
             background-color: #A0D8F1;
             color: white;
@@ -205,6 +198,7 @@
                 <thead>
                     <tr>
                         <th>สินค้า</th>
+                        <th>จำนวนวัน</th> <!-- เพิ่มคอลัมน์จำนวนวัน -->
                         <th>จำนวน</th>
                         <th>ราคาต่อหน่วย</th>
                         <th>ราคารวม</th>
@@ -214,16 +208,17 @@
                     {% for item in cart_items %}
                     <tr>
                         <td>{{ item.product.name }}</td>
+                        <td>{{ item.days }} วัน</td> <!-- แสดงจำนวนวัน -->
                         <td>{{ item.quantity }}</td>
-                        <td>฿{{ item.product.price|floatformat:2 }}</td>
-                        <td>฿{{ item.total|floatformat:2 }}</td>
+                        <td>฿{{ item.price_per_unit|floatformat:2 }}</td> <!-- ราคาเฉลี่ยต่อหน่วย -->
+                        <td>฿{{ item.total|floatformat:2 }}</td> <!-- ราคารวม -->
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
             <div class="cart-summary">
-                <p>ยอดรวมทั้งหมด: ฿{{ total_price|floatformat:2 }}</p>
-                <a href="{% url 'clothing:checkout' %}" class="btn-checkout">ดำเนินการชำระเงิน</a>
+                <p>ยอดรวมทั้งหมด: ฿{{ total_price }}</p>
+                <a href="{% url 'clothing:payment' %}" class="btn-checkout">ดำเนินการชำระเงิน</a>
             </div>
             {% else %}
             <p class="empty-cart-message">ตะกร้าของคุณยังว่างอยู่ ไปเลือกสินค้าที่ชอบกันเลย!</p>

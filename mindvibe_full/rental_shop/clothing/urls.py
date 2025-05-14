@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 
-app_name = 'clothing'  # ใช้ app_name ในการอ้างอิง URL
+app_name = 'clothing'
 
 urlpatterns = [
     path('', views.welcome, name='welcome'),
@@ -12,8 +12,10 @@ urlpatterns = [
     path('login/', views.login_view, name='login'),
     path('favorites/', views.favorites_list, name='favorites_list'),
     path('add_to_favorites/<int:pk>/', views.add_to_favorites, name='add_to_favorites'),
-    path('cart/', views.cart, name='cart'),  # ลิงค์ไปที่หน้าตะกร้าสินค้า
-    path('status/', views.status, name='status'),  # ลิงค์ไปที่หน้าสถานะการจัดส่ง
+    path('cart/', views.cart, name='cart'),  # หน้าตะกร้า
+    path('payment/', views.payment, name='payment'),  # หน้าชำระเงิน
+    path('add_to_cart/<int:pk>/', views.add_to_cart, name='add_to_cart'),
+    path('status/', views.status, name='status'),
     path('profile/', views.profile, name='profile'),
     path('profile/edit/', views.edit_profile, name='edit_profile'),
     path('profile/change_password/', views.change_password, name='change_password'),

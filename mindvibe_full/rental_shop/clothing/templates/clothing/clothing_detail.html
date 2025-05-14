@@ -248,7 +248,8 @@
         </div>
 
         <div class="product-info">
-            <div class="product-title-container"> <h2>{{ clothing.name }}</h2>
+            <div class="product-title-container">
+                <h2>{{ clothing.name }}</h2>
                 <a href="{% url 'clothing:add_to_favorites' pk=clothing.pk %}">
                     <img src="{% static 'images/heart_icon.png' %}" alt="Add to Favorites" class="favorite-icon">
                 </a>
@@ -256,10 +257,12 @@
 
             <div class="product-description">
                 <h3>Product Details</h3>
-                <p>{{ clothing.product_details|linebreaksbr }}</p> </div>
+                <p>{{ clothing.product_details|linebreaksbr }}</p>
+            </div>
 
             <div class="product-details-section">
-                 <h3>More Information</h3> <p><strong>Color:</strong> {{ clothing.color }}</p>
+                <h3>More Information</h3>
+                <p><strong>Color:</strong> {{ clothing.color }}</p>
                 <p><strong>Material:</strong> {{ clothing.material }}</p>
                 <p><strong>Fit:</strong> {{ clothing.fit }}</p>
                 <p><strong>Design:</strong> {{ clothing.design }}</p>
@@ -269,16 +272,24 @@
                 <p><strong>Perfect For:</strong> {{ clothing.perfect_for }}</p>
             </div>
 
+            <!-- ตัวเลือกวันและราคา -->
             <div class="price-options">
-                <button data-price="{{ clothing.price_per_day_1 }}">1 Day: ${{ clothing.price_per_day_1 }}</button>
-                <button data-price="{{ clothing.price_per_day_3 }}">3 Days: ${{ clothing.price_per_day_3 }}</button>
-                <button data-price="{{ clothing.price_per_day_5 }}">5 Days: ${{ clothing.price_per_day_5 }}</button>
-                <button data-price="{{ clothing.price_per_day_7 }}">7 Days: ${{ clothing.price_per_day_7 }}</button>
+                <button type="button" data-price="{{ clothing.price_per_day_1 }}" data-days="1">1 Day: ${{ clothing.price_per_day_1 }}</button>
+                <button type="button" data-price="{{ clothing.price_per_day_3 }}" data-days="3">3 Days: ${{ clothing.price_per_day_3 }}</button>
+                <button type="button" data-price="{{ clothing.price_per_day_5 }}" data-days="5">5 Days: ${{ clothing.price_per_day_5 }}</button>
+                <button type="button" data-price="{{ clothing.price_per_day_7 }}" data-days="7">7 Days: ${{ clothing.price_per_day_7 }}</button>
             </div>
 
-            <div class="buttons">
-                <a href="#" class="btn">Add to Cart</a>
-                <a href="#" class="btn buy-now">Buy Now</a> </div>
+            <!-- ฟอร์มสำหรับ Add to Cart และ Buy Now -->
+            <form method="POST" action="{% url 'clothing:add_to_cart' pk=clothing.pk %}">
+                {% csrf_token %}
+                <input type="hidden" name="days" id="selected-days" value="1"> <!-- เก็บจำนวนวัน -->
+                <div class="buttons">
+                <div class="buttons">
+                    <button type="submit" name="action" value="add_to_cart" class="btn">Add to Cart</button>
+                    <button type="submit" name="action" value="buy_now" class="btn buy-now">Buy Now</button>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -319,16 +330,25 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const priceButtons = document.querySelectorAll('.price-options button');
+            const selectedDaysInput = document.getElementById('selected-days');
+
             priceButtons.forEach(button => {
                 button.addEventListener('click', function() {
                     // ลบ class 'active' ออกจากทุกปุ่ม
                     priceButtons.forEach(btn => btn.classList.remove('active'));
                     // เพิ่ม class 'active' ให้กับปุ่มที่ถูกคลิก
                     this.classList.add('active');
-                    // อาจจะมีการอัปเดตราคาที่แสดงผล หรือค่าใน input ที่ซ่อนอยู่ตรงนี้
-                    console.log('Selected price:', this.dataset.price);
+                    // อัปเดตจำนวนวันใน input
+                    selectedDaysInput.value = this.dataset.days;
+                    console.log('Selected days:', this.dataset.days, 'Price:', this.dataset.price);
                 });
             });
+
+            // ตั้งค่าเริ่มต้นให้ปุ่มแรก active
+            if (priceButtons.length > 0) {
+                priceButtons[0].classList.add('active');
+                selectedDaysInput.value = priceButtons[0].dataset.days;
+            }
         });
     </script>
 

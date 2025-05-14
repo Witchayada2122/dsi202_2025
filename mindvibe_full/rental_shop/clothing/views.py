@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
+from .forms import CustomUserCreationForm
 
 # ฟังก์ชันสำหรับดึงข้อมูลสินค้าจากตะกร้า
 def get_cart_items(request):
@@ -68,14 +69,17 @@ def search_clothing(request):
     return render(request, 'clothing/clothing_list.html', {'clothes': clothes, 'query': query})
 
 # หน้า Signup
+# ฟังก์ชันสำหรับหน้า signup
 def signup(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('clothing:login')  # ไปที่หน้า login
+            user = form.save()  # บันทึกผู้ใช้ใหม่
+            login(request, user)  # ทำการล็อกอินให้ผู้ใช้ใหม่ทันทีหลังจากสมัครเสร็จ
+            return redirect('clothing:clothing_list')  # ไปที่หน้า clothing_list หรือหน้าอื่น ๆ ตามต้องการ
     else:
-        form = UserCreationForm()
+        form = UserCreationForm()  # ถ้าไม่ใช่ POST ก็แค่แสดงฟอร์มเปล่า
+
     return render(request, 'clothing/signup.html', {'form': form})
 
 # หน้า Login
@@ -149,3 +153,101 @@ def change_password(request):
         form = PasswordChangeForm(request.user)
     
     return render(request, 'clothing/change_password.html', {'form': form})
+
+
+# ฟังก์ชันสำหรับดึงข้อมูลสินค้าจากตะกร้า
+def get_cart_items(request):
+    cart = request.session.get('cart', [])
+    cart_items = []
+    
+    for item in cart:
+        try:
+            product = get_object_or_404(Clothing, pk=item['product_id'])
+            days = item.get('days', 1)  # จำนวนวันจาก cart
+            # เลือกฟิลด์ราคาตามจำนวนวัน
+            if days == 1:
+                price = product.price_per_day_1
+            elif days == 3:
+                price = product.price_per_day_3
+            elif days == 5:
+                price = product.price_per_day_5
+            elif days == 7:
+                price = product.price_per_day_7
+            else:
+                price = product.price_per_day_1  # ค่าเริ่มต้นหาก days ไม่ถูกต้อง
+            
+            total_price = price * item['quantity']
+            price_per_unit = total_price / item['quantity'] if item['quantity'] else 0
+
+            cart_items.append({
+                'product': product,
+                'quantity': item['quantity'],
+                'days': days,
+                'total': total_price,
+                'price_per_unit': price_per_unit  # คำนวณราคาเฉลี่ยต่อหน่วย
+            })
+        except (KeyError, Clothing.DoesNotExist):
+            continue
+    return cart_items
+
+# ฟังก์ชันสำหรับการเพิ่มสินค้าในตะกร้า
+def add_to_cart(request, pk):
+    clothing = get_object_or_404(Clothing, pk=pk)
+    
+    if request.method == 'POST':
+        days = int(request.POST.get('days', 1))
+        action = request.POST.get('action')
+        quantity = 1  # ตั้งค่า quantity เป็น 1 โดยอัตโนมัติ
+        
+        cart = request.session.get('cart', [])
+        
+        # ตรวจสอบว่ามีสินค้าในตะกร้าแล้วหรือไม่ ถ้ามีเพิ่มจำนวน
+        for item in cart:
+            if item['product_id'] == clothing.pk and item['days'] == days:
+                item['quantity'] += quantity
+                break
+        else:
+            # ถ้าไม่มีสินค้าในตะกร้า ให้เพิ่มสินค้าใหม่
+            cart.append({
+                'product_id': clothing.pk,
+                'quantity': quantity,
+                'days': days
+            })
+
+        # บันทึกตะกร้าใน session
+        request.session['cart'] = cart
+        request.session.modified = True
+
+        # Redirect ตาม action
+        if action == 'buy_now':
+            return redirect('clothing:payment')
+        return redirect('clothing:cart')
+    
+    # หากไม่ใช่ POST ให้ redirect กลับไปที่ clothing_detail
+    return redirect('clothing:clothing_detail', pk=pk)
+
+# ฟังก์ชันสำหรับหน้าตะกร้าสินค้า
+def cart(request):
+    cart_items = get_cart_items(request)
+    total_price = sum(item['total'] for item in cart_items)
+    formatted_total_price = f"฿ {total_price:,.2f}"
+    
+    return render(request, 'clothing/cart.html', {
+        'cart_items': cart_items,
+        'total_price': formatted_total_price
+    })
+
+# ฟังก์ชันสำหรับหน้าชำระเงิน
+def payment(request):
+    cart_items = get_cart_items(request)
+    total_price = sum(item['total'] for item in cart_items)
+    formatted_total_price = f"฿ {total_price:,.2f}"
+
+    if request.method == 'POST':
+        payment_proof = request.FILES.get('payment_proof')
+        return redirect('clothing:status')
+
+    return render(request, 'clothing/payment.html', {
+        'cart_items': cart_items,
+        'total_price': formatted_total_price
+    })

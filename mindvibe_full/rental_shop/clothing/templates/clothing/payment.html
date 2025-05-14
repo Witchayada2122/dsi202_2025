@@ -1,54 +1,242 @@
-<!-- payment.html -->
 {% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MindVibe - Payment</title>
-    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <title>ชำระเงิน - MindVibe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* คัดลอกสไตล์จาก cart.html */
+        body {
+            font-family: 'Prompt', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #FFF1E6;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #FDFD95;
+            padding: 15px 30px;
+            color: #333;
+        }
+
+        .header-left {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .header .logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #FF3377;
+            margin: 0 0 2px 0;
+        }
+
+        .header .slogan {
+            font-size: 0.9em;
+            color: #333;
+            margin: 0;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .header-right img {
+            width: 20px;
+            height: 20px;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .header-right img:hover {
+            opacity: 1;
+        }
+
+        .main-content {
+            padding: 50px;
+            background-color: #FFF1E6;
+            display: flex;
+            justify-content: center;
+        }
+
+        .payment-container {
+            max-width: 900px;
+            width: 100%;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .payment-container h1 {
+            font-family: 'Prompt', sans-serif;
+            font-size: 2.8em;
+            color: #60C4B4;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .payment-container h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8em;
+            color: #FF3377;
+            margin: 20px 0 10px;
+        }
+
+        .payment-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .payment-table th,
+        .payment-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .payment-table th {
+            background-color: #FF3377;
+            color: white;
+            font-weight: 500;
+        }
+
+        .payment-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .payment-table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .qr-code {
+            max-width: 200px;
+            margin: 20px auto;
+            display: block;
+        }
+
+        .payment-form {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .payment-form label {
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .payment-form input[type="file"] {
+            margin: 10px 0;
+        }
+
+        .payment-form button {
+            padding: 12px 25px;
+            background-color: #60C4B4;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .payment-form button:hover {
+            background-color: #4b98a2;
+        }
+
+        .footer {
+            background-color: #A0D8F1;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+            font-size: 0.8em;
+        }
+    </style>
 </head>
-
 <body>
+    <div class="header">
+        <div class="header-left">
+            <h1 class="logo">MINDVIBE</h1>
+            <p class="slogan">LOOK GOOD. FEEL RIGHT. LIVE TRUE. | MINDFULLY CURATED OUTFITS FOR EVERY EMOTION AND MOMENT.</p>
+        </div>
+        <div class="header-right">
+            <a href="/search/"><img src="{% static 'images/search_icon.png' %}" alt="Search"></a>
+            <a href="{% if user.is_authenticated %}{% url 'clothing:favorites_list' %}{% else %}{% url 'clothing:login' %}{% endif %}">
+                <img src="{% static 'images/heart_icon.png' %}" alt="Wishlist">
+            </a>
+            <a href="{% if user.is_authenticated %}{% url 'clothing:cart' %}{% else %}{% url 'clothing:login' %}{% endif %}">
+                <img src="{% static 'images/cart_icon.png' %}" alt="Cart">
+            </a>
+            <a href="{% if user.is_authenticated %}{% url 'clothing:status' %}{% else %}{% url 'clothing:login' %}{% endif %}">
+                <img src="{% static 'images/status_icon.png' %}" alt="Status">
+            </a>
+            <a href="{% if user.is_authenticated %}{% url 'clothing:profile' %}{% else %}{% url 'clothing:login' %}{% endif %}">
+                <img src="{% static 'images/profile_icon.png' %}" alt="Profile">
+            </a>
+        </div>
+    </div>
 
-    <h1>Payment Information</h1>
+    <div class="main-content">
+        <div class="payment-container">
+            <h1>ข้อมูลการชำระเงิน</h1>
+            <h3>สรุปคำสั่งซื้อของคุณ</h3>
+            <table class="payment-table">
+                <thead>
+                    <tr>
+                        <th>สินค้า</th>
+                        <th>จำนวนวัน</th>
+                        <th>จำนวน</th>
+                        <th>ราคารวม</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart_items %}
+                    <tr>
+                        <td>{{ item.product.name }}</td>
+                        <td>{{ item.days }} วัน</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>฿{{ item.total|floatformat:2 }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
 
-    <h3>Your Order Summary</h3>
-    <table>
-        <thead>
-            <tr>
-                <th>Product</th>
-                <th>Days</th>
-                <th>Total Price</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in cart_items %}
-                <tr>
-                    <td>{{ item.clothing.name }}</td>
-                    <td>{{ item.days }}</td>
-                    <td>{{ item.clothing.price_per_day_1 * item.days }} THB</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+            <p>ยอดรวมทั้งหมด: {{ total_price }}</p>
 
-    <p>Total: {{ total_price }} THB</p>
+            <h3>ช่องทางการชำระเงิน: พร้อมเพย์</h3>
+            <p>สแกน QR Code หรือใช้เลขบัญชีด้านล่าง:</p>
+            <img src="{% static 'images/promtpay_qr.png' %}" alt="PromptPay QR Code" class="qr-code">
+            <p>เลขบัญชี: 123-456-7890</p>
 
-    <h3>Payment Method: PromptPay</h3>
-    <p>Scan the QR code or use the bank account details below:</p>
-    <img src="{% static 'images/promtpay_qr.png' %}" alt="PromptPay QR Code">
-    <p>Bank Account: 123-456-7890</p>
+            <form method="POST" enctype="multipart/form-data" class="payment-form">
+                {% csrf_token %}
+                <label for="payment_proof">อัปโหลดหลักฐานการชำระเงิน:</label>
+                <input type="file" name="payment_proof" accept="image/*" required>
+                <button type="submit">ยืนยันการชำระเงิน</button>
+            </form>
+        </div>
+    </div>
 
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        <label for="payment_proof">Upload Payment Proof:</label>
-        <input type="file" name="payment_proof" accept="image/*" required>
-        <button type="submit">Submit Payment</button>
-    </form>
-
+    <div class="footer">
+        <p>© 2025 MINDVIBE. ALL RIGHTS RESERVED.</p>
+    </div>
 </body>
-
 </html>

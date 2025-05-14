@@ -21,13 +21,13 @@
             line-height: 1.6;
         }
 
-        /* Header Section (ปรับปรุงให้เหมือน welcome.html และ cart.html) */
+        /* Header Section */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             background-color: #FDFD95; /* สีเหลือง */
-            padding: 15px 30px; /* ปรับ padding */
+            padding: 15px 30px;
             color: #333;
         }
 
@@ -39,14 +39,14 @@
 
         .header .logo {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 2.5em; /* ปรับขนาดโลโก้ */
+            font-size: 2.5em;
             font-weight: bold;
             color: #FF3377; /* สีชมพู */
-            margin: 0 0 2px 0; /* ปรับ margin */
+            margin: 0 0 2px 0;
         }
 
         .header .slogan {
-            font-size: 0.9em; /* ปรับขนาดสโลแกน */
+            font-size: 0.9em;
             color: #333;
             margin: 0;
         }
@@ -72,24 +72,30 @@
             opacity: 1;
         }
 
+        /* Home Icon - added home icon link */
+        .home-icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Search Bar */
         .search-bar {
-            margin: 25px auto; /* จัดให้อยู่กลางและเพิ่ม auto ซ้ายขวา */
+            margin: 25px auto;
             text-align: center;
-            padding: 0 20px; /* เพิ่ม padding ด้านข้างสำหรับจอเล็ก */
-            max-width: 600px; /* กำหนดความกว้างสูงสุดของ search bar */
+            padding: 0 20px;
+            max-width: 600px;
         }
 
         .search-bar input[type="text"] {
             font-family: 'Prompt', sans-serif;
             font-size: 1em;
             padding: 12px 15px;
-            width: 70%; /* ปรับความกว้างให้ responsive */
-            max-width: 400px; /* กำหนดความกว้างสูงสุดของ input */
+            width: 70%;
+            max-width: 400px;
             border-radius: 8px;
             border: 1px solid #ddd;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            margin-right: 10px; /* เพิ่มระยะห่างทางขวาของ input */
-            box-sizing: border-box; /* นับ padding และ border ใน width */
+            margin-right: 10px;
         }
 
         .search-bar button {
@@ -100,16 +106,15 @@
             color: white;
             border: none;
             border-radius: 8px;
-            /* margin-left: 10px; ถูกเอาออกเนื่องจาก input มี margin-right แล้ว */
             cursor: pointer;
             transition: background-color 0.3s ease;
-            box-sizing: border-box;
         }
 
         .search-bar button:hover {
             background-color: #e6005c;
         }
 
+        /* Product Section */
         .products {
             display: flex;
             justify-content: center;
@@ -129,34 +134,34 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: transform 0.3s ease, box-shadow 0.3s ease; /* เพิ่ม transition */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .product-card:hover {
-            transform: translateY(-5px); /* เพิ่ม effect ตอน hover */
-            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15); /* เพิ่มเงาตอน hover */
+            transform: translateY(-5px);
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
         }
 
         .product-card img.product-image {
             width: 100%;
-            height: 280px; /* กำหนดความสูงเพื่อให้รูปภาพมีขนาดใกล้เคียงกัน */
-            object-fit: cover; /* ทำให้รูปภาพเต็มพื้นที่โดยไม่เสียสัดส่วน และตัดส่วนเกิน */
+            height: 280px;
+            object-fit: cover;
             border-radius: 10px;
             margin-bottom: 15px;
         }
 
         .product-card h3 {
-            font-family: 'Prompt', sans-serif; /* เปลี่ยนเป็น Prompt */
+            font-family: 'Prompt', sans-serif;
             margin: 0 0 10px 0;
-            font-size: 1.4em; /* ปรับขนาดให้เหมาะสมกับ Prompt */
-            font-weight: 500; /* ปรับความหนา */
+            font-size: 1.4em;
+            font-weight: 500;
             color: #60C4B4;
-            min-height: 2.8em; /* กำหนดความสูงขั้นต่ำเพื่อให้ชื่อสินค้า 2 บรรทัดไม่ทำให้การ์ดกระโดด */
+            min-height: 2.8em;
             line-height: 1.4em;
-            overflow: hidden; /* ซ่อนข้อความที่เกิน */
-            text-overflow: ellipsis; /* แสดง ... ถ้าข้อความยาวเกิน */
+            overflow: hidden;
+            text-overflow: ellipsis;
             display: -webkit-box;
-            -webkit-line-clamp: 2; /* แสดงสูงสุด 2 บรรทัด */
+            -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
         }
 
@@ -176,7 +181,7 @@
         .product-card .actions {
             margin-top: 15px;
             display: flex;
-            justify-content: space-between; /* เปลี่ยนเป็น space-around เพื่อให้มีช่องว่างรอบปุ่ม */
+            justify-content: space-between;
             align-items: center;
         }
 
@@ -189,36 +194,36 @@
             border-radius: 5px;
             font-size: 0.9em;
             transition: background-color 0.3s ease;
-            flex-grow: 1; /* ทำให้ปุ่ม View Details ขยายเต็มพื้นที่ */
-            margin-right: 10px; /* เพิ่มระยะห่างระหว่างปุ่มกับไอคอนหัวใจ */
-        }
-        .product-card .btn:last-child { /* ถ้ามีปุ่มอื่นต่อท้าย */
-            margin-right: 0;
+            flex-grow: 1;
+            margin-right: 10px;
         }
 
+        .product-card .btn:last-child {
+            margin-right: 0;
+        }
 
         .product-card .btn:hover {
             background-color: #4aa090;
         }
 
         .product-card .heart-icon-link {
-            display: inline-flex; /* ปรับเพื่อให้จัดกลางไอคอนได้ดีขึ้น */
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 5px; /* เพิ่ม padding ให้คลิกง่ายขึ้น */
+            padding: 5px;
         }
 
         .product-card .heart-icon {
             width: 24px;
             height: 24px;
-            /* vertical-align: middle; เอาออกเมื่อใช้ flex */
             transition: transform 0.2s ease-in-out;
         }
+
         .product-card .heart-icon:hover {
             transform: scale(1.2);
         }
 
-        .no-products-message { /* เพิ่ม class สำหรับข้อความ "No products found" */
+        .no-products-message {
             width: 100%;
             text-align: center;
             font-size: 1.2em;
@@ -226,13 +231,14 @@
             margin-top: 30px;
         }
 
+        /* Footer */
         .footer {
             background-color: #A0D8F1;
-            color: white; /* เปลี่ยนเป็นสีขาว */
+            color: white;
             text-align: center;
-            padding: 20px; /* ปรับ padding */
+            padding: 20px;
             margin-top: 50px;
-            font-size: 0.8em; /* ปรับขนาดฟอนต์ */
+            font-size: 0.8em;
         }
     </style>
 </head>
@@ -245,6 +251,9 @@
             <p class="slogan">LOOK GOOD. FEEL RIGHT. LIVE TRUE. | MINDFULLY CURATED OUTFITS FOR EVERY EMOTION AND MOMENT.</p>
         </div>
         <div class="header-right">
+            <a href="{% url 'clothing:welcome' %}">
+                <img src="{% static 'images/home_icon.png' %}" alt="Home" class="home-icon">
+            </a>
             <a href="/search/"><img src="{% static 'images/search_icon.png' %}" alt="Search"></a>
             <a href="{% if user.is_authenticated %}{% url 'clothing:favorites_list' %}{% else %}{% url 'clothing:login' %}{% endif %}">
                 <img src="{% static 'images/heart_icon.png' %}" alt="Wishlist">
@@ -271,9 +280,9 @@
     <div class="products">
         {% for clothing in clothes %}
             <div class="product-card">
-                <a href="{% url 'clothing:clothing_detail' pk=clothing.pk %}"> <img src="{{ clothing.image.url }}" alt="{{ clothing.name }}" class="product-image">
-                </a>
-                <div> <a href="{% url 'clothing:clothing_detail' pk=clothing.pk %}" style="text-decoration: none;"> <h3>{{ clothing.name }}</h3>
+                <a href="{% url 'clothing:clothing_detail' pk=clothing.pk %}"> <img src="{{ clothing.image.url }}" alt="{{ clothing.name }}" class="product-image"></a>
+                <div> <a href="{% url 'clothing:clothing_detail' pk=clothing.pk %}" style="text-decoration: none;">
+                    <h3>{{ clothing.name }}</h3>
                     </a>
                     <p class="price">ราคาเช่า 1 วัน: {{ clothing.price_per_day_1 }} บาท</p> </div>
                 <div class="actions">
@@ -284,7 +293,8 @@
                 </div>
             </div>
         {% empty %}
-            <p class="no-products-message">ไม่พบสินค้าที่ตรงกับเกณฑ์การค้นหาของคุณ</p> {% endfor %}
+            <p class="no-products-message">ไม่พบสินค้าที่ตรงกับเกณฑ์การค้นหาของคุณ</p> 
+        {% endfor %}
     </div>
 
     <div class="footer">

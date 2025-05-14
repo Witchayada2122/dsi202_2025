@@ -1,6 +1,5 @@
 {% load static %}
 
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,237 +7,298 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MindVibe - Product Details</title>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=National+Park&family=Prompt:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;700&display=swap" rel="stylesheet">
 
     <style>
         body {
-            font-family: 'Prompt', sans-serif; /* เปลี่ยนฟอนต์หลักเป็น Prompt */
+            font-family: 'Prompt', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #FFF1E6; /* เบจอ่อน */
+            background-color: #FFF1E6;
             color: #333;
             line-height: 1.6;
         }
 
-        /* Header Section */
+        /* Header Section - Adjusted to match clothing_list.html */
         .header {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
             background-color: #FDFD95; /* สีเหลือง */
-            padding: 25px 20px; /* ปรับ padding */
+            padding: 15px 30px;
             color: #333;
+        }
+
+        .header-left {
+            display: flex;
             flex-direction: column;
-            text-align: center;
-            gap: 5px;
-            max-width: 100%;
-            margin: 0 auto;
+            align-items: flex-start;
         }
 
         .header .logo {
-            font-family: 'Bebas Neue', sans-serif; /* โลโก้ยังใช้ Bebas Neue */
-            font-size: 3em;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5em;
             font-weight: bold;
             color: #FF3377; /* สีชมพู */
-            margin: 0;
+            margin: 0 0 2px 0;
         }
 
         .header .slogan {
-            font-family: 'Prompt', sans-serif; /* สโลแกนใช้ Prompt */
-            font-size: 1.2em; /* ปรับขนาดให้เข้ากับ Prompt */
+            font-size: 0.9em;
             color: #333;
             margin: 0;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .header-right a {
+            display: block;
+        }
+
+        .header-right img {
+            width: 20px;
+            height: 20px;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .header-right img:hover {
+            opacity: 1;
+        }
+
+        /* Home Icon */
+        .home-icon {
+            width: 20px;
+            height: 20px;
         }
 
         /* Product Detail Section */
         .product-detail {
             display: flex;
-            flex-wrap: wrap; /* เพิ่มเพื่อให้ responsive บนจอเล็ก */
+            flex-wrap: wrap;
             justify-content: space-between;
-            margin-top: 20px; /* เพิ่มระยะห่างจาก header */
+            margin-top: 30px; /* เพิ่มระยะห่างจาก header */
             padding: 20px;
-            background-color: #FFF1E6; /* เบจอ่อน */
+            background-color: #FFF1E6;
         }
 
         .product-image {
-            flex: 1 1 300px; /* ปรับ flex basis และอนุญาตให้ shrink/grow */
+            flex: 1 1 300px;
             text-align: center;
-            padding-right: 20px; /* เพิ่มระยะห่างถ้าอยู่ข้างกัน */
-            margin-bottom: 20px; /* เพิ่มระยะห่างเมื่อ stack บนจอเล็ก */
+            padding-right: 20px;
+            margin-bottom: 20px;
         }
 
         .product-image img {
-            width: 100%; /* ปรับให้ responsive */
-            max-width: 450px; /* เพิ่ม max-width เล็กน้อย */
-            border-radius: 15px; /* เพิ่มความโค้งมน */
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* เพิ่มเงา */
+            width: 100%;
+            max-width: 450px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
 
         .product-info {
-            flex: 1.5 1 400px; /* ปรับ flex basis */
+            flex: 1.5 1 400px;
             padding-left: 20px;
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
         }
 
-        .product-title-container { /* เพิ่ม container สำหรับชื่อสินค้าและไอคอน */
+        .product-title-container {
             display: flex;
-            align-items: center; /* จัดให้อยู่กึ่งกลางแนวตั้ง */
-            margin-bottom: 10px; /* ปรับ margin-bottom ของ h2 เดิม */
+            align-items: center;
+            margin-bottom: 15px;
         }
 
         .product-info h2 {
-            font-family: 'Bebas Neue', sans-serif; /* ชื่อสินค้าใช้ Bebas Neue */
-            font-size: 2.5em; /* ปรับขนาดฟอนต์ชื่อสินค้า */
-            color: #60C4B4; /* สีเขียวสด */
-            margin: 0; /* เอา margin เดิมออก เพราะจัดการด้วย container */
-            margin-right: 10px; /* ระยะห่างระหว่างชื่อกับไอคอน */
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.8em; /* Adjusted size */
+            color: #60C4B4;
+            margin: 0;
+            margin-right: 15px; /* Adjusted spacing */
         }
 
-        .product-info .favorite-icon { /* สไตล์สำหรับไอคอนหัวใจ */
-            width: 28px; /* ขนาดไอคอน */
+        .product-info .favorite-icon {
+            width: 28px;
             height: 28px;
-            cursor: pointer; /* ทำให้รู้ว่าคลิกได้ */
-            /* เพิ่ม transition ถ้าต้องการให้มี animation ตอน hover */
+            cursor: pointer;
         }
 
         .product-description, .product-details-section {
-            font-family: 'Prompt', sans-serif; /* ส่วนรายละเอียดใช้ Prompt */
-            margin-top: 15px; /* ปรับระยะห่าง */
+            font-family: 'Prompt', sans-serif;
+            margin-top: 20px; /* Adjusted spacing */
             text-align: left;
             font-size: 1em;
-            color: #444; /* ปรับสีให้อ่านง่ายขึ้น */
+            color: #444;
+            line-height: 1.7; /* Improved readability */
         }
 
-        .product-description h3, .product-details-section h3 { /* เพิ่ม h3 สำหรับ details section ด้วย */
+        .product-description h3, .product-details-section h3 {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.6em;
+            font-size: 1.8em; /* Adjusted size */
             color: #FF3377;
-            margin-bottom: 8px; /* ปรับระยะห่าง */
+            margin-bottom: 10px;
         }
 
         .product-details-section p {
-            margin: 5px 0; /* ปรับระยะห่างระหว่างบรรทัด */
-            font-size: 0.95em; /* ปรับขนาดเล็กน้อย */
+            margin: 8px 0; /* Adjusted spacing */
+            font-size: 0.95em;
         }
         .product-details-section p strong {
             color: #333;
+            font-weight: 500; /* Make strong text stand out */
         }
 
-        .product-info .price-options {
-            margin-top: 25px; /* ปรับระยะห่าง */
+        .price-options {
+            margin-top: 30px; /* Adjusted spacing */
             display: flex;
-            flex-wrap: wrap; /* ให้ปุ่มขึ้นบรรทัดใหม่ได้บนจอเล็ก */
-            gap: 10px;
+            gap: 15px;
             font-size: 1em;
+            flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
         }
 
-        .product-info .price-options button {
+        .price-options button {
             font-family: 'Prompt', sans-serif;
-            padding: 10px 20px; /* ปรับ padding */
-            background-color: #FFB6C1; /* สีชมพูพีช */
-            color: #333; /* เปลี่ยนสีตัวอักษร */
-            font-size: 0.95em; /* ปรับขนาดฟอนต์ */
-            border-radius: 8px; /* เพิ่มความโค้งมน */
+            padding: 12px 25px;
+            background-color: #FFB6C1;
+            color: #333;
+            font-size: 0.95em;
+            border-radius: 8px;
             border: none;
             cursor: pointer;
             transition: background-color 0.3s, transform 0.2s;
         }
 
-        .product-info .price-options button:hover {
-            background-color: #FF9AAE; /* สีชมพูสดขึ้นเล็กน้อย */
-            transform: translateY(-2px); /* เอฟเฟกต์ลอยเล็กน้อย */
+        .price-options button:hover {
+            background-color: #FF9AAE;
+            transform: translateY(-2px);
         }
-        .product-info .price-options button.active { /* สไตล์สำหรับปุ่มที่ถูกเลือก (ถ้ามี) */
+
+        .price-options button.active {
             background-color: #FF3377;
             color: white;
         }
 
-
-        .product-info .buttons {
-            margin-top: 25px; /* ปรับระยะห่าง */
+        .buttons {
+            margin-top: 30px; /* Adjusted spacing */
             display: flex;
             gap: 15px;
-            flex-wrap: wrap; /* ให้ปุ่มขึ้นบรรทัดใหม่ได้บนจอเล็ก */
+            flex-wrap: wrap;
         }
 
         .btn {
-            font-family: 'Prompt', sans-serif; /* ปุ่มใช้ Prompt */
-            font-size: 1.1em; /* ปรับขนาดฟอนต์ */
-            padding: 12px 28px; /* ปรับ padding */
-            background-color: #00A300; /* สีเขียวสด */
+            font-family: 'Prompt', sans-serif;
+            font-size: 1.1em;
+            padding: 14px 30px;
+            background-color: #60C4B4; /* Changed to a color similar to the list page */
             color: #ffffff;
             text-decoration: none;
-            border-radius: 8px; /* เพิ่มความโค้งมน */
+            border-radius: 8px;
             transition: background-color 0.3s, transform 0.2s;
             text-align: center;
+            border: none; /* Remove default button border */
+            cursor: pointer; /* Add cursor for better UX */
         }
 
         .btn:hover {
-            background-color: #008200; /* สีเขียวเข้มขึ้น */
+            background-color: #4aa090;
             transform: translateY(-2px);
         }
-        .btn.buy-now { /* สไตล์เฉพาะสำหรับปุ่ม Buy Now ถ้าต้องการ */
+
+        .btn.buy-now {
             background-color: #FF3377;
         }
+
         .btn.buy-now:hover {
             background-color: #e6005c;
         }
 
-
         /* Reviews Section */
         .reviews {
-            margin-top: 40px; /* ปรับระยะห่าง */
-            padding: 25px; /* ปรับ padding */
+            margin-top: 50px; /* Increased spacing */
+            padding: 25px;
             background-color: #fff;
-            border-radius: 10px; /* เพิ่มความโค้งมน */
-            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.08); /* ปรับเงา */
+            border-radius: 10px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.08);
         }
 
         .reviews h3 {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 2em;
+            font-size: 2.2em; /* Adjusted size */
             color: #60C4B4;
-            margin-bottom: 20px;
-            text-align: center; /* จัดกลาง */
+            margin-bottom: 25px; /* Increased spacing */
+            text-align: center;
         }
 
         .review {
-            border-bottom: 1px solid #eee; /* ปรับสีเส้นคั่น */
-            padding: 20px 0; /* ปรับ padding */
+            border-bottom: 1px solid #eee;
+            padding: 20px 0;
         }
 
         .review:last-child {
             border-bottom: none;
         }
 
-        .review .reviewer-name {
-            font-size: 1.1em; /* ปรับขนาดฟอนต์ */
-            font-weight: 500; /* ปรับน้ำหนัก */
+        .reviewer-name {
+            font-size: 1.1em;
+            font-weight: 500;
             color: #333;
+            margin-bottom: 5px; /* Added spacing */
         }
 
-        .review .rating {
-            color: #FFB300; /* เปลี่ยนเป็นสีเหลืองทองสำหรับดาว */
-            margin-top: 8px; /* ปรับระยะห่าง */
+        .rating {
+            color: #FFB300;
+            margin-top: 8px;
             font-size: 1.1em;
         }
 
-        .review .review-text {
+        .review-text {
             color: #555;
-            font-size: 1em; /* ปรับขนาดฟอนต์ */
+            font-size: 1em;
             margin-top: 10px;
-            line-height: 1.7; /* เพิ่ม line-height */
+            line-height: 1.7;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #A0D8F1;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+            font-size: 0.8em;
         }
     </style>
 </head>
 
 <body>
     <div class="header">
-        <div>
-            <h1 class="logo">MindVibe</h1>
-            <p class="slogan">Look good. Feel right. Live true. | Mindfully curated outfits for every emotion and moment.</p>
+        <div class="header-left">
+            <h1 class="logo">MINDVIBE</h1>
+            <p class="slogan">LOOK GOOD. FEEL RIGHT. LIVE TRUE. | MINDFULLY CURATED OUTFITS FOR EVERY EMOTION AND MOMENT.</p>
+        </div>
+        <div class="header-right">
+            <a href="{% url 'clothing:welcome' %}">
+                <img src="{% static 'images/home_icon.png' %}" alt="Home" class="home-icon">
+            </a>
+            <a href="/search/"><img src="{% static 'images/search_icon.png' %}" alt="Search"></a>
+            <a href="{% if user.is_authenticated %}{% url 'clothing:favorites_list' %}{% else %}{% url 'clothing:login' %}{% endif %}">
+                <img src="{% static 'images/heart_icon.png' %}" alt="Wishlist">
+            </a>
+            <a href="{% if user.is_authenticated %}{% url 'clothing:cart' %}{% else %}{% url 'clothing:login' %}{% endif %}">
+                <img src="{% static 'images/cart_icon.png' %}" alt="Cart">
+            </a>
+            <a href="{% if user.is_authenticated %}{% url 'clothing:status' %}{% else %}{% url 'clothing:login' %}{% endif %}">
+                <img src="{% static 'images/status_icon.png' %}" alt="Status">
+            </a>
+            <a href="{% if user.is_authenticated %}{% url 'clothing:profile' %}{% else %}{% url 'clothing:login' %}{% endif %}">
+                <img src="{% static 'images/profile_icon.png' %}" alt="Profile">
+            </a>
         </div>
     </div>
 
@@ -250,7 +310,7 @@
         <div class="product-info">
             <div class="product-title-container">
                 <h2>{{ clothing.name }}</h2>
-                <a href="{% url 'clothing:add_to_favorites' pk=clothing.pk %}">
+                <a href="{% if user.is_authenticated %}{% url 'clothing:add_to_favorites' pk=clothing.pk %}{% else %}{% url 'clothing:login' %}{% endif %}">
                     <img src="{% static 'images/heart_icon.png' %}" alt="Add to Favorites" class="favorite-icon">
                 </a>
             </div>
@@ -272,7 +332,6 @@
                 <p><strong>Perfect For:</strong> {{ clothing.perfect_for }}</p>
             </div>
 
-            <!-- ตัวเลือกวันและราคา -->
             <div class="price-options">
                 <button type="button" data-price="{{ clothing.price_per_day_1 }}" data-days="1">1 Day: ${{ clothing.price_per_day_1 }}</button>
                 <button type="button" data-price="{{ clothing.price_per_day_3 }}" data-days="3">3 Days: ${{ clothing.price_per_day_3 }}</button>
@@ -280,12 +339,9 @@
                 <button type="button" data-price="{{ clothing.price_per_day_7 }}" data-days="7">7 Days: ${{ clothing.price_per_day_7 }}</button>
             </div>
 
-            <!-- ฟอร์มสำหรับ Add to Cart และ Buy Now -->
             <form method="POST" action="{% url 'clothing:add_to_cart' pk=clothing.pk %}">
                 {% csrf_token %}
-                <input type="hidden" name="days" id="selected-days" value="1"> <!-- เก็บจำนวนวัน -->
-                <div class="buttons">
-                <div class="buttons">
+                <input type="hidden" name="days" id="selected-days" value="1"> <div class="buttons">
                     <button type="submit" name="action" value="add_to_cart" class="btn">Add to Cart</button>
                     <button type="submit" name="action" value="buy_now" class="btn buy-now">Buy Now</button>
                 </div>
@@ -327,6 +383,10 @@
         {% endif %}
     </div>
 
+    <div class="footer">
+        <p>&copy; {% now "Y" %} MindVibe. All rights reserved.</p>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const priceButtons = document.querySelectorAll('.price-options button');
@@ -334,17 +394,13 @@
 
             priceButtons.forEach(button => {
                 button.addEventListener('click', function() {
-                    // ลบ class 'active' ออกจากทุกปุ่ม
                     priceButtons.forEach(btn => btn.classList.remove('active'));
-                    // เพิ่ม class 'active' ให้กับปุ่มที่ถูกคลิก
                     this.classList.add('active');
-                    // อัปเดตจำนวนวันใน input
                     selectedDaysInput.value = this.dataset.days;
                     console.log('Selected days:', this.dataset.days, 'Price:', this.dataset.price);
                 });
             });
 
-            // ตั้งค่าเริ่มต้นให้ปุ่มแรก active
             if (priceButtons.length > 0) {
                 priceButtons[0].classList.add('active');
                 selectedDaysInput.value = priceButtons[0].dataset.days;

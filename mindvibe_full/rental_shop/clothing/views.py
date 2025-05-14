@@ -117,6 +117,17 @@ def add_to_favorites(request, pk):
         Favorite.objects.create(user=request.user, clothing=clothing_item)
     return redirect('clothing:favorites_list')
 
+def remove_from_favorites_view(request, pk):
+    try:
+        # ค้นหาไอเทมในรายการโปรดที่ตรงกับ primary key (pk) ของสินค้า
+        favorite_item = Favorite.objects.get(user=request.user, clothing_id=pk)
+        favorite_item.delete()  # ลบสินค้าออกจากรายการโปรด
+    except Favorite.DoesNotExist:
+        # ถ้าสินค้าที่จะลบไม่มีอยู่ในรายการโปรดให้แสดงข้อผิดพลาด
+        pass
+    # หลังจากลบแล้วให้รีไดเรกต์กลับไปยังหน้ารายการโปรด
+    return redirect('clothing:favorites_list')
+
 # ฟังก์ชันสำหรับหน้าสถานะการจัดส่ง
 def status(request):
     return render(request, 'clothing/status.html')

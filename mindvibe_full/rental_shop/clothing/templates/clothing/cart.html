@@ -19,11 +19,12 @@
             line-height: 1.6;
         }
 
+        /* Header Section - Adjusted to match clothing_list.html */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: #FDFD95;
+            background-color: #FDFD95; /* สีเหลือง */
             padding: 15px 30px;
             color: #333;
         }
@@ -38,7 +39,7 @@
             font-family: 'Bebas Neue', sans-serif;
             font-size: 2.5em;
             font-weight: bold;
-            color: #FF3377;
+            color: #FF3377; /* สีชมพู */
             margin: 0 0 2px 0;
         }
 
@@ -69,8 +70,9 @@
             opacity: 1;
         }
 
+        /* Main Content */
         .main-content {
-            padding: 50px;
+            padding: 40px 20px; /* ปรับ padding ให้ responsive */
             background-color: #FFF1E6;
             display: flex;
             justify-content: center;
@@ -79,37 +81,40 @@
         .cart-container {
             max-width: 900px;
             width: 100%;
-            margin: 0 auto;
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 40px;
+            margin: 20px auto; /* เพิ่ม margin บนล่าง */
+            background-color: #ffffff; /* เปลี่ยนเป็นสีขาว */
+            padding: 30px; /* ปรับ padding */
             border-radius: 15px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
         }
 
         .cart-container h1 {
             font-family: 'Prompt', sans-serif;
-            font-size: 2.8em;
-            color: #60C4B4;
+            font-size: 2.5em; /* ปรับขนาด font */
+            color: #FF3377; /* เปลี่ยนสีหัวข้อ */
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 25px; /* ปรับ margin */
             font-weight: 700;
         }
 
         .cart-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 30px;
+            margin-bottom: 25px; /* ปรับ margin */
+            border: 1px solid #ddd; /* เพิ่มเส้นขอบ */
+            border-radius: 10px 10px 0 0; /* ปรับมุมบน */
+            overflow: hidden; /* ป้องกัน border-radius เกินมา */
         }
 
         .cart-table th,
         .cart-table td {
-            padding: 15px;
+            padding: 12px 15px; /* ปรับ padding */
             text-align: left;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #eee; /* ปรับสีเส้น */
         }
 
         .cart-table th {
-            background-color: #FF3377;
+            background-color: #60C4B4; /* เปลี่ยนสีหัวตาราง */
             color: white;
             font-weight: 500;
         }
@@ -119,7 +124,7 @@
         }
 
         .cart-table tr:hover {
-            background-color: #f1f1f1;
+            background-color: #f5f5f5;
         }
 
         .cart-summary {
@@ -128,34 +133,37 @@
         }
 
         .cart-summary p {
-            font-size: 1.2em;
+            font-size: 1.1em; /* ปรับขนาด font */
             font-weight: bold;
             color: #333;
-            margin-bottom: 15px;
+            margin-bottom: 10px; /* ปรับ margin */
         }
 
         .btn-checkout {
             display: inline-block;
-            padding: 12px 25px;
-            background-color: #60C4B4;
+            padding: 10px 20px; /* ปรับ padding */
+            background-color: #FF3377; /* เปลี่ยนสีปุ่ม */
             color: white;
             text-decoration: none;
-            border-radius: 5px;
-            font-size: 1.1em;
-            transition: background-color 0.3s ease;
+            border-radius: 8px; /* ปรับความโค้ง */
+            font-size: 1em; /* ปรับขนาด font */
+            transition: background-color 0.3s ease, transform 0.2s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* เพิ่มเงา */
         }
 
         .btn-checkout:hover {
-            background-color: #4b98a2;
+            background-color: #e6005c;
+            transform: translateY(-2px); /* เพิ่มลูกเล่นเมื่อ hover */
         }
 
         .empty-cart-message {
             text-align: center;
-            font-size: 1.2em;
+            font-size: 1.1em; /* ปรับขนาด font */
             color: #777;
-            padding: 40px 0;
+            padding: 30px 0; /* ปรับ padding */
         }
 
+        /* Footer */
         .footer {
             background-color: #A0D8F1;
             color: white;
@@ -174,6 +182,9 @@
             <p class="slogan">LOOK GOOD. FEEL RIGHT. LIVE TRUE. | MINDFULLY CURATED OUTFITS FOR EVERY EMOTION AND MOMENT.</p>
         </div>
         <div class="header-right">
+            <a href="{% url 'clothing:welcome' %}">
+                <img src="{% static 'images/home_icon.png' %}" alt="Home" class="home-icon">
+            </a>
             <a href="/search/"><img src="{% static 'images/search_icon.png' %}" alt="Search"></a>
             <a href="{% if user.is_authenticated %}{% url 'clothing:favorites_list' %}{% else %}{% url 'clothing:login' %}{% endif %}">
                 <img src="{% static 'images/heart_icon.png' %}" alt="Wishlist">
@@ -198,7 +209,7 @@
                 <thead>
                     <tr>
                         <th>สินค้า</th>
-                        <th>จำนวนวัน</th> <!-- เพิ่มคอลัมน์จำนวนวัน -->
+                        <th>จำนวนวัน</th>
                         <th>จำนวน</th>
                         <th>ราคาต่อหน่วย</th>
                         <th>ราคารวม</th>
@@ -208,10 +219,10 @@
                     {% for item in cart_items %}
                     <tr>
                         <td>{{ item.product.name }}</td>
-                        <td>{{ item.days }} วัน</td> <!-- แสดงจำนวนวัน -->
+                        <td>{{ item.days }} วัน</td>
                         <td>{{ item.quantity }}</td>
-                        <td>฿{{ item.price_per_unit|floatformat:2 }}</td> <!-- ราคาเฉลี่ยต่อหน่วย -->
-                        <td>฿{{ item.total|floatformat:2 }}</td> <!-- ราคารวม -->
+                        <td>฿{{ item.price_per_unit|floatformat:2 }}</td>
+                        <td>฿{{ item.total|floatformat:2 }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -227,7 +238,7 @@
     </div>
 
     <div class="footer">
-        <p>&copy; 2025 MINDVIBE. ALL RIGHTS RESERVED.</p>
+        <p>&copy; {% now "Y" %} MindVibe. All rights reserved.</p>
     </div>
 
 </body>

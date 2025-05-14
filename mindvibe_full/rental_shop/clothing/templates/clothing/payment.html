@@ -1,31 +1,38 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ชำระเงิน - MindVibe</title>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        /* คัดลอกสไตล์จาก cart.html */
-        body {
-            font-family: 'Prompt', sans-serif;
+        /* Global Reset and Base Styles */
+        * {
             margin: 0;
             padding: 0;
-            background-color: #FFF1E6;
-            color: #333;
-            line-height: 1.6;
+            box-sizing: border-box;
         }
 
+        body {
+            font-family: 'Prompt', sans-serif;
+            background-color: #FFF1E6;
+            color: #333333;
+            line-height: 1.7;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Header Section */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             background-color: #FDFD95;
             padding: 15px 30px;
-            color: #333;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.08);
         }
 
         .header-left {
@@ -35,160 +42,304 @@
         }
 
         .header .logo {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 2.5em;
-            font-weight: bold;
+            font-family: 'Prompt', sans-serif;
+            font-size: 2.3em;
+            font-weight: 700;
             color: #FF3377;
-            margin: 0 0 2px 0;
+            text-decoration: none;
+            margin-bottom: 2px;
         }
 
         .header .slogan {
-            font-size: 0.9em;
-            color: #333;
+            font-family: 'Prompt', sans-serif;
+            font-size: 0.875em;
+            color: #4A4A4A;
             margin: 0;
         }
 
         .header-right {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 22px;
+        }
+
+        .header-right a {
+            display: flex;
+            align-items: center;
         }
 
         .header-right img {
-            width: 20px;
-            height: 20px;
+            width: 22px;
+            height: 22px;
             opacity: 0.8;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.2s ease-in-out;
         }
 
         .header-right img:hover {
             opacity: 1;
         }
 
+        /* Main Content Area */
         .main-content {
-            padding: 50px;
-            background-color: #FFF1E6;
+            padding: 40px 20px;
             display: flex;
             justify-content: center;
+            align-items: flex-start;
+            min-height: calc(100vh - 200px);
         }
 
         .payment-container {
-            max-width: 900px;
+            background-color: #FFFFFF;
+            padding: 35px 45px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.07);
             width: 100%;
-            margin: 0 auto;
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            max-width: 850px;
         }
 
         .payment-container h1 {
             font-family: 'Prompt', sans-serif;
-            font-size: 2.8em;
+            font-size: 2.4em;
+            font-weight: 700;
             color: #60C4B4;
             text-align: center;
-            margin-bottom: 20px;
-            font-weight: 700;
+            margin-bottom: 35px;
         }
 
         .payment-container h3 {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.8em;
+            font-family: 'Prompt', sans-serif;
+            font-size: 1.6em;
+            font-weight: 700;
             color: #FF3377;
-            margin: 20px 0 10px;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #FFC1D8;
         }
 
+        /* Order Summary Table */
         .payment-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+            font-size: 1em;
         }
 
         .payment-table th,
         .payment-table td {
-            padding: 15px;
+            font-family: 'Prompt', sans-serif;
+            padding: 14px 16px;
             text-align: left;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #F0F0F0;
         }
 
         .payment-table th {
             background-color: #FF3377;
-            color: white;
+            color: #FFFFFF;
+            font-weight: 500;
+            font-size: 1.05em;
+        }
+        .payment-table td:first-child {
+            font-weight: 500;
+        }
+        .payment-table td:nth-child(2),
+        .payment-table td:nth-child(3) {
+            text-align: center;
+        }
+        .payment-table td:last-child {
+            text-align: right;
             font-weight: 500;
         }
 
-        .payment-table tr:nth-child(even) {
-            background-color: #f9f9f9;
+        .payment-table tr:nth-child(even) td {
+            background-color: #FFF8FA;
+        }
+        .payment-table tr:last-child td {
+            border-bottom: none;
         }
 
-        .payment-table tr:hover {
-            background-color: #f1f1f1;
+        /* Total Price Display */
+        .total-price-summary {
+            text-align: right;
+            margin-top: 25px;
+            margin-bottom: 35px;
+        }
+        .total-price-summary p {
+            font-family: 'Prompt', sans-serif;
+            font-size: 1.3em;
+            font-weight: 500;
+            color: #333333;
+        }
+        .total-price-summary p strong {
+            font-weight: 700;
+            color: #FF3377;
+        }
+
+        /* Payment Method Section */
+        .payment-method-section {
+            margin-bottom: 35px;
+            padding: 25px;
+            background-color: #FEFBF2;
+            border-radius: 12px;
+            border: 1px solid #FCEBCF;
+        }
+        .payment-method-section p {
+            font-family: 'Prompt', sans-serif;
+            margin-bottom: 15px;
+            line-height: 1.75;
+            font-size: 1em;
+            color: #555;
+        }
+        .payment-method-section .account-info {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.1em;
+        }
+        .payment-method-section .account-info strong {
+             font-weight: 700;
+             color: #E67E22;
+        }
+        .payment-method-section .account-info .account-number {
+            font-family: 'Prompt', sans-serif;
+            font-weight: 500;
+            color: #E67E22;
+            background-color: #FFF5E8;
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin-left: 5px;
         }
 
         .qr-code {
-            max-width: 200px;
-            margin: 20px auto;
+            max-width: 180px;
+            margin: 20px auto 25px auto;
             display: block;
+            border: 5px solid #FFFFFF;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
 
+        /* Payment Form */
         .payment-form {
-            margin-top: 20px;
+            margin-top: 25px;
             text-align: center;
+            padding: 30px;
+            border-radius: 12px;
+            background-color: #F8F9FA;
+            border: 1px solid #E9ECEF;
         }
 
         .payment-form label {
-            font-size: 1.1em;
-            margin-bottom: 10px;
+            font-family: 'Prompt', sans-serif;
+            font-size: 1.15em;
+            margin-bottom: 18px;
             display: block;
+            color: #343A40;
+            font-weight: 500;
         }
 
         .payment-form input[type="file"] {
-            margin: 10px 0;
-        }
-
-        .payment-form button {
-            padding: 12px 25px;
-            background-color: #60C4B4;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 1.1em;
+            font-family: 'Prompt', sans-serif;
+            margin: 10px auto 30px auto;
+            display: block;
+            width: 100%;
+            max-width: 380px;
+            padding: 12px;
+            border: 1px solid #CED4DA;
+            border-radius: 8px;
+            background-color: #FFFFFF;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            color: #495057;
+            transition: border-color 0.2s ease-in-out;
+        }
+        .payment-form input[type="file"]:hover {
+            border-color: #ADB5BD;
         }
 
-        .payment-form button:hover {
-            background-color: #4b98a2;
+        .payment-form input[type="file"]::file-selector-button {
+            font-family: 'Prompt', sans-serif;
+            padding: 11px 20px;
+            border-radius: 6px;
+            background-color: #FF3377;
+            color: #FFFFFF;
+            border: none;
+            cursor: pointer;
+            margin-right: 15px;
+            transition: background-color 0.2s ease-in-out;
+            font-weight: 500;
         }
 
-        .footer {
-            background-color: #A0D8F1;
-            color: white;
+        .payment-form input[type="file"]::file-selector-button:hover {
+            background-color: #D92B6A;
+        }
+
+        .payment-form button[type="submit"] {
+            font-family: 'Prompt', sans-serif;
+            padding: 14px 40px;
+            background-color: #60C4B4;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+            margin-top: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .payment-form button[type="submit"]:hover {
+            background-color: #52B8A6;
+            transform: translateY(-1px);
+        }
+        .payment-form button[type="submit"]:active {
+            transform: translateY(1px);
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        /* Form Field Errors */
+        .form-field-errors {
+            font-family: 'Prompt', sans-serif;
+            color: #D9534F;
+            font-size: 0.9em;
+            margin-top: -20px;
+            margin-bottom: 20px;
             text-align: center;
-            padding: 20px;
+        }
+        .form-field-errors p {
+            margin: 5px 0;
+        }
+
+        /* Footer Section */
+        .footer {
+            font-family: 'Prompt', sans-serif;
+            background-color: #A0D8F1;
+            color: #2C3E50;
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 0.9em;
             margin-top: 50px;
-            font-size: 0.8em;
+            border-top: 3px solid #8ACCE6;
         }
     </style>
 </head>
 <body>
     <div class="header">
         <div class="header-left">
-            <h1 class="logo">MINDVIBE</h1>
+            <div class="logo">MINDVIBE</div>
             <p class="slogan">LOOK GOOD. FEEL RIGHT. LIVE TRUE. | MINDFULLY CURATED OUTFITS FOR EVERY EMOTION AND MOMENT.</p>
         </div>
         <div class="header-right">
-            <a href="/search/"><img src="{% static 'images/search_icon.png' %}" alt="Search"></a>
-            <a href="{% if user.is_authenticated %}{% url 'clothing:favorites_list' %}{% else %}{% url 'clothing:login' %}{% endif %}">
+            <a href="/search/" title="ค้นหา"><img src="{% static 'images/search_icon.png' %}" alt="Search"></a>
+            <a href="{% if user.is_authenticated %}{% url 'clothing:favorites_list' %}{% else %}{% url 'clothing:login' %}{% endif %}" title="รายการโปรด">
                 <img src="{% static 'images/heart_icon.png' %}" alt="Wishlist">
             </a>
-            <a href="{% if user.is_authenticated %}{% url 'clothing:cart' %}{% else %}{% url 'clothing:login' %}{% endif %}">
+            <a href="{% if user.is_authenticated %}{% url 'clothing:cart' %}{% else %}{% url 'clothing:login' %}{% endif %}" title="ตะกร้าสินค้า">
                 <img src="{% static 'images/cart_icon.png' %}" alt="Cart">
             </a>
-            <a href="{% if user.is_authenticated %}{% url 'clothing:status' %}{% else %}{% url 'clothing:login' %}{% endif %}">
+            <a href="{% if user.is_authenticated %}{% url 'clothing:status' %}{% else %}{% url 'clothing:login' %}{% endif %}" title="สถานะคำสั่งซื้อ">
                 <img src="{% static 'images/status_icon.png' %}" alt="Status">
             </a>
-            <a href="{% if user.is_authenticated %}{% url 'clothing:profile' %}{% else %}{% url 'clothing:login' %}{% endif %}">
+            <a href="{% if user.is_authenticated %}{% url 'clothing:profile' %}{% else %}{% url 'clothing:login' %}{% endif %}" title="โปรไฟล์">
                 <img src="{% static 'images/profile_icon.png' %}" alt="Profile">
             </a>
         </div>
@@ -219,16 +370,20 @@
                 </tbody>
             </table>
 
-            <p>ยอดรวมทั้งหมด: {{ total_price }}</p>
+            <div class="total-price-summary">
+                 <p>ยอดรวมทั้งหมด: <strong>฿{{ total_price|floatformat:2 }}</strong></p>
+ tougher-than-tough            </div>
 
-            <h3>ช่องทางการชำระเงิน: พร้อมเพย์</h3>
-            <p>สแกน QR Code หรือใช้เลขบัญชีด้านล่าง:</p>
-            <img src="{% static 'images/promtpay_qr.png' %}" alt="PromptPay QR Code" class="qr-code">
-            <p>เลขบัญชี: 123-456-7890</p>
+            <div class="payment-method-section">
+                <h3>ช่องทางการชำระเงิน: พร้อมเพย์</h3>
+                <p>กรุณาสแกน QR Code ด้านล่าง หรือโอนเงินผ่านเลขที่บัญชีที่ระบุ จากนั้นอัปโหลดหลักฐานการชำระเงินเพื่อยืนยันคำสั่งซื้อของคุณ</p>
+                <img src="{% static 'images/promtpay_qr.png' %}" alt="PromptPay QR Code" class="qr-code">
+                <p class="account-info"><strong>เลขบัญชี:</strong> <span class="account-number">123-456-7890</span> (ชื่อบัญชี: MINDVIBE STORE)</p>
+            </div>
 
             <form method="POST" enctype="multipart/form-data" class="payment-form">
                 {% csrf_token %}
-                <label for="payment_proof">อัปโหลดหลักฐานการชำระเงิน:</label>
+                <label for="id_payment_proof">อัปโหลดหลักฐานการชำระเงิน:</label>
                 <input type="file" name="payment_proof" accept="image/*" required>
                 <button type="submit">ยืนยันการชำระเงิน</button>
             </form>
@@ -236,7 +391,7 @@
     </div>
 
     <div class="footer">
-        <p>© 2025 MINDVIBE. ALL RIGHTS RESERVED.</p>
+        <p>© 2025 MINDVIBE. สงวนลิขสิทธิ์.</p>
     </div>
 </body>
 </html>

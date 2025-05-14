@@ -1,6 +1,14 @@
 from django.db import models
-from django.contrib.auth.models import User # <--- เพิ่มบรรทัดนี้!
+from django.contrib.auth.models import User  # <--- เพิ่มบรรทัดนี้!
 
+# สร้างคลาส ClothingType ที่เก็บประเภทเสื้อผ้า
+class ClothingType(models.Model):
+    name = models.CharField(max_length=100)  # ชื่อประเภทเสื้อผ้า (เช่น เสื้อครอป, เสื้อ, เดรส)
+    
+    def __str__(self):
+        return self.name
+
+# โมเดลสำหรับ Clothing
 class Clothing(models.Model):
     name = models.CharField(max_length=100)
     product_details = models.TextField()
@@ -17,6 +25,9 @@ class Clothing(models.Model):
     care_instructions = models.TextField(default="N/A")
     perfect_for = models.TextField(default="N/A")
 
+    # เพิ่มฟิลด์ประเภทเสื้อผ้า
+    clothing_type = models.ForeignKey(ClothingType, on_delete=models.SET_NULL, null=True, blank=True)
+
     # เพิ่มฟิลด์ราคาเช่า
     price_per_day_1 = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     price_per_day_3 = models.DecimalField(max_digits=10, decimal_places=2, default=0)
@@ -26,18 +37,19 @@ class Clothing(models.Model):
     def __str__(self):
         return self.name
 
+# ส่วนของ Favorite และ Payment สามารถคงเดิม
 class Favorite(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='favorites')
     clothing = models.ForeignKey(Clothing, on_delete=models.CASCADE, related_name='favorited_by')
     added_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        unique_together = ('user', 'clothing') # ป้องกันการกดโปรดซ้ำสำหรับสินค้าชิ้นเดียวกันโดยผู้ใช้คนเดียว
-        ordering = ['-added_at'] # เรียงจากรายการที่เพิ่มล่าสุดก่อน
+        unique_together = ('user', 'clothing')
+        ordering = ['-added_at']
 
     def __str__(self):
         return f"{self.user.username} favorites {self.clothing.name}"
-    
+
 class Payment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     total_price = models.DecimalField(max_digits=10, decimal_places=2)

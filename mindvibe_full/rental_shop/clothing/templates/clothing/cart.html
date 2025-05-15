@@ -19,14 +19,15 @@
             line-height: 1.6;
         }
 
-        /* Header Section - Adjusted to match clothing_list.html */
+        /* Header Section */
         .header {
+            background-color: #FDFD95;
+            padding: 15px 30px;
+            color: #333;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: #FDFD95; /* สีเหลือง */
-            padding: 15px 30px;
-            color: #333;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* เพิ่มเงาเล็กน้อย */
         }
 
         .header-left {
@@ -39,7 +40,7 @@
             font-family: 'Bebas Neue', sans-serif;
             font-size: 2.5em;
             font-weight: bold;
-            color: #FF3377; /* สีชมพู */
+            color: #FF3377;
             margin: 0 0 2px 0;
         }
 
@@ -57,66 +58,70 @@
 
         .header-right a {
             display: block;
-        }
-
-        .header-right img {
-            width: 20px;
-            height: 20px;
-            opacity: 0.8;
+            opacity: 0.7; /* ลดความเข้มเริ่มต้นเล็กน้อย */
             transition: opacity 0.3s ease;
         }
 
-        .header-right img:hover {
+        .header-right a:hover {
             opacity: 1;
+        }
+
+        .header-right img {
+            width: 22px; /* ปรับขนาดไอคอนเล็กน้อย */
+            height: 22px; /* ปรับขนาดไอคอนเล็กน้อย */
         }
 
         /* Main Content */
         .main-content {
-            padding: 40px 20px; /* ปรับ padding ให้ responsive */
+            padding: 30px 20px; /* ปรับ padding */
             background-color: #FFF1E6;
             display: flex;
             justify-content: center;
         }
 
         .cart-container {
-            max-width: 900px;
+            max-width: 950px; /* ขยายขนาด container เล็กน้อย */
             width: 100%;
-            margin: 20px auto; /* เพิ่ม margin บนล่าง */
-            background-color: #ffffff; /* เปลี่ยนเป็นสีขาว */
-            padding: 30px; /* ปรับ padding */
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            margin: 25px auto; /* ปรับ margin */
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px; /* ปรับความโค้งมน */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); /* ปรับเงา */
         }
 
         .cart-container h1 {
             font-family: 'Prompt', sans-serif;
-            font-size: 2.5em; /* ปรับขนาด font */
-            color: #FF3377; /* เปลี่ยนสีหัวข้อ */
+            font-size: 2.3em; /* ปรับขนาดหัวข้อ */
+            color: #FF3377;
             text-align: center;
-            margin-bottom: 25px; /* ปรับ margin */
+            margin-bottom: 30px; /* ปรับ margin */
             font-weight: 700;
         }
 
         .cart-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 25px; /* ปรับ margin */
-            border: 1px solid #ddd; /* เพิ่มเส้นขอบ */
-            border-radius: 10px 10px 0 0; /* ปรับมุมบน */
-            overflow: hidden; /* ป้องกัน border-radius เกินมา */
+            margin-bottom: 30px; /* ปรับ margin */
+            border-radius: 10px; /* ปรับความโค้งมน */
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* เพิ่มเงาให้ตาราง */
         }
 
         .cart-table th,
         .cart-table td {
-            padding: 12px 15px; /* ปรับ padding */
+            padding: 12px 18px; /* ปรับ padding */
             text-align: left;
-            border-bottom: 1px solid #eee; /* ปรับสีเส้น */
+            border-bottom: 1px solid #f0f0f0; /* เส้นขอบสีอ่อนลง */
         }
 
         .cart-table th {
-            background-color: #60C4B4; /* เปลี่ยนสีหัวตาราง */
+            background-color: #60C4B4;
             color: white;
             font-weight: 500;
+        }
+
+        .cart-table tr:last-child td {
+            border-bottom: none; /* ลบเส้นขอบล่างสุด */
         }
 
         .cart-table tr:nth-child(even) {
@@ -127,40 +132,47 @@
             background-color: #f5f5f5;
         }
 
+        .cart-table td img {
+            vertical-align: middle;
+            margin-right: 10px;
+            border-radius: 5px; /* เพิ่มความโค้งมนให้รูป */
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); /* เพิ่มเงาเล็กน้อยให้รูป */
+        }
+
         .cart-summary {
             text-align: right;
-            margin-top: 20px;
+            margin-top: 30px;
         }
 
         .cart-summary p {
-            font-size: 1.1em; /* ปรับขนาด font */
+            font-size: 1.1em;
             font-weight: bold;
             color: #333;
-            margin-bottom: 10px; /* ปรับ margin */
+            margin-bottom: 15px;
         }
 
         .btn-checkout {
             display: inline-block;
-            padding: 10px 20px; /* ปรับ padding */
-            background-color: #FF3377; /* เปลี่ยนสีปุ่ม */
+            padding: 10px 22px; /* ปรับ padding */
+            background-color: #FF3377;
             color: white;
             text-decoration: none;
-            border-radius: 8px; /* ปรับความโค้ง */
-            font-size: 1em; /* ปรับขนาด font */
+            border-radius: 8px;
+            font-size: 1em;
             transition: background-color 0.3s ease, transform 0.2s;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* เพิ่มเงา */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         .btn-checkout:hover {
             background-color: #e6005c;
-            transform: translateY(-2px); /* เพิ่มลูกเล่นเมื่อ hover */
+            transform: translateY(-2px);
         }
 
         .empty-cart-message {
             text-align: center;
-            font-size: 1.1em; /* ปรับขนาด font */
+            font-size: 1.1em;
             color: #777;
-            padding: 30px 0; /* ปรับ padding */
+            padding: 40px 0;
         }
 
         /* Footer */
@@ -171,6 +183,46 @@
             padding: 20px;
             margin-top: 50px;
             font-size: 0.8em;
+        }
+
+        /* Form จัดการสินค้าในตะกร้า */
+        .cart-table form {
+            display: inline-block;
+            margin-right: 8px; /* เพิ่มระยะห่างจากปุ่มลบ */
+        }
+
+        .cart-table input[type="number"],
+        .cart-table select {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 60px;
+            box-sizing: border-box;
+            margin-right: 5px;
+            font-size: 0.9em;
+        }
+
+        .cart-table button {
+            background-color: #5cb85c; /* สีเขียวสำหรับแก้ไข */
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: background-color 0.3s ease;
+        }
+
+        .cart-table button:hover {
+            background-color: #4cae4c;
+        }
+
+        .cart-table button[onclick] {
+            background-color: #d9534f; /* สีแดงสำหรับลบ */
+        }
+
+        .cart-table button[onclick]:hover {
+            background-color: #c9302c;
         }
     </style>
 </head>
@@ -208,21 +260,47 @@
             <table class="cart-table">
                 <thead>
                     <tr>
+                        <th>รูปสินค้า</th>
                         <th>สินค้า</th>
                         <th>จำนวนวัน</th>
                         <th>จำนวน</th>
                         <th>ราคาต่อหน่วย</th>
                         <th>ราคารวม</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for item in cart_items %}
                     <tr>
+                        <td>
+                            {% if item.product.image %}
+                                <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" width="70" height="70">
+                            {% else %}
+                                <span>ไม่มีรูป</span>
+                            {% endif %}
+                        </td>
                         <td>{{ item.product.name }}</td>
                         <td>{{ item.days }} วัน</td>
                         <td>{{ item.quantity }}</td>
                         <td>฿{{ item.price_per_unit|floatformat:2 }}</td>
                         <td>฿{{ item.total|floatformat:2 }}</td>
+                        <td>
+                            <form action="{% url 'clothing:update_cart' pk=item.product.pk %}" method="POST">
+                                {% csrf_token %}
+                                <input type="number" name="quantity" value="{{ item.quantity }}" min="1">
+                                <select name="days">
+                                    <option value="1" {% if item.days == 1 %}selected{% endif %}>1 วัน</option>
+                                    <option value="3" {% if item.days == 3 %}selected{% endif %}>3 วัน</option>
+                                    <option value="5" {% if item.days == 5 %}selected{% endif %}>5 วัน</option>
+                                    <option value="7" {% if item.days == 7 %}selected{% endif %}>7 วัน</option>
+                                </select>
+                                <button type="submit">แก้ไข</button>
+                            </form>
+                            <form action="{% url 'clothing:remove_from_cart' pk=item.product.pk days=item.days %}" method="POST" style="display:inline;">
+                                {% csrf_token %}
+                                <button type="submit" onclick="return confirm('ต้องการลบสินค้านี้หรือไม่?')">ลบ</button>
+                            </form>
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>

@@ -52,9 +52,34 @@ class Favorite(models.Model):
 
 class Payment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    full_name = models.CharField(max_length=255, default="-")
+    address = models.TextField(default="-")
+    phone_number = models.CharField(max_length=20, default="-")
     total_price = models.DecimalField(max_digits=10, decimal_places=2)
     proof = models.ImageField(upload_to='payment_proofs/')
     payment_date = models.DateTimeField(auto_now_add=True)
+    return_proof = models.ImageField(upload_to='return_proofs/', blank=True, null=True)
+    return_item_code = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
         return f"Payment for {self.user.username} - {self.total_price} THB"
+
+class OrderStatus(models.Model):
+    STATUS_CHOICES = [
+        ('paid', 'ชำระเงินเรียบร้อยแล้ว'),
+        ('packing', 'จัดเตรียมสินค้าแล้ว'),
+        ('shipping', 'ดำเนินการจัดส่งแล้ว'),
+        ('shipped', 'จัดส่งสำเร็จแล้ว'),
+        ('returned', 'ได้รับคืนสินค้าเรียบร้อยแล้ว'),
+    ]
+    payment = models.ForeignKey(Payment, on_delete=models.CASCADE, related_name='statuses')
+    status = models.CharField(max_length=50, choices=STATUS_CHOICES)
+    tracking_number = models.CharField(max_length=100, blank=True, null=True)
+    updated_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    updated_at = models.DateTimeField(auto_now_add=True)
+    note = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.payment} - {self.get_status_display()}"
+
+

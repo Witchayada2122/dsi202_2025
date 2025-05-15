@@ -5,6 +5,8 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from .forms import CustomUserCreationForm
+from .models import Payment
+from .models import OrderStatus
 
 # ฟังก์ชันสำหรับดึงข้อมูลสินค้าจากตะกร้า
 def get_cart_items(request):
@@ -116,6 +118,7 @@ def add_to_favorites(request, pk):
     if not Favorite.objects.filter(user=request.user, clothing=clothing_item).exists():
         Favorite.objects.create(user=request.user, clothing=clothing_item)
     return redirect('clothing:favorites_list')
+
 
 def remove_from_favorites_view(request, pk):
     try:
@@ -237,6 +240,35 @@ def add_to_cart(request, pk):
     # หากไม่ใช่ POST ให้ redirect กลับไปที่ clothing_detail
     return redirect('clothing:clothing_detail', pk=pk)
 
+def update_cart(request, pk):
+    clothing = get_object_or_404(Clothing, pk=pk)
+    cart = request.session.get('cart', [])
+    quantity = int(request.POST.get('quantity', 1))
+    days = int(request.POST.get('days', 1))
+
+    updated = False
+    for item in cart:
+        if item['product_id'] == pk:
+            item['quantity'] = quantity
+            item['days'] = days
+            updated = True
+            break
+
+    if not updated:
+        cart.append({'product_id': pk, 'quantity': quantity, 'days': days})
+
+    request.session['cart'] = cart
+    request.session.modified = True
+    return redirect('clothing:cart')
+
+# เพิ่มฟังก์ชันลบสินค้าออกจากตะกร้า
+def remove_from_cart(request, pk, days):
+    cart = request.session.get('cart', [])
+    cart = [item for item in cart if not (item['product_id'] == pk and item['days'] == days)]
+    request.session['cart'] = cart
+    request.session.modified = True
+    return redirect('clothing:cart')
+
 # ฟังก์ชันสำหรับหน้าตะกร้าสินค้า
 def cart(request):
     cart_items = get_cart_items(request)
@@ -255,10 +287,69 @@ def payment(request):
     formatted_total_price = f"฿ {total_price:,.2f}"
 
     if request.method == 'POST':
-        payment_proof = request.FILES.get('payment_proof')
+        full_name = request.POST.get('full_name')
+        address = request.POST.get('address')
+        phone_number = request.POST.get('phone_number')
+        proof = request.FILES.get('payment_proof')
+
+        Payment.objects.create(
+            user=request.user,
+            full_name=full_name,
+            address=address,
+            phone_number=phone_number,
+            proof=proof,
+            total_price=total_price
+        )
         return redirect('clothing:status')
 
     return render(request, 'clothing/payment.html', {
         'cart_items': cart_items,
         'total_price': formatted_total_price
+    })
+
+@login_required
+def status(request):
+    payment = Payment.objects.filter(user=request.user).last()
+    timeline = OrderStatus.objects.filter(payment=payment).order_by('-updated_at') if payment else []
+
+    if request.method == 'POST':
+        return_proof = request.FILES.get('return_proof')
+        return_item_code = request.POST.get('return_item_code')
+        if payment:
+            payment.return_proof = return_proof
+            payment.return_item_code = return_item_code
+            payment.save()
+            OrderStatus.objects.create(
+                payment=payment,
+                status='returned',
+                updated_by=request.user,
+                note='ลูกค้าส่งคืนสินค้าแล้ว'
+            )
+        return redirect('clothing:status')
+
+    return render(request, 'clothing/status.html', {'order': payment, 'timeline': timeline})
+
+# ✅ เพิ่มฟังก์ชันสำหรับ admin หรือพนักงานอัปเดตสถานะคำสั่งซื้อ
+@login_required
+def update_order_status(request, payment_id):
+    payment = get_object_or_404(Payment, pk=payment_id)
+
+    if request.method == 'POST':
+        status_value = request.POST.get('status')
+        tracking_number = request.POST.get('tracking_number')
+        note = request.POST.get('note')
+
+        OrderStatus.objects.create(
+            payment=payment,
+            status=status_value,
+            tracking_number=tracking_number,
+            updated_by=request.user,
+            note=note
+        )
+        return redirect('clothing:update_order_status', payment_id=payment.id)
+
+    all_statuses = OrderStatus.objects.filter(payment=payment).order_by('-updated_at')
+    return render(request, 'clothing/admin_update_status.html', {
+        'payment': payment,
+        'statuses': all_statuses
     })

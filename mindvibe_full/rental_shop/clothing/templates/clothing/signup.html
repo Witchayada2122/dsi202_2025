@@ -1,3 +1,4 @@
+{% load socialaccount %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -109,6 +110,24 @@
             font-size: 1.1em;
         }
 
+        /* ปุ่ม Google Signup */
+        .google-btn {
+            display: inline-block;
+            background-color: #4285F4;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            font-family: 'Bebas Neue', sans-serif;
+            margin-top: 20px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .google-btn:hover {
+            background-color: #357AE8;
+        }
+
         .footer {
             background-color: #A0D8F1; /* สีฟ้าอ่อน */
             color: white;
@@ -135,7 +154,7 @@
         <div class="form-container">
             <form method="POST">
                 {% csrf_token %}
-                
+
                 <!-- แสดงข้อความข้อผิดพลาดหากมี -->
                 {% if messages %}
                     <ul>
@@ -144,12 +163,18 @@
                         {% endfor %}
                     </ul>
                 {% endif %}
-                
+
                 <!-- แสดงฟอร์มการสมัครสมาชิก -->
                 {{ form.as_p }}
-                
+
                 <button type="submit" class="btn">Sign Up</button>
             </form>
+
+            <!-- ปุ่มสมัครด้วย Google -->
+            <a href="{% provider_login_url 'google' %}" class="google-btn">
+                สมัครด้วย Google
+            </a>
+
             <p class="login-link">Already have an account? <a href="{% url 'clothing:login' %}">Login here</a></p>
         </div>
     </div>

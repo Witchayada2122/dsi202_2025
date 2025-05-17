@@ -1,5 +1,5 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from .models import Clothing, Favorite
+from django.shortcuts import render, get_object_or_404, redirect, resolve_url
+from .models import Clothing, Favorite, ClothingType
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
@@ -7,6 +7,9 @@ from django.conf import settings
 from .forms import CustomUserCreationForm
 from .models import Payment
 from .models import OrderStatus
+from django.db.models import Max
+
+
 
 # ฟังก์ชันสำหรับดึงข้อมูลสินค้าจากตะกร้า
 def get_cart_items(request):
@@ -51,13 +54,25 @@ def welcome(request):
 # หน้าแสดงรายการเสื้อผ้า
 def clothing_list(request):
     search_query = request.GET.get('search', '')
-    color_filter = request.GET.get('color', '')
+    type_filter = request.GET.get('type', '')
+
     clothes = Clothing.objects.all()
+
     if search_query:
         clothes = clothes.filter(name__icontains=search_query)
-    if color_filter:
-        clothes = clothes.filter(color__iexact=color_filter)
-    return render(request, 'clothing/clothing_list.html', {'clothes': clothes, 'search_query': search_query, 'color': color_filter})
+
+    if type_filter:
+        clothes = clothes.filter(clothing_type__name__iexact=type_filter)
+
+    clothing_types = ClothingType.objects.all()
+
+    context = {
+        'clothes': clothes,
+        'search_query': search_query,
+        'type_filter': type_filter,
+        'clothing_types': clothing_types,
+    }
+    return render(request, 'clothing/clothing_list.html', context)
 
 # หน้าแสดงรายละเอียดสินค้า
 def clothing_detail(request, pk):
@@ -94,11 +109,8 @@ def login_view(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                next_url = request.POST.get('next') or request.GET.get('next')
-                if next_url:
-                    return redirect(next_url)
-                else:
-                    return redirect(resolve_url(settings.LOGIN_REDIRECT_URL))
+                # แทนที่จะใช้ next หรือ LOGIN_REDIRECT_URL ให้ redirect ไปที่ clothing_list เสมอ
+                return redirect('clothing:clothing_list')
     else:
         form = AuthenticationForm()
     next_url = request.GET.get('next')
@@ -139,7 +151,50 @@ def status(request):
 # ฟังก์ชันสำหรับหน้า profile
 @login_required
 def profile(request):
-    return render(request, 'clothing/profile.html')
+    user = request.user
+
+    # ดึงคำสั่งซื้อทั้งหมดของ user เรียงจากใหม่ไปเก่า
+    payments = Payment.objects.filter(user=user).order_by('-payment_date')
+
+    # สร้าง dict เก็บสถานะล่าสุดของแต่ละ Payment
+    status_dict = {}
+    for payment in payments:
+        latest_status = payment.statuses.order_by('-updated_at').first()
+        status_dict[payment.id] = latest_status
+
+    # ดึง Payment ล่าสุด (ถ้ามี) เพื่อแสดงที่อยู่และแก้ไข
+    latest_payment = payments.first()
+
+    if request.method == 'POST':
+        # อัปเดตที่อยู่ใน Payment ล่าสุด
+        address = request.POST.get('address')
+        full_name = request.POST.get('full_name')
+        phone_number = request.POST.get('phone_number')
+
+        if latest_payment:
+            latest_payment.address = address
+            latest_payment.full_name = full_name
+            latest_payment.phone_number = phone_number
+            latest_payment.save()
+        else:
+            # ถ้าไม่มี Payment เลย สร้างใหม่ (option)
+            Payment.objects.create(
+                user=user,
+                full_name=full_name,
+                address=address,
+                phone_number=phone_number,
+                total_price=0  # กำหนด 0 หรือค่าที่เหมาะสม
+            )
+
+        return redirect('clothing:profile')
+
+    context = {
+        'user': user,
+        'payments': payments,
+        'status_dict': status_dict,
+        'latest_payment': latest_payment,
+    }
+    return render(request, 'clothing/profile.html', context)
 
 # ฟังก์ชันสำหรับการแก้ไขโปรไฟล์
 @login_required

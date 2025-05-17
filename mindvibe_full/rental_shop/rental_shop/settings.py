@@ -1,35 +1,43 @@
-# settings.py
-
 import os
 from pathlib import Path
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+# กำหนด Path หลักของโปรเจค
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
-
+# ความลับของโปรเจค
 SECRET_KEY = 'django-insecure-+i(ay40(up!g-7!uhe%lzma6xoa(4ncwkp8jd%j7b0b4=9&+jn'
 
+# เปิดโหมด debug สำหรับพัฒนา (ปิดใน production)
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
-# Application definition
-
+# แอปพลิเคชันที่ติดตั้ง
 INSTALLED_APPS = [
+    # แอปพื้นฐานของ Django
+    'django.contrib.sites',  # จำเป็นสำหรับ django-allauth
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'clothing',  # แอป clothing ของคุณ
+
+    # แอปของ django-allauth สำหรับระบบล็อกอินและ social account
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+
+    # แอปของคุณ เช่น clothing
+    'clothing',
 ]
 
+# รายการ middleware
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -37,17 +45,19 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'rental_shop.urls'
+# กำหนดชื่อไฟล์ URL config หลัก (ตรวจสอบให้ตรงกับชื่อโฟลเดอร์โปรเจคของคุณ)
+ROOT_URLCONF = 'rental_shop.urls'  # เปลี่ยนเป็น 'mindvibe.urls' ถ้าโฟลเดอร์โปรเจคชื่อ mindvibe
 
+# ตั้งค่า template engine
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],  # ใช้การค้นหาจากโฟลเดอร์ภายในแอป
-        'APP_DIRS': True,  # กำหนดให้ค้นหาจาก app directories
+        'DIRS': [BASE_DIR / 'templates'],
+        'APP_DIRS': True,  # ค้นหา template ในแอปอัตโนมัติ
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
-                'django.template.context_processors.request',
+                'django.template.context_processors.request',  # จำเป็นสำหรับ allauth
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
@@ -55,9 +65,10 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'rental_shop.wsgi.application'
+# กำหนดไฟล์ wsgi สำหรับ deploy
+WSGI_APPLICATION = 'rental_shop.wsgi.application'  # เปลี่ยนถ้าโฟลเดอร์โปรเจคไม่ใช่ rental_shop
 
-# Database
+# ตั้งค่าฐานข้อมูล SQLite (เปลี่ยนตามความเหมาะสม)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -65,7 +76,7 @@ DATABASES = {
     }
 }
 
-# Password validation
+# ตัวตรวจสอบรหัสผ่าน
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -81,41 +92,35 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# Internationalization
+# การตั้งค่าภาษาและ timezone
 LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
-
+TIME_ZONE = 'Asia/Bangkok'
 USE_I18N = True
-
 USE_TZ = True
 
-# ตั้งค่า URL สำหรับการเข้าถึงไฟล์ static
+# การตั้งค่าไฟล์ static และ media
 STATIC_URL = '/static/'
-# settings.py
-
-STATIC_URL = '/static/'
-
-# เพิ่ม STATICFILES_DIRS เพื่อบอก Django ว่าให้ดูไฟล์ static จากที่ไหน
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),  # พูดถึงโฟลเดอร์ 'static' ที่อยู่ในระดับโปรเจกต์
+    BASE_DIR / 'static',
 ]
-
-# กำหนดที่เก็บไฟล์ static ของโปรเจกต์
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',  # ควรตั้งให้ `static` อยู่ในโปรเจกต์นี้
-]
-
-LOGIN_URL = 'clothing:login' # ชื่อ URL pattern ของหน้า login ของคุณ
-                            # (ถ้าไม่ได้ใช้ app_name 'clothing' ใน include ก็จะเป็น 'login')
-LOGIN_REDIRECT_URL = 'clothing:clothing_list' # หน้าที่ให้ redirect ไปหลัง login สำเร็จ (ถ้าไม่ได้ระบุ next)
-
-# การเก็บไฟล์ static เมื่อใช้คำสั่ง collectstatic สำหรับ production
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# ตั้งค่าพื้นที่จัดเก็บไฟล์สื่อ (media files)
-MEDIA_URL = '/media/'  # URL ที่จะใช้ในการเข้าถึงไฟล์สื่อ
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # เส้นทางที่เก็บไฟล์ในเครื่อง
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+# ตั้งค่า URL สำหรับระบบล็อกอินและหลัง logout
+LOGIN_URL = 'account_login'  # ชื่อ URL pattern ของ allauth login
+LOGIN_REDIRECT_URL = '/'      # หลัง login สำเร็จ
+ACCOUNT_LOGOUT_REDIRECT_URL = '/'  # หลัง logout
 
+# ตั้งค่า SITE_ID จำเป็นสำหรับ django-allauth
+SITE_ID = 1
+
+# กำหนด Authentication backends
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',          # Default backend ของ Django
+    'allauth.account.auth_backends.AuthenticationBackend',  # backend ของ allauth
+]
+
+# ตั้งค่า default primary key field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

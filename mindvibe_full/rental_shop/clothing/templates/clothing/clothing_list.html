@@ -4,12 +4,12 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>MindVibe - Clothing Collection</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;700&display=swap" rel="stylesheet" />
 
     <style>
         body {
@@ -72,7 +72,7 @@
             opacity: 1;
         }
 
-        /* Home Icon - added home icon link */
+        /* Home Icon */
         .home-icon {
             width: 20px;
             height: 20px;
@@ -112,6 +112,42 @@
 
         .search-bar button:hover {
             background-color: #e6005c;
+        }
+
+        /* Filter Buttons */
+        .filter-buttons {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .filter-buttons form button {
+            padding: 8px 16px;
+            margin: 5px;
+            border-radius: 20px;
+            border: none;
+            cursor: pointer;
+            background-color: #60C4B4;
+            color: white;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .filter-buttons form button.active,
+        .filter-buttons form button:hover {
+            background-color: #FF3377;
+        }
+
+        .filter-buttons form a.clear-filter {
+            margin-left: 10px;
+            color: #FF3377;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 0.95em;
+            vertical-align: middle;
+        }
+
+        .filter-buttons form a.clear-filter:hover {
+            text-decoration: underline;
         }
 
         /* Product Section */
@@ -252,48 +288,77 @@
         </div>
         <div class="header-right">
             <a href="{% url 'clothing:welcome' %}">
-                <img src="{% static 'images/home_icon.png' %}" alt="Home" class="home-icon">
+                <img src="{% static 'images/home_icon.png' %}" alt="Home" class="home-icon" />
             </a>
-            <a href="/search/"><img src="{% static 'images/search_icon.png' %}" alt="Search"></a>
+            <a href="/search/"><img src="{% static 'images/search_icon.png' %}" alt="Search" /></a>
             <a href="{% if user.is_authenticated %}{% url 'clothing:favorites_list' %}{% else %}{% url 'clothing:login' %}{% endif %}">
-                <img src="{% static 'images/heart_icon.png' %}" alt="Wishlist">
+                <img src="{% static 'images/heart_icon.png' %}" alt="Wishlist" />
             </a>
             <a href="{% if user.is_authenticated %}{% url 'clothing:cart' %}{% else %}{% url 'clothing:login' %}{% endif %}">
-                <img src="{% static 'images/cart_icon.png' %}" alt="Cart">
+                <img src="{% static 'images/cart_icon.png' %}" alt="Cart" />
             </a>
             <a href="{% if user.is_authenticated %}{% url 'clothing:status' %}{% else %}{% url 'clothing:login' %}{% endif %}">
-                <img src="{% static 'images/status_icon.png' %}" alt="Status">
+                <img src="{% static 'images/status_icon.png' %}" alt="Status" />
             </a>
             <a href="{% if user.is_authenticated %}{% url 'clothing:profile' %}{% else %}{% url 'clothing:login' %}{% endif %}">
-                <img src="{% static 'images/profile_icon.png' %}" alt="Profile">
+                <img src="{% static 'images/profile_icon.png' %}" alt="Profile" />
             </a>
         </div>
     </div>
 
+    <!-- Search Bar -->
     <div class="search-bar">
         <form method="GET" action="{% url 'clothing:clothing_list' %}">
-            <input type="text" name="search" placeholder="ค้นหาสินค้าที่นี่..." value="{{ request.GET.search }}">
+            {% if type_filter %}
+                <input type="hidden" name="type" value="{{ type_filter }}" />
+            {% endif %}
+            <input type="text" name="search" placeholder="ค้นหาสินค้าที่นี่..." value="{{ search_query }}" />
             <button type="submit">ค้นหา</button>
         </form>
     </div>
 
+    <!-- Filter Buttons -->
+    <div class="filter-buttons">
+        <form method="GET" action="{% url 'clothing:clothing_list' %}">
+            <input type="hidden" name="search" value="{{ search_query }}" />
+            {% for ctype in clothing_types %}
+                <button 
+                    type="submit" 
+                    name="type" 
+                    value="{{ ctype.name }}" 
+                    class="{% if ctype.name == type_filter %}active{% endif %}">
+                    {{ ctype.name }}
+                </button>
+            {% endfor %}
+            {% if type_filter %}
+                <a href="{% url 'clothing:clothing_list' %}?search={{ search_query }}" class="clear-filter">ล้างฟิลเตอร์</a>
+            {% endif %}
+        </form>
+    </div>
+
+    <!-- Products -->
     <div class="products">
         {% for clothing in clothes %}
             <div class="product-card">
-                <a href="{% url 'clothing:clothing_detail' pk=clothing.pk %}"> <img src="{{ clothing.image.url }}" alt="{{ clothing.name }}" class="product-image"></a>
-                <div> <a href="{% url 'clothing:clothing_detail' pk=clothing.pk %}" style="text-decoration: none;">
-                    <h3>{{ clothing.name }}</h3>
+                <a href="{% url 'clothing:clothing_detail' pk=clothing.pk %}">
+                    <img src="{{ clothing.image.url }}" alt="{{ clothing.name }}" class="product-image" />
+                </a>
+                <div>
+                    <a href="{% url 'clothing:clothing_detail' pk=clothing.pk %}" style="text-decoration: none;">
+                        <h3>{{ clothing.name }}</h3>
                     </a>
-                    <p class="price">ราคาเช่า 1 วัน: {{ clothing.price_per_day_1 }} บาท</p> </div>
+                    <p class="price">ราคาเช่า 1 วัน: {{ clothing.price_per_day_1 }} บาท</p>
+                </div>
                 <div class="actions">
                     <a href="{% url 'clothing:clothing_detail' pk=clothing.pk %}" class="btn">ดูรายละเอียด</a>
-                    <a href="{% if user.is_authenticated %}{% url 'clothing:add_to_favorites' pk=clothing.pk %}{% else %}{% url 'clothing:login' %}{% endif %}" class="heart-icon-link" title="เพิ่มในรายการโปรด">
-                        <img src="{% static 'images/heart_icon.png' %}" alt="Add to Favorites" class="heart-icon">
+                    <a href="{% if user.is_authenticated %}{% url 'clothing:add_to_favorites' pk=clothing.pk %}{% else %}{% url 'clothing:login' %}{% endif %}" 
+                        class="heart-icon-link" title="เพิ่มในรายการโปรด">
+                        <img src="{% static 'images/heart_icon.png' %}" alt="Add to Favorites" class="heart-icon" />
                     </a>
                 </div>
             </div>
         {% empty %}
-            <p class="no-products-message">ไม่พบสินค้าที่ตรงกับเกณฑ์การค้นหาของคุณ</p> 
+            <p class="no-products-message">ไม่พบสินค้าที่ตรงกับเกณฑ์การค้นหาของคุณ</p>
         {% endfor %}
     </div>
 
@@ -302,4 +367,5 @@
     </div>
 
 </body>
+
 </html>

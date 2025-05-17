@@ -4,11 +4,11 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>ตะกร้าสินค้า - MindVibe</title>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;700&display=swap" rel="stylesheet" />
     <style>
         body {
             font-family: 'Prompt', sans-serif;
@@ -27,7 +27,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* เพิ่มเงาเล็กน้อย */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
         }
 
         .header-left {
@@ -58,7 +58,7 @@
 
         .header-right a {
             display: block;
-            opacity: 0.7; /* ลดความเข้มเริ่มต้นเล็กน้อย */
+            opacity: 0.7;
             transition: opacity 0.3s ease;
         }
 
@@ -66,52 +66,53 @@
             opacity: 1;
         }
 
+        /* ปรับขนาดไอคอนให้เท่ากันทุกไอคอน */
         .header-right img {
-            width: 22px; /* ปรับขนาดไอคอนเล็กน้อย */
-            height: 22px; /* ปรับขนาดไอคอนเล็กน้อย */
+            width: 20px;
+            height: 20px;
         }
 
         /* Main Content */
         .main-content {
-            padding: 30px 20px; /* ปรับ padding */
+            padding: 30px 20px;
             background-color: #FFF1E6;
             display: flex;
             justify-content: center;
         }
 
         .cart-container {
-            max-width: 950px; /* ขยายขนาด container เล็กน้อย */
+            max-width: 950px;
             width: 100%;
-            margin: 25px auto; /* ปรับ margin */
+            margin: 25px auto;
             background-color: #ffffff;
             padding: 30px;
-            border-radius: 12px; /* ปรับความโค้งมน */
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); /* ปรับเงา */
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
         }
 
         .cart-container h1 {
             font-family: 'Prompt', sans-serif;
-            font-size: 2.3em; /* ปรับขนาดหัวข้อ */
+            font-size: 2.3em;
             color: #FF3377;
             text-align: center;
-            margin-bottom: 30px; /* ปรับ margin */
+            margin-bottom: 30px;
             font-weight: 700;
         }
 
         .cart-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 30px; /* ปรับ margin */
-            border-radius: 10px; /* ปรับความโค้งมน */
+            margin-bottom: 30px;
+            border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* เพิ่มเงาให้ตาราง */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
         }
 
         .cart-table th,
         .cart-table td {
-            padding: 12px 18px; /* ปรับ padding */
+            padding: 12px 18px;
             text-align: left;
-            border-bottom: 1px solid #f0f0f0; /* เส้นขอบสีอ่อนลง */
+            border-bottom: 1px solid #f0f0f0;
         }
 
         .cart-table th {
@@ -121,7 +122,7 @@
         }
 
         .cart-table tr:last-child td {
-            border-bottom: none; /* ลบเส้นขอบล่างสุด */
+            border-bottom: none;
         }
 
         .cart-table tr:nth-child(even) {
@@ -135,8 +136,11 @@
         .cart-table td img {
             vertical-align: middle;
             margin-right: 10px;
-            border-radius: 5px; /* เพิ่มความโค้งมนให้รูป */
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); /* เพิ่มเงาเล็กน้อยให้รูป */
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
         }
 
         .cart-summary {
@@ -153,7 +157,7 @@
 
         .btn-checkout {
             display: inline-block;
-            padding: 10px 22px; /* ปรับ padding */
+            padding: 10px 22px;
             background-color: #FF3377;
             color: white;
             text-decoration: none;
@@ -185,10 +189,10 @@
             font-size: 0.8em;
         }
 
-        /* Form จัดการสินค้าในตะกร้า */
+        /* Form ในตาราง */
         .cart-table form {
             display: inline-block;
-            margin-right: 8px; /* เพิ่มระยะห่างจากปุ่มลบ */
+            margin-right: 8px;
         }
 
         .cart-table input[type="number"],
@@ -203,7 +207,7 @@
         }
 
         .cart-table button {
-            background-color: #5cb85c; /* สีเขียวสำหรับแก้ไข */
+            background-color: #5cb85c;
             color: white;
             border: none;
             padding: 8px 12px;
@@ -218,7 +222,7 @@
         }
 
         .cart-table button[onclick] {
-            background-color: #d9534f; /* สีแดงสำหรับลบ */
+            background-color: #d9534f;
         }
 
         .cart-table button[onclick]:hover {
@@ -235,20 +239,22 @@
         </div>
         <div class="header-right">
             <a href="{% url 'clothing:welcome' %}">
-                <img src="{% static 'images/home_icon.png' %}" alt="Home" class="home-icon">
+                <img src="{% static 'images/home_icon.png' %}" alt="Home" class="home-icon" />
             </a>
-            <a href="/search/"><img src="{% static 'images/search_icon.png' %}" alt="Search"></a>
+            <a href="/search/">
+                <img src="{% static 'images/search_icon.png' %}" alt="Search" />
+            </a>
             <a href="{% if user.is_authenticated %}{% url 'clothing:favorites_list' %}{% else %}{% url 'clothing:login' %}{% endif %}">
-                <img src="{% static 'images/heart_icon.png' %}" alt="Wishlist">
+                <img src="{% static 'images/heart_icon.png' %}" alt="Wishlist" />
             </a>
             <a href="{% if user.is_authenticated %}{% url 'clothing:cart' %}{% else %}{% url 'clothing:login' %}{% endif %}">
-                <img src="{% static 'images/cart_icon.png' %}" alt="Cart">
+                <img src="{% static 'images/cart_icon.png' %}" alt="Cart" />
             </a>
             <a href="{% if user.is_authenticated %}{% url 'clothing:status' %}{% else %}{% url 'clothing:login' %}{% endif %}">
-                <img src="{% static 'images/status_icon.png' %}" alt="Status">
+                <img src="{% static 'images/status_icon.png' %}" alt="Status" />
             </a>
             <a href="{% if user.is_authenticated %}{% url 'clothing:profile' %}{% else %}{% url 'clothing:login' %}{% endif %}">
-                <img src="{% static 'images/profile_icon.png' %}" alt="Profile">
+                <img src="{% static 'images/profile_icon.png' %}" alt="Profile" />
             </a>
         </div>
     </div>
@@ -274,7 +280,7 @@
                     <tr>
                         <td>
                             {% if item.product.image %}
-                                <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" width="70" height="70">
+                                <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" width="70" height="70" />
                             {% else %}
                                 <span>ไม่มีรูป</span>
                             {% endif %}
@@ -287,7 +293,7 @@
                         <td>
                             <form action="{% url 'clothing:update_cart' pk=item.product.pk %}" method="POST">
                                 {% csrf_token %}
-                                <input type="number" name="quantity" value="{{ item.quantity }}" min="1">
+                                <input type="number" name="quantity" value="{{ item.quantity }}" min="1" />
                                 <select name="days">
                                     <option value="1" {% if item.days == 1 %}selected{% endif %}>1 วัน</option>
                                     <option value="3" {% if item.days == 3 %}selected{% endif %}>3 วัน</option>
@@ -318,6 +324,6 @@
     <div class="footer">
         <p>&copy; {% now "Y" %} MindVibe. All rights reserved.</p>
     </div>
-
 </body>
+
 </html>

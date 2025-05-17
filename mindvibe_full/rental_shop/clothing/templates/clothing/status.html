@@ -14,23 +14,67 @@
             margin: 0;
             padding: 0;
             color: #333;
+            line-height: 1.6;
         }
 
+        /* Header Section */
         .header {
-            background-color: #FDFD95;
-            padding: 15px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            background-color: #FDFD95; /* สีเหลือง */
+            padding: 15px 30px;
+            color: #333;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
-        .logo {
+        .header-left {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .header .logo {
             font-family: 'Bebas Neue', sans-serif;
             font-size: 2.5em;
             font-weight: bold;
-            color: #FF3377;
+            color: #FF3377; /* สีชมพู */
+            margin: 0 0 2px 0;
+            text-decoration: none;
         }
 
+        .header .slogan {
+            font-size: 0.9em;
+            color: #333;
+            margin: 0;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .header-right a {
+            display: block;
+        }
+
+        .header-right img {
+            width: 20px; /* Default icon size */
+            height: 20px; /* Default icon size */
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+        .header-right img.home-icon { /* Specific size for home icon if needed */
+             width: 20px;
+             height: 20px;
+        }
+
+        .header-right img:hover {
+            opacity: 1;
+        }
+
+        /* Status Container */
         .status-container {
             max-width: 900px;
             margin: 40px auto;
@@ -107,13 +151,46 @@
             margin-top: 10px;
             max-width: 200px;
         }
+
+        /* Footer */
+        .footer {
+            background-color: #A0D8F1; /* สีฟ้าอ่อน */
+            color: #333; /* ตัวอักษรสีเข้ม */
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+            font-size: 0.9em;
+        }
     </style>
 </head>
 
 <body>
 
     <div class="header">
-        <div class="logo">MINDVIBE</div>
+        <div class="header-left">
+            <a href="{% url 'clothing:welcome' %}" class="logo">MINDVIBE</a>
+            <p class="slogan">LOOK GOOD. FEEL RIGHT. LIVE TRUE. | MINDFULLY CURATED OUTFITS FOR EVERY EMOTION AND MOMENT.</p>
+        </div>
+        <div class="header-right">
+            <a href="{% url 'clothing:welcome' %}">
+                <img src="{% static 'images/home_icon.png' %}" alt="Home" class="home-icon" />
+            </a>
+            <a href="/search/">
+                <img src="{% static 'images/search_icon.png' %}" alt="Search" />
+            </a>
+            <a href="{% if user.is_authenticated %}{% url 'clothing:favorites_list' %}{% else %}{% url 'clothing:login' %}{% endif %}">
+                <img src="{% static 'images/heart_icon.png' %}" alt="Wishlist" />
+            </a>
+            <a href="{% if user.is_authenticated %}{% url 'clothing:cart' %}{% else %}{% url 'clothing:login' %}{% endif %}">
+                <img src="{% static 'images/cart_icon.png' %}" alt="Cart" />
+            </a>
+            <a href="{% if user.is_authenticated %}{% url 'clothing:status' %}{% else %}{% url 'clothing:login' %}{% endif %}">
+                <img src="{% static 'images/status_icon.png' %}" alt="Status" />
+            </a>
+            <a href="{% if user.is_authenticated %}{% url 'clothing:profile' %}{% else %}{% url 'clothing:login' %}{% endif %}">
+                <img src="{% static 'images/profile_icon.png' %}" alt="Profile" />
+            </a>
+        </div>
     </div>
 
     <div class="status-container">
@@ -132,7 +209,7 @@
             {% if timeline %}
                 {% for log in timeline %}
                     <div class="status-item">
-                        <strong>{{ log.get_status_display }}</strong> 
+                        <strong>{{ log.get_status_display }}</strong>
                         <div>{{ log.updated_at|date:"d M Y เวลา H:i" }}</div>
                         {% if log.tracking_number %}
                             <div class="tracking-number">📦 Tracking: {{ log.tracking_number }}</div>
@@ -150,18 +227,18 @@
                 {% if order.return_proof %}
                     <p><strong>คุณได้ทำการคืนสินค้าเรียบร้อยแล้ว ✅</strong></p>
                     <p>รหัสสินค้าที่คืน: {{ order.return_item_code }}</p>
-                    <img src="{{ order.return_proof.url }}" class="return-proof-preview">
+                    <img src="{{ order.return_proof.url }}" class="return-proof-preview" />
                 {% else %}
                     <h3>คืนสินค้า</h3>
                     <form method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="form-group">
                             <label for="return_item_code">รหัสสินค้า:</label>
-                            <input type="text" name="return_item_code" required>
+                            <input type="text" name="return_item_code" required />
                         </div>
                         <div class="form-group">
                             <label for="return_proof">แนบหลักฐาน (รูปถ่าย):</label>
-                            <input type="file" name="return_proof" accept="image/*" required>
+                            <input type="file" name="return_proof" accept="image/*" required />
                         </div>
                         <button type="submit" class="btn-submit">ส่งคืนสินค้า</button>
                     </form>
@@ -172,5 +249,10 @@
         {% endif %}
     </div>
 
+    <div class="footer">
+        <p>&copy; {% now "Y" %} MindVibe. All rights reserved.</p>
+    </div>
+
 </body>
+
 </html>

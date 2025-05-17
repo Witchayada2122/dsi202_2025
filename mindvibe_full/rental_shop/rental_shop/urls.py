@@ -10,6 +10,7 @@ urlpatterns = [
     path('', RedirectView.as_view(pattern_name='clothing:welcome', permanent=False)),
     path('admin/', admin.site.urls),
     path('', include('clothing.urls')),  # เส้นทางไปยังแอป clothing
+    path('accounts/', include('allauth.urls')),
 ]
 
 # เพิ่มการให้บริการไฟล์สื่อ (media) ในระหว่างการพัฒนา

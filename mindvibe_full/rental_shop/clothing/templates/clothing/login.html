@@ -1,4 +1,5 @@
 {% load static %}
+{% load socialaccount %}
 <!DOCTYPE html>
 <html lang="th"> {# เปลี่ยนเป็น lang="th" ถ้าเนื้อหาส่วนใหญ่เป็นภาษาไทย #}
 
@@ -151,6 +152,25 @@
             text-decoration: underline;
         }
 
+        /* ปุ่ม Google Login */
+        .google-btn {
+            display: inline-block;
+            background-color: #4285F4;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            font-family: 'Bebas Neue', sans-serif;
+            margin-top: 20px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .google-btn:hover {
+            background-color: #357AE8;
+        }
+
         .footer {
             background-color: #A0D8F1; /* สีฟ้าอ่อน */
             color: #333;
@@ -174,23 +194,25 @@
     <main class="main-content">
         <h1>Login</h1>
         <section class="form-container">
-            {# ตรวจสอบให้แน่ใจว่า URL name 'login' และ app_name 'clothing' ถูกต้องตาม urls.py ของคุณ #}
             <form method="POST" action="{% url 'clothing:login' %}">
                 {% csrf_token %}
                 
-                {# แสดงฟอร์ม field ต่างๆ และ error messages ถ้ามี #}
                 {{ form.as_p }}
 
-                {# เพิ่ม hidden input สำหรับ 'next' parameter ถ้ามี #}
                 {% if next %}
                     <input type="hidden" name="next" value="{{ next }}">
                 {% endif %}
                 
                 <button type="submit">Login</button>
             </form>
+
+            <!-- ปุ่มเข้าสู่ระบบด้วย Google -->
+            <a href="{% provider_login_url 'google' %}" class="google-btn">
+                เข้าสู่ระบบด้วย Google
+            </a>
+
             <div class="signup-link-container">
                 <p>ยังไม่มีบัญชี? <a href="{% url 'clothing:signup' %}">สมัครสมาชิกที่นี่</a></p>
-                 {# ^^^ ตรวจสอบ URL name 'signup' และ app_name 'clothing' #}
             </div>
         </section>
     </main>

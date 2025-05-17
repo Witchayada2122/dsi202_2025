@@ -1,189 +1,128 @@
 {% load static %}
-
 <!DOCTYPE html>
-<html lang="th">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ข้อมูลโปรไฟล์ - MindVibe</title>
-    {# ลบ Bebas Neue ออก, ใช้ Prompt เป็นหลัก #}
-    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;700&display=swap" rel="stylesheet">
-    <style>
-        /* Global Reset and Base Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ข้อมูลโปรไฟล์ - MindVibe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;700&display=swap" rel="stylesheet" />
+    <style>
         body {
             font-family: 'Prompt', sans-serif;
+            margin: 0;
+            padding: 0;
             background-color: #FFF1E6;
-            color: #333333;
-            line-height: 1.7;
-            font-size: 16px;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            color: #333;
         }
-
-        /* Header Section - Consistent with other pages */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: #FDFD95; /* สีเหลือง */
+            background-color: #FDFD95;
             padding: 15px 30px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+            color: #333;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-
         .header-left {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
         }
-
         .header .logo {
-            font-family: 'Prompt', sans-serif; /* ใช้ Prompt */
-            font-size: 2.2em;
-            font-weight: 700; /* Prompt Bold */
-            color: #FF3377; /* สีชมพู */
-            text-decoration: none; /* ถ้าโลโก้เป็นลิงก์ */
-            margin-bottom: 2px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #FF3377;
+            margin: 0 0 2px 0;
+            text-decoration: none;
         }
-
-        .header .slogan { /* เพิ่ม slogan ให้เหมือนหน้าอื่น */
-            font-family: 'Prompt', sans-serif;
-            font-size: 0.875em;
-            color: #4A4A4A;
+        .header .slogan {
+            font-size: 0.9em;
+            color: #333;
             margin: 0;
         }
-
-        .header-right { /* เพิ่ม header-right ให้เหมือนหน้าอื่น */
+        .header-right {
             display: flex;
             align-items: center;
-            gap: 22px;
+            gap: 20px;
         }
-
         .header-right a {
-            display: flex;
-            align-items: center;
-        }
-
-        .header-right img {
-            width: 22px;
-            height: 22px;
+            display: block;
             opacity: 0.8;
-            transition: opacity 0.2s ease-in-out;
+            transition: opacity 0.3s ease;
         }
-
-        .header-right img:hover {
+        .header-right a:hover {
             opacity: 1;
         }
-
-        /* Main Content Area */
-        .main-content-wrapper { /* สร้าง wrapper สำหรับจัดกลาง */
-            padding: 40px 20px;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            min-height: calc(100vh - 180px); /* ปรับตามความสูง header/footer */
+        .header-right img {
+            width: 20px;
+            height: 20px;
         }
-
         .profile-container {
-            background-color: #FFFFFF;
-            padding: 35px 45px;
-            border-radius: 16px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.07);
+            max-width: 900px;
+            margin: 50px auto;
+            background-color: rgba(255,255,255,0.9);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #60C4B4;
+        }
+        form label {
+            display: block;
+            margin-top: 10px;
+            font-weight: 600;
+        }
+        form input[type="text"], form textarea {
             width: 100%;
-            max-width: 700px; /* ปรับขนาดให้เหมาะสมกับเนื้อหาโปรไฟล์ */
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 1em;
         }
-
-        .profile-container h1 { /* สไตล์สำหรับ "ข้อมูลโปรไฟล์ของคุณ" */
-            font-family: 'Prompt', sans-serif;
-            font-size: 2.1em; /* ปรับขนาด */
-            font-weight: 700; /* Prompt Bold */
-            color: #60C4B4; /* สีเขียวมิ้นต์ */
-            text-align: center;
-            margin-bottom: 35px;
-        }
-
-        .profile-info {
-            margin-bottom: 30px;
-        }
-
-        .profile-info h2 { /* สไตล์สำหรับ Username */
-            font-family: 'Prompt', sans-serif;
-            font-size: 1.7em;
-            font-weight: 700; /* Prompt Bold */
-            color: #FF3377; /* สีชมพู */
-            margin-bottom: 15px;
-        }
-
-        .profile-info p {
-            font-family: 'Prompt', sans-serif;
-            font-size: 1.05em;
-            color: #555555;
-            margin-bottom: 12px;
-            line-height: 1.8;
-        }
-        .profile-info p strong { /* สำหรับ Label เช่น "อีเมล์:", "ที่อยู่:" */
-            font-weight: 500; /* Prompt Medium */
-            color: #333333;
-            margin-right: 8px;
-        }
-
-
-        .profile-actions {
-            margin-top: 30px;
-            padding-top: 25px;
-            border-top: 1px solid #F0F0F0; /* เส้นคั่น */
-            display: flex;
-            flex-direction: column; /* จัดเรียงปุ่มแนวตั้ง */
-            align-items: stretch; /* ทำให้ปุ่มกว้างเต็ม */
-            gap: 15px; /* ระยะห่างระหว่างปุ่ม */
-        }
-
-        .profile-actions a.btn-profile { /* ใช้ class สำหรับปุ่ม */
-            font-family: 'Prompt', sans-serif;
-            display: block; /* ทำให้เป็น block เพื่อจัดความกว้าง */
-            padding: 12px 20px;
-            background-color: #60C4B4; /* สีเขียวมิ้นต์ */
+        form button {
+            margin-top: 15px;
+            background-color: #60C4B4;
             color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        form button:hover {
+            background-color: #4b98a2;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+        }
+        th, td {
+            padding: 12px 8px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #FF3377;
+            color: white;
+        }
+        .logout-link {
+            display: inline-block;
+            margin-top: 20px;
+            background-color: #E74C3C;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 6px;
             text-decoration: none;
-            border-radius: 8px;
-            text-align: center;
-            font-size: 1.05em;
-            font-weight: 500; /* Prompt Medium */
-            transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+            font-weight: 600;
         }
-        .profile-actions a.btn-profile.change-password { /* ปุ่มเปลี่ยนรหัสผ่าน */
-            background-color: #778CA3; /* สีเทาอมฟ้า */
-        }
-
-
-        .profile-actions a.btn-profile:hover {
-            background-color: #4EAA9B; /* สีเขียวมิ้นต์เข้มขึ้น */
-            transform: translateY(-1px);
-        }
-         .profile-actions a.btn-profile.change-password:hover {
-            background-color: #607489;
-        }
-
-        .profile-actions a.btn-profile:active {
-            transform: translateY(0px);
-        }
-
-
-        /* Footer Section - Consistent with other pages */
-        .footer {
-            font-family: 'Prompt', sans-serif;
-            background-color: #A0D8F1;
-            color: #2C3E50;
-            text-align: center;
-            padding: 25px 20px;
-            font-size: 0.9em;
-            margin-top: 40px;
-            border-top: 3px solid #8ACCE6;
+        .logout-link:hover {
+            background-color: #c0392b;
         }
     </style>
 </head>
@@ -191,61 +130,103 @@
 <body>
     <div class="header">
         <div class="header-left">
-            {# หากโลโก้ควรเป็นลิงก์กลับหน้าหลัก ให้ใส่ <a href="{% url 'clothing:welcome' %}"> ครอบ #}
-            <div class="logo">MINDVIBE</div>
+            <a href="{% url 'clothing:welcome' %}" class="logo">MINDVIBE</a>
             <p class="slogan">LOOK GOOD. FEEL RIGHT. LIVE TRUE. | MINDFULLY CURATED OUTFITS FOR EVERY EMOTION AND MOMENT.</p>
         </div>
         <div class="header-right">
-            <a href="{% url 'clothing:welcome' %}" title="หน้าหลัก">
-                <img src="{% static 'images/home_icon.png' %}" alt="Home">
+            <a href="{% url 'clothing:welcome' %}">
+                <img src="{% static 'images/home_icon.png' %}" alt="Home" />
             </a>
-            <a href="#" title="ค้นหา"> {# ใส่ URL หน้าค้นหาที่ถูกต้อง #}
-                <img src="{% static 'images/search_icon.png' %}" alt="Search">
+            <a href="/search/">
+                <img src="{% static 'images/search_icon.png' %}" alt="Search" />
             </a>
-            <a href="{% if user.is_authenticated %}{% url 'clothing:favorites_list' %}{% else %}{% url 'clothing:login' %}{% endif %}" title="รายการโปรด">
-                <img src="{% static 'images/heart_icon.png' %}" alt="Wishlist">
+            <a href="{% if user.is_authenticated %}{% url 'clothing:favorites_list' %}{% else %}{% url 'clothing:login' %}{% endif %}">
+                <img src="{% static 'images/heart_icon.png' %}" alt="Wishlist" />
             </a>
-            <a href="{% if user.is_authenticated %}{% url 'clothing:cart' %}{% else %}{% url 'clothing:login' %}{% endif %}" title="ตะกร้าสินค้า">
-                <img src="{% static 'images/cart_icon.png' %}" alt="Cart">
+            <a href="{% if user.is_authenticated %}{% url 'clothing:cart' %}{% else %}{% url 'clothing:login' %}{% endif %}">
+                <img src="{% static 'images/cart_icon.png' %}" alt="Cart" />
             </a>
-            <a href="{% if user.is_authenticated %}{% url 'clothing:status' %}{% else %}{% url 'clothing:login' %}{% endif %}" title="สถานะคำสั่งซื้อ">
-                <img src="{% static 'images/status_icon.png' %}" alt="Status">
+            <a href="{% if user.is_authenticated %}{% url 'clothing:status' %}{% else %}{% url 'clothing:login' %}{% endif %}">
+                <img src="{% static 'images/status_icon.png' %}" alt="Status" />
             </a>
-            <a href="{% if user.is_authenticated %}{% url 'clothing:profile' %}{% else %}{% url 'clothing:login' %}{% endif %}" title="โปรไฟล์">
-                <img src="{% static 'images/profile_icon.png' %}" alt="Profile">
+            <a href="{% if user.is_authenticated %}{% url 'clothing:profile' %}{% else %}{% url 'clothing:login' %}{% endif %}">
+                <img src="{% static 'images/profile_icon.png' %}" alt="Profile" />
             </a>
         </div>
     </div>
 
-    <div class="main-content-wrapper">
-        <div class="profile-container">
-            <h1>ข้อมูลโปรไฟล์ของคุณ</h1>
-            <div class="profile-info">
-                <h2>{{ user.username }}</h2>
-                <p><strong>อีเมล์:</strong> {{ user.email|default:"ไม่ได้ระบุ" }}</p>
-                <p><strong>ชื่อจริง:</strong> {{ user.first_name|default:"ไม่ได้ระบุ" }}</p>
-                <p><strong>นามสกุล:</strong> {{ user.last_name|default:"ไม่ได้ระบุ" }}</p>
-                {# ตัวอย่างการแสดงข้อมูลจาก Profile model (ถ้ามี) #}
-                {% if user.profile %}
-                    <p><strong>ที่อยู่:</strong> {{ user.profile.address|default:"ไม่ได้ระบุ" }}</p>
-                    <p><strong>เบอร์โทรศัพท์:</strong> {{ user.profile.phone_number|default:"ไม่ได้ระบุ" }}</p>
-                {% endif %}
-            </div>
-            <div class="profile-actions">
-                <a href="{% url 'clothing:edit_profile' %}" class="btn-profile">แก้ไขข้อมูลโปรไฟล์</a>
-                <a href="{% url 'clothing:change_password' %}" class="btn-profile change-password">เปลี่ยนรหัสผ่าน</a>
-                {# เพิ่มปุ่ม Logout ถ้าต้องการ #}
-                <form method="post" action="{% url 'logout' %}" style="margin:0;"> {# ตรวจสอบ URL name 'logout' ให้ถูกต้อง #}
-                    {% csrf_token %}
-                    <button type="submit" class="btn-profile change-password" style="width:100%; background-color: #E74C3C;">ออกจากระบบ</button>
-                </form>
+    <div class="profile-container">
+        <h1>ข้อมูลโปรไฟล์ของคุณ</h1>
+        <h2>ชื่อผู้ใช้: {{ user.username }}</h2>
+        <p>อีเมล์: {{ user.email }}</p>
 
-            </div>
-        </div>
+        <h2>ข้อมูลที่อยู่</h2>
+        <form method="post" action="{% url 'clothing:profile' %}">
+            {% csrf_token %}
+            <label for="full_name">ชื่อ-นามสกุล</label>
+            <input type="text" name="full_name" id="full_name" value="{{ latest_payment.full_name|default:user.username }}" required>
+
+            <label for="address">ที่อยู่</label>
+            <textarea name="address" id="address" rows="3" required>{{ latest_payment.address|default:"" }}</textarea>
+
+            <label for="phone_number">เบอร์โทรศัพท์</label>
+            <input type="text" name="phone_number" id="phone_number" value="{{ latest_payment.phone_number|default:"" }}" required>
+
+            <button type="submit">บันทึกที่อยู่</button>
+        </form>
+
+        <h2>ประวัติคำสั่งซื้อ</h2>
+        {% if payments %}
+        <table>
+            <thead>
+                <tr>
+                    <th>วันที่สั่งซื้อ</th>
+                    <th>ชื่อผู้รับ</th>
+                    <th>ที่อยู่</th>
+                    <th>เบอร์โทร</th>
+                    <th>ยอดรวม (฿)</th>
+                    <th>สถานะล่าสุด</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for payment in payments %}
+                <tr>
+                    <td>{{ payment.payment_date|date:"d/m/Y H:i" }}</td>
+                    <td>{{ payment.full_name }}</td>
+                    <td>{{ payment.address }}</td>
+                    <td>{{ payment.phone_number }}</td>
+                    <td>{{ payment.total_price|floatformat:2 }}</td>
+                    <td>
+                        {% if status_dict.payment.id %}
+                            {{ status_dict.payment.id.get_status_display }}
+                        {% else %}
+                            ยังไม่มีสถานะ
+                        {% endif %}
+                        {% comment %}
+                        เนื่องจากเราเก็บ status_dict ด้วย payment.id เป็น key,
+                        ต้องใช้ status_dict[payment.id] ใน Django template
+                        แต่ Django template ไม่มี bracket notation,
+                        ดังนั้นเราใช้ with ช่วยแทน
+                        {% endcomment %}
+                        {% with status=status_dict.payment.id %}
+                            {% if status %}
+                                {{ status.get_status_display }}
+                            {% else %}
+                                ยังไม่มีสถานะ
+                            {% endif %}
+                        {% endwith %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>คุณยังไม่มีคำสั่งซื้อ</p>
+        {% endif %}
+
+        <a href="{% url 'clothing:welcome' %}" class="logout-link">ออกจากระบบ</a>
     </div>
 
-    <div class="footer">
-        <p>&copy; {% now "Y" %} MindVibe. สงวนลิขสิทธิ์.</p>
-    </div>
 </body>
+
 </html>

@@ -1,14 +1,14 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MindVibe - Product Details</title>
+    <title>MindVibe - รายละเอียดสินค้า</title>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;700&display=swap" rel="stylesheet">
 
     <style>
         body {
@@ -17,17 +17,18 @@
             padding: 0;
             background-color: #FFF1E6;
             color: #333;
-            line-height: 1.6;
+            line-height: 1.7;
         }
 
-        /* Header Section - Adjusted to match clothing_list.html */
+        /* --- Header Section (คงไว้ตามโค้ดที่คุณให้มาล่าสุด) --- */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: #FDFD95; /* สีเหลือง */
+            background-color: #FDFD95;
             padding: 15px 30px;
             color: #333;
+            border-bottom: 1px solid #e0e0e0;
         }
 
         .header-left {
@@ -36,16 +37,18 @@
             align-items: flex-start;
         }
 
-        .header .logo {
+        .header .logo { /* โลโก้หลักของเว็บ (Bebas Neue) */
             font-family: 'Bebas Neue', sans-serif;
             font-size: 2.5em;
             font-weight: bold;
-            color: #FF3377; /* สีชมพู */
+            color: #FF3377;
             margin: 0 0 2px 0;
         }
 
-        .header .slogan {
+        .header .slogan { /* สโลแกน (Prompt) */
+            font-family: 'Prompt', sans-serif;
             font-size: 0.9em;
+            font-weight: 300;
             color: #333;
             margin: 0;
         }
@@ -57,222 +60,247 @@
         }
 
         .header-right a {
-            display: block;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .header-right img {
-            width: 20px;
-            height: 20px;
-            opacity: 0.8;
-            transition: opacity 0.3s ease;
+            width: 22px;
+            height: 22px;
+            opacity: 0.7;
+            transition: opacity 0.3s ease, transform 0.2s ease;
         }
 
         .header-right img:hover {
             opacity: 1;
+            transform: scale(1.1);
+        }
+        /* --- สิ้นสุด Header Section --- */
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
 
-        /* Home Icon */
-        .home-icon {
-            width: 20px;
-            height: 20px;
-        }
-
-        /* Product Detail Section */
-        .product-detail {
+        .product-detail-layout {
             display: flex;
             flex-wrap: wrap;
-            justify-content: space-between;
-            margin-top: 30px; /* เพิ่มระยะห่างจาก header */
-            padding: 20px;
-            background-color: #FFF1E6;
+            gap: 30px; 
+            margin-top: 40px;
+            align-items: flex-start; /* NEW: เพิ่ม align-items: flex-start เพื่อให้คอลัมน์สูงตามเนื้อหา */
         }
 
-        .product-image {
-            flex: 1 1 300px;
-            text-align: center;
-            padding-right: 20px;
-            margin-bottom: 20px;
-        }
-
-        .product-image img {
-            width: 100%;
-            max-width: 450px;
-            border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-
-        .product-info {
-            flex: 1.5 1 400px;
-            padding-left: 20px;
+        .product-gallery-and-name { /* คอลัมน์ซ้าย: ตอนนี้เป็น ชื่อ และ รูป */
+            flex: 1 1 450px; 
+            min-width: 320px; 
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.07);
+            padding: 25px;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
+            align-items: center; 
         }
 
-        .product-title-container {
+        .product-title-container-main { /* ชื่อสินค้าและไอคอนโปรด (อยู่บนสุดของคอลัมน์ซ้าย) */
             display: flex;
-            align-items: center;
-            margin-bottom: 15px;
+            align-items: flex-start; 
+            justify-content: center; 
+            gap: 15px; 
+            text-align: center; 
+            width: 100%;
+            margin-bottom: 20px; /* << NEW/ADJUSTED: ระยะห่างใต้ชื่อ ก่อนถึงรูปภาพ */
         }
 
-        .product-info h2 {
+        h2.product-name-main { 
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 2.8em; /* Adjusted size */
+            font-size: 2.8em; 
             color: #60C4B4;
             margin: 0;
-            margin-right: 15px; /* Adjusted spacing */
+            line-height: 1.1;
         }
 
-        .product-info .favorite-icon {
+        .favorite-icon-main { 
             width: 28px;
             height: 28px;
             cursor: pointer;
+            margin-top: 5px; 
+            transition: transform 0.2s ease;
+        }
+        .favorite-icon-main:hover {
+            transform: scale(1.15);
+        }
+        
+        .product-image-container { /* Container สำหรับรูปภาพ (อยู่ใต้ชื่อ) */
+            width: 100%;
+            /* margin-bottom: 25px; << REMOVED/ADJUSTED: ถ้าไม่มีอะไรต่อท้ายในคอลัมน์นี้ อาจจะไม่ต้องมี */
+            text-align: center;
         }
 
-        .product-description, .product-details-section {
+        .product-image-container img {
+            width: 100%;
+            max-width: 480px; 
+            border-radius: 10px;
+            display: inline-block; 
+        }
+        
+        .product-info-main { /* คอลัมน์ขวา: รายละเอียด, ราคา, ปุ่ม */
+            flex: 1.5 1 500px; 
+            min-width: 320px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.07);
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* หัวข้อต่างๆ (Prompt, Bold) ในคอลัมน์ขวา */
+        .product-section-title {
             font-family: 'Prompt', sans-serif;
-            margin-top: 20px; /* Adjusted spacing */
-            text-align: left;
-            font-size: 1em;
-            color: #444;
-            line-height: 1.7; /* Improved readability */
-        }
-
-        .product-description h3, .product-details-section h3 {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.8em; /* Adjusted size */
+            font-size: 1.5em; 
+            font-weight: 700;
             color: #FF3377;
-            margin-bottom: 10px;
+            margin-top: 20px;
+            margin-bottom: 12px;
+            border-bottom: 2px solid #FFD1DC;
+            padding-bottom: 8px;
+        }
+        /* หัวข้อแรกในคอลัมน์ขวา (เช่น "รายละเอียดสินค้า") */
+        .product-info-main .product-description:first-child .product-section-title,
+        .product-info-main > .product-description:first-child .product-section-title { /* เพิ่ม specificity */
+            margin-top: 0; 
         }
 
+
+        .product-description p,
         .product-details-section p {
-            margin: 8px 0; /* Adjusted spacing */
-            font-size: 0.95em;
+            font-size: 0.95rem;
+            color: #555;
+            margin-bottom: 8px;
+            line-height: 1.8;
         }
         .product-details-section p strong {
             color: #333;
-            font-weight: 500; /* Make strong text stand out */
+            font-weight: 500;
+            margin-right: 8px;
+        }
+        .product-description, .product-details-section {
+            margin-bottom: 20px; /* ระยะห่างระหว่างส่วนรายละเอียดกับส่วนราคา */
         }
 
+
+        /* ส่วนปุ่มเลือกราคา */
         .price-options {
-            margin-top: 30px; /* Adjusted spacing */
-            display: flex;
-            gap: 15px;
-            font-size: 1em;
-            flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+            /* margin-top: 25px; ถูกควบคุมโดย margin-bottom ของ section ก่อนหน้า */
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); 
+            gap: 10px;
+            margin-bottom: 25px; /* NEW: เพิ่มเพื่อให้มีช่องว่างก่อนปุ่ม action */
         }
 
         .price-options button {
             font-family: 'Prompt', sans-serif;
-            padding: 12px 25px;
-            background-color: #FFB6C1;
+            font-weight: 400;
+            padding: 10px 15px; 
+            background-color: #f5f5f5; 
             color: #333;
-            font-size: 0.95em;
-            border-radius: 8px;
-            border: none;
+            font-size: 0.85rem; 
+            border-radius: 6px;
+            border: 1px solid #e0e0e0; 
             cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
+            transition: all 0.2s ease-in-out;
+            text-align: center;
+            width: 100%;
         }
 
         .price-options button:hover {
-            background-color: #FF9AAE;
-            transform: translateY(-2px);
+            background-color: #e9e9e9;
+            border-color: #d0d0d0;
+            transform: translateY(-1px);
         }
 
         .price-options button.active {
             background-color: #FF3377;
             color: white;
+            border-color: #FF3377;
+            font-weight: 500;
+            box-shadow: 0 2px 4px rgba(255, 51, 119, 0.3);
         }
 
-        .buttons {
-            margin-top: 30px; /* Adjusted spacing */
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
+        /* ส่วนปุ่ม Action (เพิ่มลงตะกร้า, ซื้อตอนนี้) */
+        .form-actions {
+            margin-top: auto; /* NEW: ดันปุ่มลงล่างสุดของคอลัมน์ขวา */
+            display: grid; 
+            grid-template-columns: 1fr; 
+            gap: 12px; 
         }
 
-        .btn {
+        .form-actions .btn {
             font-family: 'Prompt', sans-serif;
-            font-size: 1.1em;
-            padding: 14px 30px;
-            background-color: #60C4B4; /* Changed to a color similar to the list page */
+            font-weight: 500;
+            font-size: 1rem; 
+            padding: 12px 20px; 
             color: #ffffff;
             text-decoration: none;
             border-radius: 8px;
-            transition: background-color 0.3s, transform 0.2s;
+            transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
             text-align: center;
-            border: none; /* Remove default button border */
-            cursor: pointer; /* Add cursor for better UX */
+            border: none;
+            cursor: pointer;
+            width: 100%; 
         }
-
-        .btn:hover {
-            background-color: #4aa090;
+        .form-actions .btn:hover {
             transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
         }
 
-        .btn.buy-now {
+        .btn.add-to-cart-btn {
+             background-color: #60C4B4;
+        }
+        .btn.add-to-cart-btn:hover {
+            background-color: #50b4a4;
+        }
+
+        .btn.buy-now-btn {
             background-color: #FF3377;
         }
-
-        .btn.buy-now:hover {
-            background-color: #e6005c;
+        .btn.buy-now-btn:hover {
+            background-color: #f02266;
         }
 
         /* Reviews Section */
-        .reviews {
-            margin-top: 50px; /* Increased spacing */
-            padding: 25px;
+        .reviews-container {
+            margin-top: 40px; 
+            padding: 30px;
             background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.08);
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.07);
         }
 
-        .reviews h3 {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 2.2em; /* Adjusted size */
+        .reviews-container h3.reviews-title {
+            font-family: 'Prompt', sans-serif;
+            font-size: 1.6em; 
+            font-weight: 700;
             color: #60C4B4;
-            margin-bottom: 25px; /* Increased spacing */
+            margin-bottom: 25px;
             text-align: center;
+            border-bottom: 2px solid #b2e7df;
+            padding-bottom: 8px;
         }
+        .review { border-bottom: 1px solid #f0f0f0; padding: 20px 0; }
+        .review:first-of-type { padding-top: 0; }
+        .review:last-child { border-bottom: none; padding-bottom: 0; }
+        .reviewer-info { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        .reviewer-name { font-size: 1.05rem; font-weight: 500; color: #333; }
+        .rating { color: #FFB300; font-size: 1rem; }
+        .review-text { color: #555; font-size: 0.95rem; line-height: 1.8; }
+        .no-reviews { text-align:center; font-family: 'Prompt', sans-serif; color: #777; padding: 20px 0; }
 
-        .review {
-            border-bottom: 1px solid #eee;
-            padding: 20px 0;
-        }
+        .footer { background-color: #A0D8F1; color: #333; text-align: center; padding: 25px 20px; margin-top: 50px; font-size: 0.9em; font-weight: 300;}
 
-        .review:last-child {
-            border-bottom: none;
-        }
-
-        .reviewer-name {
-            font-size: 1.1em;
-            font-weight: 500;
-            color: #333;
-            margin-bottom: 5px; /* Added spacing */
-        }
-
-        .rating {
-            color: #FFB300;
-            margin-top: 8px;
-            font-size: 1.1em;
-        }
-
-        .review-text {
-            color: #555;
-            font-size: 1em;
-            margin-top: 10px;
-            line-height: 1.7;
-        }
-
-        /* Footer */
-        .footer {
-            background-color: #A0D8F1;
-            color: white;
-            text-align: center;
-            padding: 20px;
-            margin-top: 50px;
-            font-size: 0.8em;
-        }
     </style>
 </head>
 
@@ -283,108 +311,106 @@
             <p class="slogan">LOOK GOOD. FEEL RIGHT. LIVE TRUE. | MINDFULLY CURATED OUTFITS FOR EVERY EMOTION AND MOMENT.</p>
         </div>
         <div class="header-right">
-            <a href="{% url 'clothing:welcome' %}">
-                <img src="{% static 'images/home_icon.png' %}" alt="Home" class="home-icon">
-            </a>
-            <a href="/search/"><img src="{% static 'images/search_icon.png' %}" alt="Search"></a>
-            <a href="{% if user.is_authenticated %}{% url 'clothing:favorites_list' %}{% else %}{% url 'clothing:login' %}{% endif %}">
-                <img src="{% static 'images/heart_icon.png' %}" alt="Wishlist">
-            </a>
-            <a href="{% if user.is_authenticated %}{% url 'clothing:cart' %}{% else %}{% url 'clothing:login' %}{% endif %}">
-                <img src="{% static 'images/cart_icon.png' %}" alt="Cart">
-            </a>
-            <a href="{% if user.is_authenticated %}{% url 'clothing:status' %}{% else %}{% url 'clothing:login' %}{% endif %}">
-                <img src="{% static 'images/status_icon.png' %}" alt="Status">
-            </a>
-            <a href="{% if user.is_authenticated %}{% url 'clothing:profile' %}{% else %}{% url 'clothing:login' %}{% endif %}">
-                <img src="{% static 'images/profile_icon.png' %}" alt="Profile">
-            </a>
+            <a href="{% url 'clothing:welcome' %}" title="หน้าหลัก"><img src="{% static 'images/home_icon.png' %}" alt="หน้าหลัก"></a>
+            <a href="/search/" title="ค้นหา"><img src="{% static 'images/search_icon.png' %}" alt="ค้นหา"></a>
+            <a href="{% if user.is_authenticated %}{% url 'clothing:favorites_list' %}{% else %}{% url 'clothing:login' %}{% endif %}" title="รายการโปรด"><img src="{% static 'images/heart_icon.png' %}" alt="รายการโปรด"></a>
+            <a href="{% if user.is_authenticated %}{% url 'clothing:cart' %}{% else %}{% url 'clothing:login' %}{% endif %}" title="ตะกร้าสินค้า"><img src="{% static 'images/cart_icon.png' %}" alt="ตะกร้าสินค้า"></a>
+            <a href="{% if user.is_authenticated %}{% url 'clothing:status' %}{% else %}{% url 'clothing:login' %}{% endif %}" title="สถานะการสั่งซื้อ"><img src="{% static 'images/status_icon.png' %}" alt="สถานะ"></a>
+            <a href="{% if user.is_authenticated %}{% url 'clothing:profile' %}{% else %}{% url 'clothing:login' %}{% endif %}" title="โปรไฟล์"><img src="{% static 'images/profile_icon.png' %}" alt="โปรไฟล์"></a>
         </div>
     </div>
 
-    <div class="product-detail">
-        <div class="product-image">
-            <img src="{{ clothing.image.url }}" alt="{{ clothing.name }}">
+    <div class="container">
+        <div class="product-detail-layout"> 
+            <div class="product-gallery-and-name"> <div class="product-title-container-main"> 
+                    <h2 class="product-name-main">{{ clothing.name }}</h2>
+                    <a href="{% if user.is_authenticated %}{% url 'clothing:add_to_favorites' pk=clothing.pk %}{% else %}{% url 'clothing:login' %}{% endif %}" title="เพิ่มในรายการโปรด">
+                        <img src="{% static 'images/heart_icon.png' %}" alt="เพิ่มในรายการโปรด" class="favorite-icon-main">
+                    </a>
+                </div>
+                <div class="product-image-container"> 
+                    <img src="{{ clothing.image.url }}" alt="{{ clothing.name }}">
+                </div>
+                
+                </div>
+
+            <div class="product-info-main"> <div class="product-description">
+                    <h3 class="product-section-title">รายละเอียดสินค้า</h3>
+                    <p>{{ clothing.product_details|linebreaksbr }}</p>
+                </div>
+
+                <div class="product-details-section">
+                    <h3 class="product-section-title">ข้อมูลเพิ่มเติม</h3>
+                    <p><strong>สี:</strong> {{ clothing.color }}</p>
+                    <p><strong>วัสดุ:</strong> {{ clothing.material }}</p>
+                    <p><strong>ทรง:</strong> {{ clothing.fit }}</p>
+                    <p><strong>ดีไซน์:</strong> {{ clothing.design }}</p>
+                    <p><strong>การใช้งาน:</strong> {{ clothing.versatility }}</p>
+                    <p><strong>ขนาดที่มี:</strong> {{ clothing.sizes_available }}</p>
+                    <p><strong>คำแนะนำการดูแล:</strong> {{ clothing.care_instructions }}</p>
+                    <p><strong>เหมาะสำหรับ:</strong> {{ clothing.perfect_for }}</p>
+                </div>
+                <div class="price-options">
+                    <button type="button" data-price="{{ clothing.price_per_day_1 }}" data-days="1" class="active">1 วัน: {{ clothing.price_per_day_1 }} บาท</button>
+                    <button type="button" data-price="{{ clothing.price_per_day_3 }}" data-days="3">3 วัน: {{ clothing.price_per_day_3 }} บาท</button>
+                    <button type="button" data-price="{{ clothing.price_per_day_5 }}" data-days="5">5 วัน: {{ clothing.price_per_day_5 }} บาท</button>
+                    <button type="button" data-price="{{ clothing.price_per_day_7 }}" data-days="7">7 วัน: {{ clothing.price_per_day_7 }} บาท</button>
+                </div>
+
+                <form method="POST" action="{% url 'clothing:add_to_cart' pk=clothing.pk %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="days" id="selected-days" value="1">
+                    <div class="form-actions">
+                        <button type="submit" name="action" value="add_to_cart" class="btn add-to-cart-btn">เพิ่มลงตะกร้า</button>
+                        <button type="submit" name="action" value="buy_now" class="btn buy-now-btn">ซื้อตอนนี้</button>
+                    </div>
+                </form>
+            </div>
         </div>
 
-        <div class="product-info">
-            <div class="product-title-container">
-                <h2>{{ clothing.name }}</h2>
-                <a href="{% if user.is_authenticated %}{% url 'clothing:add_to_favorites' pk=clothing.pk %}{% else %}{% url 'clothing:login' %}{% endif %}">
-                    <img src="{% static 'images/heart_icon.png' %}" alt="Add to Favorites" class="favorite-icon">
-                </a>
-            </div>
-
-            <div class="product-description">
-                <h3>Product Details</h3>
-                <p>{{ clothing.product_details|linebreaksbr }}</p>
-            </div>
-
-            <div class="product-details-section">
-                <h3>More Information</h3>
-                <p><strong>Color:</strong> {{ clothing.color }}</p>
-                <p><strong>Material:</strong> {{ clothing.material }}</p>
-                <p><strong>Fit:</strong> {{ clothing.fit }}</p>
-                <p><strong>Design:</strong> {{ clothing.design }}</p>
-                <p><strong>Versatility:</strong> {{ clothing.versatility }}</p>
-                <p><strong>Sizes Available:</strong> {{ clothing.sizes_available }}</p>
-                <p><strong>Care Instructions:</strong> {{ clothing.care_instructions }}</p>
-                <p><strong>Perfect For:</strong> {{ clothing.perfect_for }}</p>
-            </div>
-
-            <div class="price-options">
-                <button type="button" data-price="{{ clothing.price_per_day_1 }}" data-days="1">1 Day: ${{ clothing.price_per_day_1 }}</button>
-                <button type="button" data-price="{{ clothing.price_per_day_3 }}" data-days="3">3 Days: ${{ clothing.price_per_day_3 }}</button>
-                <button type="button" data-price="{{ clothing.price_per_day_5 }}" data-days="5">5 Days: ${{ clothing.price_per_day_5 }}</button>
-                <button type="button" data-price="{{ clothing.price_per_day_7 }}" data-days="7">7 Days: ${{ clothing.price_per_day_7 }}</button>
-            </div>
-
-            <form method="POST" action="{% url 'clothing:add_to_cart' pk=clothing.pk %}">
-                {% csrf_token %}
-                <input type="hidden" name="days" id="selected-days" value="1"> <div class="buttons">
-                    <button type="submit" name="action" value="add_to_cart" class="btn">Add to Cart</button>
-                    <button type="submit" name="action" value="buy_now" class="btn buy-now">Buy Now</button>
+        <div class="reviews-container">
+            <h3 class="reviews-title">รีวิวจากลูกค้า</h3>
+            {% for review in clothing.reviews.all %}
+                <div class="review">
+                    <div class="reviewer-info">
+                        <span class="reviewer-name">{{ review.user.username }}</span>
+                        <span class="rating">
+                            {% for i in "x"|rjust:review.rating|slice:":review.rating" %}⭐{% endfor %}
+                        </span>
+                    </div>
+                    <div class="review-text">
+                        {{ review.comment|linebreaksbr }}
+                    </div>
                 </div>
-            </form>
+            {% empty %}
+                <p class="no-reviews">ยังไม่มีรีวิวสำหรับสินค้านี้</p>
+            {% endfor %}
+
+            {% if not clothing.reviews.all %}
+                 <div class="review">
+                     <div class="reviewer-info">
+                        <span class="reviewer-name">สมหญิง ยอดนักช้อป</span>
+                        <span class="rating">⭐⭐⭐⭐⭐</span>
+                    </div>
+                    <div class="review-text">
+                        ชอบมากค่ะ! ตั้งแต่ทรงจนถึงเนื้อผ้า ทุกอย่างของชุดนี้คือใช่เลย สวมใส่สบาย มีสไตล์ และตรงกับที่ตามหาสุดๆ
+                    </div>
+                </div>
+                <div class="review">
+                    <div class="reviewer-info">
+                        <span class="reviewer-name">สมชาย ใจดี</span>
+                        <span class="rating">⭐⭐⭐⭐⭐</span>
+                    </div>
+                    <div class="review-text">
+                        สินค้าดีเยี่ยม ชอบมากครับ! ทรงพอดีตัวเป๊ะ เนื้อผ้าก็ดีมาก ใส่แล้วสบายผิวสุดๆ ชุดนี้ไม่เพียงแต่ใส่สบาย แต่ยังดูดีมีสไตล์อีกด้วยครับ
+                    </div>
+                </div>
+            {% endif %}
         </div>
-    </div>
-
-    <div class="reviews">
-        <h3>Customer Reviews</h3>
-        {% for review in clothing.reviews.all %} {# สมมติว่า clothing object มี related reviews #}
-            <div class="review">
-                <div class="reviewer-name">{{ review.user.username }}</div> {# สมมติว่า review มี user field #}
-                <div class="rating">
-                    {% for i in "x"|rjust:review.rating|slice:":review.rating" %}⭐{% endfor %} {# แสดงดาวตาม rating #}
-                </div>
-                <div class="review-text">
-                    {{ review.comment|linebreaksbr }}
-                </div>
-            </div>
-        {% empty %}
-            <p style="text-align:center; font-family: 'Prompt', sans-serif;">No reviews yet for this product.</p>
-        {% endfor %}
-
-        {% if not clothing.reviews.all %}
-            <div class="review">
-                <div class="reviewer-name">Kristin Watson</div>
-                <div class="rating">⭐⭐⭐⭐⭐</div>
-                <div class="review-text">
-                    Love it! From the fit to the fabric, everything about these pieces is just perfect. They're comfortable, stylish, and exactly what I was looking for.
-                </div>
-            </div>
-            <div class="review">
-                <div class="reviewer-name">Bessie Cooper</div>
-                <div class="rating">⭐⭐⭐⭐⭐</div>
-                <div class="review-text">
-                    Excellent product, I like it! The fit is spot-on, and the fabric feels amazing against my skin. These pieces are not only comfortable but incredibly stylish as well.
-                </div>
-            </div>
-        {% endif %}
     </div>
 
     <div class="footer">
-        <p>&copy; {% now "Y" %} MindVibe. All rights reserved.</p>
+        <p>&copy; {% now "Y" %} MINDVIBE สงวนลิขสิทธิ์</p>
     </div>
 
     <script>
@@ -392,19 +418,27 @@
             const priceButtons = document.querySelectorAll('.price-options button');
             const selectedDaysInput = document.getElementById('selected-days');
 
+            if (priceButtons.length > 0) {
+                let firstActiveButton = document.querySelector('.price-options button.active');
+                if (!firstActiveButton && priceButtons[0]) { 
+                    priceButtons[0].classList.add('active');
+                    if (selectedDaysInput) { 
+                        selectedDaysInput.value = priceButtons[0].dataset.days;
+                    }
+                } else if (firstActiveButton && selectedDaysInput) { 
+                     selectedDaysInput.value = firstActiveButton.dataset.days;
+                }
+            }
+
             priceButtons.forEach(button => {
                 button.addEventListener('click', function() {
                     priceButtons.forEach(btn => btn.classList.remove('active'));
                     this.classList.add('active');
-                    selectedDaysInput.value = this.dataset.days;
-                    console.log('Selected days:', this.dataset.days, 'Price:', this.dataset.price);
+                    if (selectedDaysInput) { 
+                        selectedDaysInput.value = this.dataset.days;
+                    }
                 });
             });
-
-            if (priceButtons.length > 0) {
-                priceButtons[0].classList.add('active');
-                selectedDaysInput.value = priceButtons[0].dataset.days;
-            }
         });
     </script>
 

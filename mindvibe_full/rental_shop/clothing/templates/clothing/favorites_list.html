@@ -361,7 +361,7 @@
                             {% if item.image %}
                                 <img src="{{ item.image.url }}" alt="{{ item.name }}" class="item-image">
                             {% else %}
-                                <div class="no-image-placeholder">No Image Available</div>
+                                <div class="no-image-placeholder">ไม่มีรูปภาพ</div>
                             {% endif %}
                         </a>
                         <div class="card-body">
@@ -377,8 +377,8 @@
                                 {% endif %}
                             </div>
                             <div class="actions">
-                                <a href="{% url 'clothing:clothing_detail' pk=item.pk %}" class="btn btn-view-details">View Details</a>
-                                <a href="{% url 'clothing:remove_from_favorites' pk=item.pk %}" class="btn btn-remove-favorite">Remove</a>
+                                <a href="{% url 'clothing:clothing_detail' pk=item.pk %}" class="btn btn-view-details">ดูรายละเอียด</a>
+                                <a href="{% url 'clothing:remove_from_favorites' pk=item.pk %}" class="btn btn-remove-favorite">ลบออก</a>
                             </div>
                         </div>
                     </div>
@@ -386,9 +386,9 @@
             </div>
         {% else %}
             <div class="no-favorites-message">
-                <p>You haven't added any items to your favorites yet.</p>
-                <p>Explore our collection and find something you love!</p>
-                <a href="{% url 'clothing:clothing_list' %}" class="btn-browse">Browse Items</a>
+                <p>คุณยังไม่มีสินค้ารายการโปรด</p>
+                <p>เลือกชมคอลเลคชั่นของเราและค้นหาสินค้าที่คุณถูกใจ!</p>
+                <a href="{% url 'clothing:clothing_list' %}" class="btn-browse">เลือกชมสินค้า</a>
             </div>
         {% endif %}
     </div>

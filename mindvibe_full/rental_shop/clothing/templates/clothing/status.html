@@ -4,162 +4,358 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>สถานะการจัดส่ง - MindVibe</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สถานะคำสั่งซื้อ - MindVibe</title> {# Changed Title to สถานะคำสั่งซื้อ #}
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Prompt', sans-serif;
-            background-color: #FFF1E6;
-            margin: 0;
-            padding: 0;
-            color: #333;
-            line-height: 1.6;
+        :root {
+            --primary-color: #FF3377;
+            --secondary-color: #60C4B4;
+            --background-light: #FFF1E6;
+            --surface-color: #ffffff;
+            --text-primary: #333;
+            --text-secondary: #555;
+            --text-on-primary: #ffffff;
+            --text-on-secondary: #ffffff;
+            --border-light: #e0e0e0;
+            --border-medium: #ccc;
+            --success-color: #5cb85c;
+            --danger-color: #d9534f;
+            --font-main: 'Prompt', sans-serif;
+            --font-logo: 'Bebas Neue', sans-serif;
+            --border-radius-sm: 6px;
+            --border-radius-md: 10px;
+            --border-radius-lg: 15px;
+            --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-medium: 0 8px 20px rgba(0, 0, 0, 0.1);
         }
 
-        /* Header Section */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--background-light);
+            margin: 0;
+            padding: 0;
+            color: var(--text-primary);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header Section - UNCHANGED AS REQUESTED */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: #FDFD95; /* สีเหลือง */
+            background-color: #FDFD95;
             padding: 15px 30px;
-            color: #333;
+            color: var(--text-primary);
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            flex-shrink: 0;
         }
-
         .header-left {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
         }
-
         .header .logo {
-            font-family: 'Bebas Neue', sans-serif;
+            font-family: var(--font-logo);
             font-size: 2.5em;
             font-weight: bold;
-            color: #FF3377; /* สีชมพู */
+            color: var(--primary-color);
             margin: 0 0 2px 0;
             text-decoration: none;
         }
-
         .header .slogan {
+            font-family: var(--font-main);
             font-size: 0.9em;
-            color: #333;
+            color: var(--text-primary);
             margin: 0;
         }
-
         .header-right {
             display: flex;
             align-items: center;
             gap: 20px;
         }
-
         .header-right a {
             display: flex;
             align-items: center;
             justify-content: center;
         }
-
         .header-right img {
             width: 22px;
             height: 22px;
             opacity: 0.7;
             transition: opacity 0.3s ease, transform 0.2s ease;
         }
-
         .header-right img:hover {
             opacity: 1;
             transform: scale(1.1);
         }
 
-        /* Status Container */
-        .status-container {
-            max-width: 900px;
-            margin: 40px auto;
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        /* Page Title Section - NEW */
+        .page-title-section {
+            text-align: center;
+            padding: 35px 20px 15px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            line-height: 1.3;
+        }
+        .page-title-section .main-title-en {
+            font-family: var(--font-logo);
+            font-size: 3.2em;
+            font-weight: bold;
+            color: var(--secondary-color); /* Using teal for this page's title */
+            margin: 0 0 5px 0;
+            text-transform: uppercase;
+        }
+        .page-title-section .sub-title-th {
+            font-family: var(--font-main);
+            font-size: 1.6em;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin: 0;
         }
 
-        .status-container h1 {
-            color: #60C4B4;
-            margin-bottom: 20px;
+        /* Main Content Wrapper for Status Page */
+        .main-content-status {
+            flex-grow: 1;
+            padding: 20px 20px 50px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
         }
+
+        .status-container {
+            max-width: 850px; /* Adjusted max-width */
+            width: 100%;
+            margin: 0 auto;
+            background-color: var(--surface-color);
+            padding: 30px 35px; /* Consistent padding */
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-medium);
+        }
+        /* Original .status-container h1 is removed */
+
+        .order-details-block {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-light);
+        }
+        .order-details-block p {
+            margin: 8px 0;
+            font-size: 1.05em;
+            color: var(--text-secondary);
+        }
+        .order-details-block p strong {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-right: 5px;
+            min-width: 150px; /* Ensure alignment of values */
+            display: inline-block;
+        }
+
+        hr.section-divider { /* Replaced default hr */
+            border: 0;
+            height: 1px;
+            background-color: var(--border-light);
+            margin: 30px 0;
+        }
+
+        .timeline-section h2,
+        .return-section h3 { /* Styles for section subheadings */
+            font-family: var(--font-main);
+            font-size: 1.7em; /* Prominent subheadings */
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-top: 0;
+            margin-bottom: 20px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--secondary-color);
+            display: inline-block;
+        }
+        .return-section h3 {
+            font-size: 1.5em; /* Slightly smaller for "คืนสินค้า" */
+        }
+
 
         .status-item {
-            margin: 10px 0;
-            padding: 10px;
+            margin-bottom: 15px; /* Increased space between items */
+            padding: 15px; /* Increased padding */
             background-color: #f9f9f9;
-            border-left: 5px solid #60C4B4;
-            border-radius: 5px;
+            border-left: 5px solid var(--secondary-color);
+            border-radius: var(--border-radius-sm);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
-
-        .status-item strong {
-            color: #FF3377;
-        }
-
-        .form-section {
-            margin-top: 40px;
-            border-top: 1px solid #ddd;
-            padding-top: 20px;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-group label {
-            font-weight: bold;
+        .status-item strong { /* For the status text itself */
+            color: var(--primary-color);
+            font-weight: 600; /* Bolder status */
+            font-size: 1.1em;
             display: block;
             margin-bottom: 5px;
         }
+        .status-item div { /* For date, tracking, note */
+            font-size: 0.9em;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        .status-item .tracking-number,
+        .status-item .note-text { /* Classes for tracking and note text */
+            margin-top: 5px;
+            font-style: italic;
+        }
+        .status-item .tracking-number {
+            font-weight: 500;
+            color: var(--text-primary);
+        }
 
+
+        .form-section { /* This is the .return-section */
+            margin-top: 30px; /* Adjusted margin */
+            /* border-top: 1px solid #ddd; /* Removed, using section visual separation */
+            padding-top: 0; /* Removed, using section visual separation */
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+            font-size: 0.95em;
+        }
         .form-group input,
         .form-group textarea {
+            font-family: var(--font-main);
             width: 100%;
-            padding: 8px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
+            padding: 10px 14px; /* Adjusted padding */
+            border-radius: var(--border-radius-sm);
+            border: 1px solid var(--border-medium);
+            font-size: 1em;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(255, 51, 119, 0.2);
         }
 
         .form-group input[type="file"] {
-            border: none;
+            padding: 8px; /* Specific padding for file input */
+            background-color: #fdfdfd; /* Light background for file input area */
         }
 
-        .btn-submit {
-            background-color: #FF3377;
-            color: white;
-            padding: 12px 20px;
+        .btn-submit { /* For "ส่งคืนสินค้า" button */
+            font-family: var(--font-main);
+            background-color: var(--primary-color);
+            color: var(--text-on-primary);
+            padding: 12px 25px; /* Good padding */
             border: none;
-            border-radius: 6px;
+            border-radius: var(--border-radius-md);
             cursor: pointer;
-            font-size: 1em;
+            font-size: 1.05em;
+            font-weight: 500; /* Medium weight */
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: background-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+            display: inline-block; /* Allows margin if needed, or width:100% */
+            width: 100%; /* Make button full width */
+            margin-top: 10px; /* Space above */
+            box-shadow: 0 3px 8px rgba(255, 51, 119, 0.25);
+        }
+        .btn-submit:hover {
+            background-color: #e6005c; /* Darker primary */
+            transform: translateY(-2px);
+            box-shadow: 0 5px 12px rgba(255, 51, 119, 0.35);
         }
 
-        .btn-submit:hover {
+        .return-proof-section p { /* For "คุณได้ทำการคืนสินค้าเรียบร้อยแล้ว" */
+            font-size: 1.1em;
+            font-weight: 500;
+            color: var(--success-color);
+            margin-bottom: 10px;
+        }
+        img.return-proof-preview {
+            margin-top: 10px;
+            max-width: 250px; /* Slightly larger preview */
+            height: auto;
+            border-radius: var(--border-radius-sm);
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .no-order-message { /* For "ไม่พบข้อมูลคำสั่งซื้อของคุณ" */
+            text-align: center;
+            font-size: 1.2em;
+            color: var(--text-secondary);
+            padding: 40px 20px;
+            background-color: #fff9f0;
+            border-radius: var(--border-radius-md);
+            border: 1px dashed var(--primary-color);
+        }
+        .no-order-message a.btn-primary-action { /* Example if you add a button */
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 25px;
+            background-color: var(--primary-color);
+            color: var(--text-on-primary);
+            text-decoration: none;
+            border-radius: var(--border-radius-sm);
+            font-weight: 500;
+        }
+        .no-order-message a.btn-primary-action:hover {
             background-color: #e6005c;
         }
 
-        .tracking-number {
-            margin-top: 10px;
-        }
-
-        img.return-proof-preview {
-            margin-top: 10px;
-            max-width: 200px;
-        }
 
         /* Footer */
         .footer {
-            background-color: #A0D8F1; /* สีฟ้าอ่อน */
-            color: #333; /* ตัวอักษรสีเข้ม */
+            background-color: #A0D8F1;
+            color: var(--text-primary);
             text-align: center;
-            padding: 20px;
-            margin-top: 50px;
+            padding: 25px 10px;
+            margin-top: auto; /* Push to bottom */
             font-size: 0.9em;
+            user-select: none;
+            flex-shrink: 0;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
         }
+
+        @media (max-width: 768px) {
+            .header { padding: 12px 15px; flex-direction: column; gap: 12px; }
+            .header-left { align-items: center; text-align: center; }
+            .header .logo { font-size: 2.3em; }
+            .header .slogan { font-size: 0.85em; line-height: 1.3; }
+            .header-right { gap: 15px; flex-wrap: wrap; justify-content: center; }
+            .header-right img { width: 20px; height: 20px; }
+
+            .page-title-section .main-title-en { font-size: 2.5em; }
+            .page-title-section .sub-title-th { font-size: 1.3em; }
+
+            .main-content-status { padding: 15px 10px 30px; }
+            .status-container { padding: 25px 20px; }
+
+            .timeline-section h2, .return-section h3 { font-size: 1.4em; }
+            .order-details-block p { font-size: 1em;}
+            .status-item { padding: 12px; }
+            .status-item strong { font-size: 1em; }
+            .status-item div { font-size: 0.85em; }
+
+            .btn-submit { padding: 10px 18px; font-size: 1em; }
+            img.return-proof-preview { max-width: 180px; }
+        }
+
     </style>
 </head>
 
@@ -171,81 +367,100 @@
             <p class="slogan">LOOK GOOD. FEEL RIGHT. LIVE TRUE. | MINDFULLY CURATED OUTFITS FOR EVERY EMOTION AND MOMENT.</p>
         </div>
         <div class="header-right">
-            <a href="{% url 'clothing:welcome' %}">
-                <img src="{% static 'images/home_icon.png' %}" alt="Home" class="home-icon" />
+            <a href="{% url 'clothing:welcome' %}" title="หน้าแรก">
+                <img src="{% static 'images/home_icon.png' %}" alt="Home">
             </a>
-            <a href="{% url 'clothing:clothing_list' %}">
-                <img src="{% static 'images/search_icon.png' %}" alt="Search" />
+            <a href="{% url 'clothing:clothing_list' %}" title="ค้นหาสินค้า">
+                <img src="{% static 'images/search_icon.png' %}" alt="Search">
             </a>
-            <a href="{% if user.is_authenticated %}{% url 'clothing:favorites_list' %}{% else %}{% url 'clothing:login' %}{% endif %}">
-                <img src="{% static 'images/heart_icon.png' %}" alt="Wishlist" />
+            <a href="{% if user.is_authenticated %}{% url 'clothing:favorites_list' %}{% else %}{% url 'clothing:login' %}{% endif %}" title="สินค้าที่ชอบ">
+                <img src="{% static 'images/heart_icon.png' %}" alt="Wishlist">
             </a>
-            <a href="{% if user.is_authenticated %}{% url 'clothing:cart' %}{% else %}{% url 'clothing:login' %}{% endif %}">
-                <img src="{% static 'images/cart_icon.png' %}" alt="Cart" />
+            <a href="{% if user.is_authenticated %}{% url 'clothing:cart' %}{% else %}{% url 'clothing:login' %}{% endif %}" title="ตะกร้าสินค้า">
+                <img src="{% static 'images/cart_icon.png' %}" alt="Cart">
             </a>
-            <a href="{% if user.is_authenticated %}{% url 'clothing:status' %}{% else %}{% url 'clothing:login' %}{% endif %}">
-                <img src="{% static 'images/status_icon.png' %}" alt="Status" />
+            <a href="{% if user.is_authenticated %}{% url 'clothing:status' %}{% else %}{% url 'clothing:login' %}{% endif %}" title="สถานะการสั่งซื้อ">
+                <img src="{% static 'images/status_icon.png' %}" alt="Status">
             </a>
-            <a href="{% if user.is_authenticated %}{% url 'clothing:profile' %}{% else %}{% url 'clothing:login' %}{% endif %}">
-                <img src="{% static 'images/profile_icon.png' %}" alt="Profile" />
+            <a href="{% if user.is_authenticated %}{% url 'clothing:profile' %}{% else %}{% url 'clothing:login' %}{% endif %}" title="โปรไฟล์">
+                <img src="{% static 'images/profile_icon.png' %}" alt="Profile">
             </a>
         </div>
     </div>
 
-    <div class="status-container">
-        <h1>สถานะคำสั่งซื้อของคุณ</h1>
+    <div class="page-title-section">
+        <h1 class="main-title-en">ORDER STATUS</h1>
+        <p class="sub-title-th">สถานะคำสั่งซื้อของคุณ</p>
+    </div>
 
-        {% if order %}
-            <p><strong>หมายเลขคำสั่งซื้อ:</strong> {{ order.id }}</p>
-            <p><strong>ชื่อ:</strong> {{ order.full_name }}</p>
-            <p><strong>เบอร์โทร:</strong> {{ order.phone_number }}</p>
-            <p><strong>ที่อยู่:</strong> {{ order.address }}</p>
-            <p><strong>ยอดรวม:</strong> ฿{{ order.total_price }}</p>
+    <div class="main-content-status"> {# Wrapper for main content of this page #}
+        <div class="status-container">
+            {% if order %}
+                <div class="order-details-block">
+                    <p><strong>หมายเลขคำสั่งซื้อ:</strong> {{ order.id }}</p>
+                    <p><strong>ชื่อผู้สั่ง:</strong> {{ order.full_name }}</p>
+                    <p><strong>เบอร์โทรศัพท์:</strong> {{ order.phone_number }}</p>
+                    <p><strong>ที่อยู่จัดส่ง:</strong> {{ order.address }}</p>
+                    <p><strong>ยอดรวม:</strong> ฿{{ order.total_price|floatformat:2 }}</p>
+                </div>
 
-            <hr>
+                <hr class="section-divider">
 
-            <h2>ประวัติสถานะคำสั่งซื้อ</h2>
-            {% if timeline %}
-                {% for log in timeline %}
-                    <div class="status-item">
-                        <strong>{{ log.get_status_display }}</strong>
-                        <div>{{ log.updated_at|date:"d M Y เวลา H:i" }}</div>
-                        {% if log.tracking_number %}
-                            <div class="tracking-number">📦 Tracking: {{ log.tracking_number }}</div>
-                        {% endif %}
-                        {% if log.note %}
-                            <div>📝 หมายเหตุ: {{ log.note }}</div>
-                        {% endif %}
-                    </div>
-                {% endfor %}
+                <div class="timeline-section">
+                    <h2>ประวัติสถานะคำสั่งซื้อ</h2>
+                    {% if timeline %}
+                        {% for log in timeline %}
+                            <div class="status-item">
+                                <strong>{{ log.get_status_display }}</strong>
+                                <div>{{ log.updated_at|date:"d M Y เวลา H:i" }}</div>
+                                {% if log.tracking_number %}
+                                    <div class="tracking-number">📦 Tracking: {{ log.tracking_number }}</div>
+                                {% endif %}
+                                {% if log.note %}
+                                    <div class="note-text">📝 หมายเหตุ: {{ log.note }}</div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p>ยังไม่มีประวัติสถานะสำหรับคำสั่งซื้อนี้</p>
+                    {% endif %}
+                </div>
+
+                <div class="form-section return-section">
+                    {% if order.return_proof %}
+                        <div class="return-proof-section">
+                            <h3>การคืนสินค้าของคุณ</h3>
+                            <p>✅ คุณได้ทำการแจ้งคืนสินค้าเรียบร้อยแล้ว</p>
+                            <p><strong>รหัสสินค้าที่คืน:</strong> {{ order.return_item_code }}</p>
+                            <p><strong>หลักฐานการคืนสินค้า:</strong></p>
+                            <img src="{{ order.return_proof.url }}" alt="หลักฐานการคืนสินค้า" class="return-proof-preview" />
+                        </div>
+                    {% else %}
+                        <h3>แจ้งคืนสินค้า</h3>
+                        <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="id_return_item_code">รหัสสินค้าที่ต้องการคืน (Tracking No.):</label>
+                                <input type="text" name="return_item_code" id="id_return_item_code" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="id_return_proof">แนบหลักฐานการส่งคืน (เช่น สลิปขนส่ง):</label>
+                                <input type="file" name="return_proof" id="id_return_proof" accept="image/*" required />
+                            </div>
+                            <button type="submit" class="btn-submit">ยืนยันการส่งคืนสินค้า</button>
+                        </form>
+                    {% endif %}
+                </div>
             {% else %}
-                <p>ยังไม่มีประวัติสถานะ</p>
-            {% endif %}
+                <div class="no-order-message">
+                    <p>ไม่พบข้อมูลคำสั่งซื้อ</p>
+                    <p>กรุณาตรวจสอบหมายเลขคำสั่งซื้อ หรือติดต่อเราหากต้องการความช่วยเหลือ</p>
+                    {# Optionally add a button here, e.g., to contact support or go to homepage #}
+                     <a href="{% url 'clothing:welcome' %}" class="btn-primary-action" style="background-color: var(--secondary-color);">กลับสู่หน้าแรก</a>
 
-            <div class="form-section">
-                {% if order.return_proof %}
-                    <p><strong>คุณได้ทำการคืนสินค้าเรียบร้อยแล้ว ✅</strong></p>
-                    <p>รหัสสินค้าที่คืน: {{ order.return_item_code }}</p>
-                    <img src="{{ order.return_proof.url }}" class="return-proof-preview" />
-                {% else %}
-                    <h3>คืนสินค้า</h3>
-                    <form method="POST" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <div class="form-group">
-                            <label for="return_item_code">รหัสสินค้า:</label>
-                            <input type="text" name="return_item_code" required />
-                        </div>
-                        <div class="form-group">
-                            <label for="return_proof">แนบหลักฐาน (รูปถ่าย):</label>
-                            <input type="file" name="return_proof" accept="image/*" required />
-                        </div>
-                        <button type="submit" class="btn-submit">ส่งคืนสินค้า</button>
-                    </form>
-                {% endif %}
-            </div>
-        {% else %}
-            <p>ไม่พบข้อมูลคำสั่งซื้อของคุณ</p>
-        {% endif %}
+                </div>
+            {% endif %}
+        </div>
     </div>
 
     <div class="footer">
@@ -253,5 +468,4 @@
     </div>
 
 </body>
-
 </html>

@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>ตะกร้าสินค้า - MindVibe</title>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <style>
         :root {
             --primary-color: #FF3377;
@@ -20,7 +20,9 @@
             --border-light: #e0e0e0;
             --border-medium: #ccc;
             --success-color: #5cb85c;
+            --success-hover-color: #4a9d4a;
             --danger-color: #d9534f;
+            --danger-hover-color: #c04642;
             --font-main: 'Prompt', sans-serif;
             --font-logo: 'Bebas Neue', sans-serif;
         }
@@ -41,7 +43,7 @@
             flex-direction: column;
         }
 
-        /* Header Section (Based on Status Page) */
+        /* Header Section (Based on Status Page) - UNCHANGED AS REQUESTED */
         .header {
             display: flex;
             justify-content: space-between;
@@ -55,13 +57,11 @@
             top: 0;
             z-index: 1000;
         }
-
         .header-left {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
         }
-
         .header .logo {
             font-family: var(--font-logo);
             font-size: 2.5em;
@@ -70,45 +70,66 @@
             margin: 0 0 2px 0;
             text-decoration: none;
         }
-
         .header .slogan {
+            font-family: var(--font-main);
             font-size: 0.9em;
             color: var(--text-primary);
             margin: 0;
         }
-
         .header-right {
             display: flex;
             align-items: center;
             gap: 20px;
         }
-
         .header-right a {
             display: flex;
             align-items: center;
             justify-content: center;
         }
-
         .header-right img {
             width: 22px;
             height: 22px;
             opacity: 0.7;
             transition: opacity 0.3s ease, transform 0.2s ease;
         }
-
         .header-right img:hover {
             opacity: 1;
             transform: scale(1.1);
         }
 
+        /* Page Title Section - NEWLY ADDED */
+        .page-title-section {
+            text-align: center;
+            padding: 35px 20px 15px 20px; /* Adjusted bottom padding */
+            max-width: 1200px;
+            margin: 0 auto;
+            line-height: 1.3;
+        }
+        .page-title-section .main-title-en {
+            font-family: var(--font-logo);
+            font-size: 3.2em; /* Consistent with other pages */
+            font-weight: bold;
+            color: var(--primary-color);
+            margin: 0 0 5px 0;
+            text-transform: uppercase;
+        }
+        .page-title-section .sub-title-th {
+            font-family: var(--font-main);
+            font-size: 1.6em; /* Consistent */
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+
         /* Main Content - Cart Specific */
-        .main-content {
+        .main-content { /* This wraps cart-container */
             flex-grow: 1;
-            padding: 30px 20px 50px;
+            padding: 20px 20px 50px; /* Adjusted top padding */
             background-color: var(--background-light);
             display: flex;
             justify-content: center;
-            align-items: flex-start;
+            align-items: flex-start; /* Changed from center to align cart container at top */
         }
 
         .cart-container {
@@ -116,97 +137,99 @@
             width: 100%;
             margin: 0 auto;
             background-color: var(--surface-color);
-            padding: 35px 40px;
+            padding: 30px 35px; /* Adjusted padding */
             border-radius: 16px;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
         }
+        /* H1 from cart-container is removed, now using page-title-section */
 
-        .cart-container h1 {
-            font-family: var(--font-main);
-            font-size: 2.6em;
-            color: var(--primary-color);
-            text-align: center;
-            margin-top: 0;
-            margin-bottom: 40px;
-            font-weight: 700;
-        }
 
         /* Table Styling - Cart Specific */
         .cart-table {
             width: 100%;
-            border-collapse: separate;
-            border-spacing: 0 12px;
-            margin-bottom: 35px;
+            border-collapse: separate; /* Important for border-spacing */
+            border-spacing: 0 10px; /* Spacing between rows */
+            margin-bottom: 30px; /* Adjusted margin */
         }
 
         .cart-table thead th {
             background-color: var(--secondary-color);
             color: var(--surface-color);
-            font-weight: 500;
+            font-family: var(--font-main);
+            font-weight: 600; /* Bolder */
             text-align: left;
-            padding: 16px 20px;
-            font-size: 1em;
-            letter-spacing: 0.5px;
+            padding: 14px 18px; /* Adjusted padding */
+            font-size: 0.95em; /* Adjusted font size */
+            letter-spacing: 0.3px; /* Subtle letter spacing */
         }
-        .cart-table thead th:first-child {
-            border-top-left-radius: 10px;
-            border-bottom-left-radius: 10px;
-        }
-        .cart-table thead th:last-child {
-            border-top-right-radius: 10px;
-            border-bottom-right-radius: 10px;
-        }
-        .cart-table thead tr {
-             background-color: transparent;
-        }
+        .cart-table thead th:first-child { border-top-left-radius: 8px; } /* Rounded corners for the TH row itself */
+        .cart-table thead th:last-child { border-top-right-radius: 8px; }
+        /* Individual TRs in TBODY will have their own radius */
+
 
         .cart-table tbody tr {
-            background-color: #fdfdfd;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
-            border-radius: 10px;
+            background-color: var(--surface-color); /* Cleaner look, or #fdfdfd for slight off-white */
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06); /* Softer shadow per row */
+            border-radius: 8px; /* Rounded corners for each row */
             transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
         }
-
         .cart-table tbody tr:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.09);
         }
 
         .cart-table tbody td {
-            padding: 16px 20px;
+            padding: 14px 18px; /* Match th padding */
             vertical-align: middle;
-            border-bottom: none;
+            border-bottom: none; /* No individual bottom borders, rows are separated by spacing */
+            font-family: var(--font-main);
+            font-size: 0.95em;
+            color: var(--text-secondary);
         }
+        .cart-table tbody td:first-child { border-top-left-radius: 8px; border-bottom-left-radius: 8px;}
+        .cart-table tbody td:last-child { border-top-right-radius: 8px; border-bottom-right-radius: 8px;}
+
         .cart-table .product-image-cell {
-            width: 100px;
-            padding-left: 20px;
+            width: 90px; /* Slightly adjusted */
+            padding-right: 0; /* Image cell itself doesn't need much right padding */
         }
         .cart-table .product-image-cell img {
-            width: 75px;
-            height: 75px;
+            width: 65px; /* Adjusted size */
+            height: 65px;
             object-fit: cover;
-            border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 6px; /* Softer radius */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
             display: block;
         }
         .cart-table .product-name {
             font-weight: 500;
             color: var(--text-primary);
+            font-size: 1em;
         }
-        .cart-table .price-value { /* This class is still in CSS, but not used in HTML for total if you use the new snippet directly */
+        .cart-table .product-name a { /* Link style for product name */
+            color: var(--primary-color);
+            text-decoration: none;
             font-weight: 500;
-            color: var(--text-secondary);
         }
+        .cart-table .product-name a:hover {
+            text-decoration: underline;
+        }
+        .cart-table .price-value {
+            font-weight: 500;
+            color: var(--text-primary); /* Price a bit more prominent */
+        }
+
 
         /* Forms inside table - Action Cell - Cart Specific */
         .cart-table .actions-cell {
-            min-width: 230px;
+            min-width: 220px; /* Adjusted min-width for better fit */
+            text-align: right; /* Align content of this cell to the right */
         }
         .cart-table .action-forms-container {
             display: flex;
-            flex-direction: column;
-            gap: 10px;
-            align-items: stretch;
+            flex-direction: column; /* Stack update and remove forms */
+            gap: 8px; /* Gap between update and remove forms */
+            align-items: stretch; /* Forms will take full width of this container */
         }
 
         .cart-table .update-form {
@@ -215,59 +238,70 @@
             gap: 8px;
         }
         .cart-table .remove-form {
-            display: flex;
+            display: flex; /* Button inside will be a flex item */
         }
 
         .cart-table input[type="number"],
         .cart-table select {
-            padding: 9px 12px;
+            font-family: var(--font-main);
+            padding: 8px 10px; /* Slightly adjusted padding */
             border: 1px solid var(--border-medium);
             border-radius: 6px;
-            width: auto;
-            min-width: 65px;
-            font-size: 0.95em;
+            width: auto; /* Let flex sizing work */
+            min-width: 60px; /* Smallest reasonable width */
+            font-size: 0.9em; /* Consistent size */
             transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            text-align: center;
         }
         .cart-table select {
-            min-width: 85px;
-            flex-grow: 1;
+            min-width: 80px; /* For days dropdown */
+            flex-grow: 1; /* Allow select to take some space */
         }
         .cart-table input[type="number"] {
-            flex-basis: 70px;
-            flex-grow: 0;
+            flex-basis: 65px; /* Fixed base width for quantity */
+            flex-grow: 0; /* Don't grow */
         }
 
         .cart-table input[type="number"]:focus,
         .cart-table select:focus {
             outline: none;
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 2px rgba(255, 51, 119, 0.2);
+            box-shadow: 0 0 0 2.5px rgba(255, 51, 119, 0.25);
         }
 
-        .cart-table .btn-action {
-            padding: 9px 15px;
+        .cart-table .btn-action { /* Common styles for buttons in actions cell */
+            font-family: var(--font-main);
+            padding: 8px 14px; /* Adjusted padding */
             border-radius: 6px;
             border: none;
             cursor: pointer;
-            font-size: 0.9em;
-            font-weight: 500;
-            transition: background-color 0.2s ease, transform 0.1s ease;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            width: 100%;
+            font-size: 0.9em; /* Consistent font size */
+            font-weight: 500; /* Medium weight */
+            transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+            text-transform: uppercase; /* For a button feel */
+            letter-spacing: 0.3px;
+            line-height: 1.4; /* Better vertical centering of text */
         }
-        .cart-table .update-form .btn-action {
-            flex-shrink: 0;
-            width: auto;
+        .cart-table .btn-action:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
+
+        .cart-table .update-form .btn-action { /* Update button in its flex row */
+            flex-shrink: 0; /* Don't shrink */
+            width: auto; /* Take its natural width */
+        }
+        .cart-table .remove-form .btn-action { /* Remove button (sole child of its form) */
+            width: 100%; /* Make remove button full width of its container */
+        }
+
 
         .cart-table .btn-update {
             background-color: var(--success-color);
             color: white;
         }
         .cart-table .btn-update:hover {
-            background-color: #4a9d4a;
-            transform: translateY(-1px);
+            background-color: var(--success-hover-color);
         }
 
         .cart-table .btn-remove {
@@ -275,61 +309,84 @@
             color: white;
         }
         .cart-table .btn-remove:hover {
-            background-color: #c04642;
-            transform: translateY(-1px);
+            background-color: var(--danger-hover-color);
         }
+
 
         /* Cart summary - Cart Specific */
         .cart-summary {
             text-align: right;
-            margin-top: 30px;
+            margin-top: 35px; /* Increased margin */
             padding-top: 25px;
-            border-top: 1px dashed var(--border-light);
+            border-top: 1.5px dashed var(--border-light); /* Slightly thicker dash */
         }
 
-        .cart-summary p { /* This will style "ยอดรวมทั้งหมด: ฿{{ total_price }}" */
-            font-size: 1.25em;
-            font-weight: 700;
+        .cart-summary p.total-price-display { /* Class for total price paragraph */
+            font-size: 1.3em; /* Adjusted size */
+            font-weight: 500; /* Medium weight for "ยอดรวมทั้งหมด" */
             color: var(--text-primary);
             margin-bottom: 20px;
         }
-        /* .cart-summary .total-price-value rule below is no longer applied if <span> is removed from HTML */
-        .cart-summary .total-price-value {
-             color: var(--primary-color);
-             font-size: 1.1em;
+        .cart-summary .total-price-value { /* Span for the actual price value */
+            font-weight: 700; /* Bold price */
+            font-size: 1.2em; /* Relative to parent p, so 1.3 * 1.2 */
+            color: var(--primary-color);
         }
 
         .btn-checkout {
             display: inline-block;
-            padding: 14px 30px;
+            padding: 13px 35px; /* Adjusted padding */
             background-color: var(--primary-color);
             color: white;
+            font-family: var(--font-main);
             text-decoration: none;
             border-radius: 10px;
-            font-size: 1.15em;
-            font-weight: 600;
+            font-size: 1.1em; /* Adjusted size */
+            font-weight: 600; /* Bolder */
             transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-            box-shadow: 0 4px 12px rgba(255, 51, 119, 0.35);
+            box-shadow: 0 4px 14px rgba(255, 51, 119, 0.3);
             text-transform: uppercase;
-            letter-spacing: 0.8px;
+            letter-spacing: 0.5px;
+            border: none;
         }
 
         .btn-checkout:hover {
-            background-color: #e6005c;
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 6px 16px rgba(255, 51, 119, 0.45);
+            background-color: #e6005c; /* Darker primary */
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 7px 18px rgba(255, 51, 119, 0.4);
         }
 
         .empty-cart-message {
             text-align: center;
-            font-size: 1.25em;
+            font-size: 1.2em; /* Adjusted */
             color: var(--text-secondary);
-            padding: 60px 20px;
-            font-style: italic;
-            background-color: #f9f9f9;
-            border: 1px dashed var(--border-medium);
-            border-radius: 12px;
+            padding: 50px 20px; /* More padding */
+            background-color: var(--surface-color); /* Use surface color for consistency */
+            border: 1px solid var(--border-light); /* Softer border */
+            border-radius: 12px; /* Consistent radius */
+            margin-top: 20px; /* If cart is empty, this will be directly in cart-container */
         }
+         .empty-cart-message p { /* Paragraphs within the message */
+            margin-bottom: 25px;
+        }
+        .empty-cart-message .btn-browse-items { /* Added button for empty cart */
+            font-family: var(--font-main);
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1.05em;
+            font-weight: 500;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            display: inline-block;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .empty-cart-message .btn-browse-items:hover {
+            background-color: #4ea092; /* Darker secondary */
+            transform: translateY(-2px);
+        }
+
 
         /* Footer */
         .footer {
@@ -337,151 +394,144 @@
             color: var(--text-primary);
             text-align: center;
             padding: 25px 10px;
-            margin-top: auto;
+            margin-top: auto; /* Pushes footer to bottom if content is short */
             font-size: 0.9em;
             user-select: none;
             flex-shrink: 0;
             box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
         }
 
-        /* Responsive Adjustments */
+        /* Responsive Adjustments from User - integrated and checked */
         @media (max-width: 992px) {
             .cart-table .actions-cell {
-                 min-width: auto;
+                min-width: auto;
             }
             .cart-table .action-forms-container {
-                align-items: flex-end;
+                /* align-items: flex-end; /* Might make forms align to right, check if desired */
             }
-             .cart-table .update-form {
-                flex-wrap: wrap;
+            .cart-table .update-form {
+                /* flex-wrap: wrap; /* Already wraps naturally if not enough space */
             }
-             .cart-table .update-form input[type="number"],
-             .cart-table .update-form select {
-                flex-basis: calc(50% - 4px);
-             }
-             .cart-table .update-form .btn-action {
-                flex-basis: 100%;
-             }
+            /* Input and select sizing in update form - user's original had flex-basis */
+            .cart-table .update-form input[type="number"],
+            .cart-table .update-form select {
+                /* flex-basis: calc(50% - 4px); /* This can be tricky with button, revert to auto or flex-grow */
+            }
+            .cart-table .update-form .btn-action {
+                /* flex-basis: 100%; /* This makes update button full width in column layout if form wraps */
+            }
         }
 
         @media (max-width: 768px) {
-            /* Header Responsive (New Style) */
+            /* Header Responsive */
             .header {
-                padding: 10px 15px;
+                padding: 12px 15px;
                 flex-direction: column;
-                gap: 10px;
+                gap: 12px;
             }
             .header-left {
                 align-items: center;
                 text-align: center;
             }
-             .header .logo {
-                font-size: 2.2em;
-            }
-            .header .slogan {
-                max-width: 100%;
-                font-size: 0.8em;
-                line-height: 1.2;
-            }
-            .header-right {
-                gap: 10px;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            .header-right img {
-                width: 22px;
-                height: 22px;
-            }
+            .header .logo { font-size: 2.3em; }
+            .header .slogan { font-size: 0.85em; line-height: 1.3; }
+            .header-right { gap: 15px; flex-wrap: wrap; justify-content: center; }
+            .header-right img { width: 20px; height: 20px; }
+
+            .page-title-section .main-title-en { font-size: 2.5em; }
+            .page-title-section .sub-title-th { font-size: 1.3em; }
+
 
             .main-content {
-                padding: 20px 10px 30px;
+                padding: 15px 10px 30px;
             }
             .cart-container {
-                padding: 25px 15px;
+                padding: 20px 15px;
             }
-            .cart-container h1 {
-                font-size: 2em;
-                margin-bottom: 30px;
-            }
+            /* H1 title in cart-container is removed */
 
             .cart-table thead {
-                display: none;
+                display: none; /* Hides table header on small screens */
             }
 
             .cart-table tbody tr {
-                display: block;
-                margin-bottom: 20px;
-                padding: 15px;
-                box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+                display: block; /* Each row becomes a block */
+                margin-bottom: 15px; /* Spacing between "cards" */
+                padding: 0; /* Reset padding, td will handle it */
+                border-radius: 10px; /* Ensure radius is on the block */
             }
 
             .cart-table tbody td {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-                padding: 10px 0;
+                padding: 10px 15px; /* Padding inside each "field" */
                 border-bottom: 1px solid var(--border-light);
-                text-align: right;
+                text-align: right; /* Value on the right */
             }
-            .cart-table tbody td:last-child {
-                border-bottom: none;
-            }
+            .cart-table tbody td:first-child { border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-left-radius: 0;}
+            .cart-table tbody td:last-child { border-bottom: none; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;}
+
 
             .cart-table .product-image-cell {
-                justify-content: center;
-                padding: 10px 0;
-                width: auto;
+                justify-content: center; /* Center the image */
+                padding: 15px 0; /* More padding for image row */
+                border-bottom: 1px solid var(--border-light) !important; /* Ensure border for image row */
             }
             .cart-table .product-image-cell img {
-                margin-bottom: 5px;
+                margin-bottom: 0;
             }
 
-            .cart-table tbody td::before {
+            .cart-table tbody td::before { /* Data labels */
                 content: attr(data-label);
                 font-weight: 600;
                 color: var(--text-secondary);
                 text-align: left;
-                margin-right: 10px;
+                margin-right: auto; /* Pushes value to the right */
+                padding-right: 10px;
             }
 
             .cart-table .product-image-cell::before,
             .cart-table .actions-cell::before {
-                 display: none;
+                display: none; /* No label for image row or actions block */
             }
             .cart-table .actions-cell {
-                 padding-top: 15px;
+                padding-top: 15px;
+                justify-content: center; /* Center the action forms container */
             }
 
             .cart-table .action-forms-container {
                 width: 100%;
-                align-items: stretch;
+                align-items: stretch; /* Forms take full width */
             }
             .cart-table .update-form, .cart-table .remove-form {
                 width: 100%;
+                justify-content: center;
             }
-             .cart-table .update-form {
-                flex-direction: column;
-                gap: 8px;
-             }
-             .cart-table .update-form input[type="number"],
-             .cart-table .update-form select,
-             .cart-table .update-form .btn-action {
-                width: 100%;
+            .cart-table .update-form {
+                flex-direction: column; /* Stack inputs and button */
+                gap: 10px; /* Gap between stacked items */
+            }
+            .cart-table .update-form input[type="number"],
+            .cart-table .update-form select,
+            .cart-table .update-form .btn-action {
+                width: 100%; /* Full width for stacked items */
+                min-width: 0; /* Reset min-width */
                 flex-basis: auto;
-             }
+            }
 
-            .cart-summary { /* This is for the div container */
-                text-align: center; /* Adjusted from original responsive to match new HTML if needed */
+            .cart-summary {
+                text-align: center;
                 padding-top: 20px;
-                margin-top: 20px;
+                margin-top: 25px;
             }
-            .cart-summary p { /* This will apply to "ยอดรวมทั้งหมด" */
-                font-size: 1.15em; /* This was from original responsive, applies to the <p> tag */
+            .cart-summary p.total-price-display {
+                font-size: 1.2em;
             }
-            .btn-checkout { /* This will apply to the checkout button */
+            .btn-checkout {
                 width: 100%;
-                font-size: 1.1em; /* Adjusted from 1.2em to 1.1em to match previous checkout button styling more closely */
-                padding: 15px 0; /* Adjusted padding */
+                font-size: 1.1em;
+                padding: 15px;
             }
         }
     </style>
@@ -495,37 +545,41 @@
         </div>
         <div class="header-right">
             <a href="{% url 'clothing:welcome' %}" title="หน้าแรก">
-                <img src="{% static 'images/home_icon.png' %}" alt="Home" class="home-icon" />
+                <img src="{% static 'images/home_icon.png' %}" alt="Home">
             </a>
             <a href="{% url 'clothing:clothing_list' %}" title="ค้นหาสินค้า">
-                <img src="{% static 'images/search_icon.png' %}" alt="Search" />
+                <img src="{% static 'images/search_icon.png' %}" alt="Search">
             </a>
             <a href="{% if user.is_authenticated %}{% url 'clothing:favorites_list' %}{% else %}{% url 'clothing:login' %}{% endif %}" title="สินค้าที่ชอบ">
-                <img src="{% static 'images/heart_icon.png' %}" alt="Wishlist" />
+                <img src="{% static 'images/heart_icon.png' %}" alt="Wishlist">
             </a>
             <a href="{% if user.is_authenticated %}{% url 'clothing:cart' %}{% else %}{% url 'clothing:login' %}{% endif %}" title="ตะกร้าสินค้า">
-                <img src="{% static 'images/cart_icon.png' %}" alt="Cart" />
+                <img src="{% static 'images/cart_icon.png' %}" alt="Cart">
             </a>
             <a href="{% if user.is_authenticated %}{% url 'clothing:status' %}{% else %}{% url 'clothing:login' %}{% endif %}" title="สถานะการสั่งซื้อ">
-                <img src="{% static 'images/status_icon.png' %}" alt="Status" />
+                <img src="{% static 'images/status_icon.png' %}" alt="Status">
             </a>
             <a href="{% if user.is_authenticated %}{% url 'clothing:profile' %}{% else %}{% url 'clothing:login' %}{% endif %}" title="โปรไฟล์">
-                <img src="{% static 'images/profile_icon.png' %}" alt="Profile" />
+                <img src="{% static 'images/profile_icon.png' %}" alt="Profile">
             </a>
         </div>
     </div>
 
-    <div class="main-content">
+    <div class="page-title-section">
+        <h1 class="main-title-en">YOUR SHOPPING CART</h1>
+        <p class="sub-title-th">ตะกร้าสินค้าของคุณ</p>
+    </div>
+
+    <div class="main-content"> {# Changed class name for clarity #}
         <div class="cart-container">
-            <h1>ตะกร้าสินค้าของคุณ</h1>
             {% if cart_items %}
             <table class="cart-table" role="table" aria-label="Cart Items">
                 <thead>
                     <tr>
-                        <th scope="col" class="product-image-header">รูปสินค้า</th>
+                        <th scope="col" class="product-image-header" style="width: 100px;">รูปสินค้า</th> {# Added style for fixed width #}
                         <th scope="col">สินค้า</th>
                         <th scope="col">จำนวนวัน</th>
-                        <th scope="col">จำนวน</th>
+                        <th scope="col" style="width: 80px;">จำนวน</th> {# Fixed width for quantity header #}
                         <th scope="col">ราคาต่อหน่วย</th>
                         <th scope="col">ราคารวม</th>
                         <th scope="col" class="actions-header" aria-label="Actions">จัดการ</th>
@@ -538,10 +592,12 @@
                             {% if item.product.image %}
                                 <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" />
                             {% else %}
-                                <span>ไม่มีรูป</span>
+                                <div style="width:65px; height:65px; background:#eee; text-align:center; line-height:65px; font-size:0.8em; color:#888; border-radius:6px;">ไม่มีรูป</div>
                             {% endif %}
                         </td>
-                        <td data-label="สินค้า" class="product-name">{{ item.product.name }}</td>
+                        <td data-label="สินค้า" class="product-name">
+                            <a href="{% url 'clothing:clothing_detail' pk=item.product.pk %}">{{ item.product.name }}</a>
+                        </td>
                         <td data-label="จำนวนวัน">{{ item.days }} วัน</td>
                         <td data-label="จำนวน">{{ item.quantity }}</td>
                         <td data-label="ราคาต่อหน่วย" class="price-value">฿{{ item.price_per_unit|floatformat:2 }}</td>
@@ -550,14 +606,14 @@
                             <div class="action-forms-container">
                                 <form class="update-form" action="{% url 'clothing:update_cart' pk=item.product.pk %}" method="POST" aria-label="แก้ไขสินค้า {{ item.product.name }}">
                                     {% csrf_token %}
-                                    <input type="number" name="quantity" value="{{ item.quantity }}" min="1" aria-label="จำนวน" />
-                                    <select name="days" aria-label="จำนวนวัน">
+                                    <input type="number" name="quantity" value="{{ item.quantity }}" min="1" aria-label="จำนวน" title="จำนวนสินค้า" />
+                                    <select name="days" aria-label="จำนวนวัน" title="จำนวนวันเช่า">
                                         <option value="1" {% if item.days == 1 %}selected{% endif %}>1 วัน</option>
                                         <option value="3" {% if item.days == 3 %}selected{% endif %}>3 วัน</option>
                                         <option value="5" {% if item.days == 5 %}selected{% endif %}>5 วัน</option>
                                         <option value="7" {% if item.days == 7 %}selected{% endif %}>7 วัน</option>
                                     </select>
-                                    <button type="submit" class="btn-action btn-update" title="แก้ไขข้อมูลสินค้า">แก้ไข</button>
+                                    <button type="submit" class="btn-action btn-update" title="อัปเดตรายการ">อัปเดต</button> {# Changed text for clarity #}
                                 </form>
                                 <form class="remove-form" action="{% url 'clothing:remove_from_cart' pk=item.product.pk days=item.days %}" method="POST" aria-label="ลบสินค้า {{ item.product.name }}">
                                     {% csrf_token %}
@@ -570,13 +626,16 @@
                 </tbody>
             </table>
             <div class="cart-summary">
-                <p>ยอดรวมทั้งหมด: ฿{{ total_price|floatformat:2 }}</p>
-                <a href="{% url 'clothing:payment' %}" class="btn-checkout" aria-label="ดำเนินการชำระเงิน">ดำเนินการชำระเงิน</a>
+                <p class="total-price-display">ยอดรวมทั้งหมด: <span class="total-price-value">฿{{ total_price|floatformat:2 }}</span></p>
+                <a href="{% url 'clothing:payment' %}" class="btn-checkout" aria-label="ดำเนินการชำระเงิน">ชำระเงิน</a> {# Shortened text #}
             </div>
             {% else %}
-            <p class="empty-cart-message">ตะกร้าของคุณยังว่างอยู่ ไปเลือกสินค้าที่ชอบกันเลย!</p>
-            {% endif %}
+            <div class="empty-cart-message">
+                <p>ตะกร้าของคุณยังว่างอยู่</p>
+                <a href="{% url 'clothing:clothing_list' %}" class="btn-browse-items">เลือกซื้อสินค้าต่อ</a>
             </div>
+            {% endif %}
+        </div>
     </div>
 
     <div class="footer">

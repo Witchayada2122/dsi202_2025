@@ -60,23 +60,21 @@
         }
 
         .header-right a {
-            display: block;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .header-right img {
-            width: 20px; /* Default icon size */
-            height: 20px; /* Default icon size */
-            opacity: 0.8;
-            transition: opacity 0.3s ease;
+            width: 22px;
+            height: 22px;
+            opacity: 0.7;
+            transition: opacity 0.3s ease, transform 0.2s ease;
         }
-        .header-right img.home-icon { /* Specific size for home icon if needed */
-             width: 20px;
-             height: 20px;
-        }
-
 
         .header-right img:hover {
             opacity: 1;
+            transform: scale(1.1);
         }
 
         /* Search Bar - Copied from clothing_list.html */
@@ -308,7 +306,8 @@
             <a href="{% url 'clothing:welcome' %}">
                 <img src="{% static 'images/home_icon.png' %}" alt="Home" class="home-icon">
             </a>
-            <a href="/search/"> <img src="{% static 'images/search_icon.png' %}" alt="Search">
+            <a href="{% url 'clothing:clothing_list' %}">
+                <img src="{% static 'images/search_icon.png' %}" alt="Search" />
             </a>
             <a href="{% if user.is_authenticated %}{% url 'clothing:favorites_list' %}{% else %}{% url 'clothing:login' %}{% endif %}">
                 <img src="{% static 'images/heart_icon.png' %}" alt="Wishlist">

@@ -1,79 +1,149 @@
+{% load static %}
 {% load socialaccount %}
-{% load static %} {# เพิ่ม load static เผื่อต้องการใช้รูปภาพในอนาคต #}
 
 <!DOCTYPE html>
-<html lang="th"> {# เปลี่ยนเป็น lang="th" เพื่อความสอดคล้อง #}
+<html lang="th">
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> {# เพิ่ม viewport #}
-    <title>เข้าสู่ระบบผ่าน Google - MindVibe</title> {# เปลี่ยนเป็นภาษาไทย #}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เข้าสู่ระบบผ่าน Google - MindVibe</title>
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
 
-
     <style>
         body {
-            font-family: 'Prompt', sans-serif; /* เปลี่ยนเป็น Prompt */
-            background-color: #FFF1E6;
+            font-family: 'Prompt', sans-serif;
+            background-color: #FFF1E6; /* สีพื้นหลังหลัก */
             color: #333;
+            margin: 0;
+            padding: 0; /* ลบ padding ของ body ออกไป */
+            line-height: 1.6;
+            display: flex; /* เพิ่มเพื่อให้ footer อยู่ล่างสุดเสมอ ถ้าเนื้อหาน้อย */
+            flex-direction: column; /* เพิ่มเพื่อให้ footer อยู่ล่างสุดเสมอ ถ้าเนื้อหาน้อย */
+            min-height: 100vh; /* เพิ่มเพื่อให้ body เต็มความสูงของหน้าจอ */
+        }
+
+        /* --- START: Header Section จาก Home page --- */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #FDFD95; /* สีเหลือง */
+            padding: 15px 30px;
+            color: #333;
+            border-bottom: 1px solid #e0e0e0;
+            width: 100%; /* ทำให้ header เต็มความกว้าง */
+            box-sizing: border-box; /* นับ padding, border เข้าไปใน width */
+        }
+
+        .header-left {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .header .logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #FF3377; /* สีชมพู */
+            margin: 0 0 2px 0;
+        }
+
+        .header .slogan {
+            font-family: 'Prompt', sans-serif;
+            font-size: 0.9em;
+            font-weight: 300;
+            color: #333;
+            margin: 0;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .header-right a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header-right img {
+            width: 22px;
+            height: 22px;
+            opacity: 0.7;
+            transition: opacity 0.3s ease, transform 0.2s ease;
+        }
+
+        .header-right img:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+        /* --- END: Header Section --- */
+
+        .content-area { /* Wrapper ใหม่สำหรับเนื้อหาหลักและ footer */
+            flex-grow: 1; /* ทำให้ส่วนนี้ขยายเพื่อดัน footer ลงล่าง */
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center; /* จัดให้อยู่กลางแนวตั้ง */
-            min-height: 100vh; /* ให้ body เต็มความสูงของหน้าจอ */
-            margin: 0;
-            padding: 2rem;
-            box-sizing: border-box; /* ช่วยในการจัดการ padding และ border */
+            justify-content: center; /* จัด content ให้อยู่กลางแนวตั้งของพื้นที่ที่เหลือ */
+            width: 100%;
+            padding: 2rem; /* padding รอบ content */
+            box-sizing: border-box;
         }
 
-        .container { /* เพิ่ม container เพื่อครอบเนื้อหา */
+        .confirmation-container { /* เปลี่ยนชื่อจาก .container เป็นชื่อที่สื่อความหมายมากขึ้น */
             background-color: #ffffff;
-            padding: 2.5rem 3rem; /* เพิ่ม padding ภายใน container */
+            padding: 2.5rem 3rem;
             border-radius: 12px;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
             text-align: center;
-            max-width: 500px; /* กำหนดความกว้างสูงสุด */
+            max-width: 500px;
             width: 100%;
         }
 
-        .mindvibe-logo { /* สไตล์สำหรับโลโก้ MindVibe */
+        .mindvibe-logo-inline { /* โลโก้ MindVibe ที่จะแสดงใน confirmation box */
             font-family: 'Bebas Neue', sans-serif;
             font-size: 2.8em;
-            color: #FF3377; /* สีชมพูจากธีม */
+            color: #FF3377;
             margin-bottom: 1rem;
         }
 
-        h1 { /* หัวข้อ "เข้าสู่ระบบผ่าน Google" */
-            font-family: 'Prompt', sans-serif; /* ใช้ Prompt */
+        .confirmation-container h1 { /* หัวข้อ "ยืนยันการเข้าสู่ระบบผ่าน Google" */
+            font-family: 'Prompt', sans-serif;
             font-weight: 500;
-            color: #60C4B4; /* สีเขียวอมฟ้าจากธีม */
-            font-size: 1.8em; /* ปรับขนาด */
+            color: #60C4B4; /* สีเขียวอมฟ้า */
+            font-size: 1.8em;
             margin-top: 0;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.8rem; /* ปรับ margin */
         }
 
-        p {
-            margin-bottom: 1.5rem; /* ปรับ margin */
-            font-size: 1rem; /* ปรับขนาด */
-            color: #555; /* ปรับสีให้อ่อนลงเล็กน้อย */
+        .confirmation-container p {
+            margin-bottom: 1.8rem; /* ปรับ margin */
+            font-size: 1rem;
+            color: #555;
             line-height: 1.6;
         }
 
-        .google-signin-button { /* เปลี่ยนชื่อ class เพื่อความชัดเจน */
-            background-color: #4285F4;
+        .google-signin-button {
+            background-color: #4285F4; /* สี Google */
             color: white;
             border: none;
-            padding: 0.9rem 1.8rem; /* ปรับ padding */
-            font-size: 1rem; /* ปรับขนาดฟอนต์ */
-            font-weight: 500; /* เพิ่มน้ำหนักตัวอักษร */
-            border-radius: 8px; /* เพิ่มความโค้งมน */
+            padding: 0.9rem 1.8rem;
+            font-size: 1rem;
+            font-family: 'Prompt', sans-serif; /* ปุ่มใช้ Prompt */
+            font-weight: 500;
+            border-radius: 8px;
             cursor: pointer;
             transition: background-color 0.3s ease, box-shadow 0.3s ease;
-            display: inline-flex; /* สำหรับจัดไอคอน (ถ้ามี) และ text */
+            display: inline-flex;
             align-items: center;
-            gap: 0.8rem; /* ระยะห่างระหว่างไอคอน (ถ้ามี) กับ text */
+            gap: 0.8rem;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-decoration: none; /* เพิ่มสำหรับกรณีที่ใช้ <a> ครอบ */
         }
 
         .google-signin-button:hover {
@@ -81,67 +151,85 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.15);
         }
 
-        .google-signin-button img { /* สไตล์สำหรับไอคอน Google (ถ้ามี) */
+        .google-signin-button img {
             width: 20px;
             height: 20px;
         }
 
-        nav {
-            position: absolute; /* จัดให้อยู่มุมขวาบน */
-            top: 20px;
-            right: 30px;
-            background-color: rgba(255, 255, 255, 0.8); /* พื้นหลังโปร่งแสงเล็กน้อย */
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-
-        nav a {
-            margin-left: 1.5rem; /* ปรับ margin เป็น left */
-            color: #FF3377;
-            text-decoration: none;
-            font-weight: 500; /* ปรับน้ำหนัก */
-            font-size: 0.95rem; /* ปรับขนาด */
-            transition: color 0.3s ease;
-        }
-        nav a:first-child {
-            margin-left: 0; /* link แรกไม่ต้องมี margin-left */
-        }
-
-        nav a:hover {
-            color: #e6005c; /* สีเข้มขึ้นเมื่อ hover */
-            text-decoration: underline;
-        }
-
-        .form-note { /* เพิ่ม class สำหรับข้อความอธิบายเพิ่มเติม */
+        .form-note {
             font-size: 0.85rem;
             color: #777;
             margin-top: 1.5rem;
+        }
+        .form-note a {
+            color: #FF3377; /* สีชมพู */
+            text-decoration: none;
+        }
+        .form-note a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Footer (นำมาจาก Home Page เพื่อความสอดคล้อง) */
+        .footer {
+            background-color: #A0D8F1; /* สีฟ้าอ่อน */
+            color: #333;
+            text-align: center;
+            padding: 25px 20px;
+            font-size: 0.9em;
+            font-weight: 300;
+            width: 100%; /* ทำให้ footer เต็มความกว้าง */
+            box-sizing: border-box;
         }
 
     </style>
 </head>
 
 <body>
-    <nav>
-        <a href="{% provider_login_url 'google' %}?next=/">กลับไปหน้าหลัก</a> {# เพิ่มลิงก์กลับ (ถ้าต้องการ) #}
-        <a href="{% url 'account_login' %}">เข้าสู่ระบบด้วยวิธีอื่น</a>
-        <a href="{% url 'account_signup' %}">สมัครสมาชิก</a>
-    </nav>
+    <div class="header">
+        <div class="header-left">
+            <h1 class="logo">MINDVIBE</h1>
+            <p class="slogan">LOOK GOOD. FEEL RIGHT. LIVE TRUE. | MINDFULLY CURATED OUTFITS FOR EVERY EMOTION AND MOMENT.</p>
+        </div>
+        <div class="header-right">
+            <a href="{% if user.is_authenticated %}{% url 'clothing:welcome' %}{% else %}{% url 'clothing:welcome' %}{% endif %}" title="หน้าหลัก">
+                <img src="{% static 'images/home_icon.png' %}" alt="หน้าหลัก">
+            </a>
+            <a href="/search/" title="ค้นหา">
+                <img src="{% static 'images/search_icon.png' %}" alt="ค้นหา">
+            </a>
+            <a href="{% if user.is_authenticated %}{% url 'clothing:favorites_list' %}{% else %}{% url 'clothing:login' %}{% endif %}" title="รายการโปรด">
+                <img src="{% static 'images/heart_icon.png' %}" alt="รายการโปรด">
+            </a>
+            <a href="{% if user.is_authenticated %}{% url 'clothing:cart' %}{% else %}{% url 'clothing:login' %}{% endif %}" title="ตะกร้าสินค้า">
+                <img src="{% static 'images/cart_icon.png' %}" alt="ตะกร้าสินค้า">
+            </a>
+            <a href="{% if user.is_authenticated %}{% url 'clothing:status' %}{% else %}{% url 'clothing:login' %}{% endif %}" title="สถานะการสั่งซื้อ">
+                <img src="{% static 'images/status_icon.png' %}" alt="สถานะ">
+            </a>
+            <a href="{% if user.is_authenticated %}{% url 'clothing:profile' %}{% else %}{% url 'clothing:login' %}{% endif %}" title="โปรไฟล์">
+                <img src="{% static 'images/profile_icon.png' %}" alt="โปรไฟล์">
+            </a>
+        </div>
+    </div>
+    <div class="content-area"> {# Wrapper ใหม่สำหรับเนื้อหาหลัก #}
+        <div class="confirmation-container">
+            <div class="mindvibe-logo-inline">MindVibe</div>
+            <h1>ยืนยันการเข้าสู่ระบบผ่าน Google</h1>
+            <p>คุณกำลังจะเข้าสู่ระบบ MindVibe โดยใช้บัญชีบุคคลที่สามจาก Google</p>
 
-    <div class="container">
-        <div class="mindvibe-logo">MindVibe</div>
-        <h1>ยืนยันการเข้าสู่ระบบผ่าน Google</h1>
-        <p>คุณกำลังจะเข้าสู่ระบบ MindVibe โดยใช้บัญชีบุคคลที่สามจาก Google</p>
+            <form method="POST" action="{% provider_login_url 'google' process='login' %}">
+                {% csrf_token %}
+                <button type="submit" class="google-signin-button">
+                    {# <img src="{% static 'images/google_icon.svg' %}" alt="Google icon"> #}
+                    ดำเนินการต่อด้วย Google
+                </button>
+            </form>
+            <p class="form-note">การคลิก "ดำเนินการต่อด้วย Google" หมายความว่าคุณยอมรับ <a href="/terms">ข้อกำหนดในการให้บริการ</a> และ <a href="/privacy">นโยบายความเป็นส่วนตัว</a> ของเรา</p>
+        </div>
+    </div>
 
-        <form method="POST" action="{% provider_login_url 'google' process='login' %}"> {# action ควรจะชี้ไปที่ URL ของ allauth #}
-            {% csrf_token %}
-            <button type="submit" class="google-signin-button">
-                {# ถ้าต้องการใส่ไอคอน Google: <img src="{% static 'images/google_icon.svg' %}" alt="Google icon"> #}
-                ดำเนินการต่อด้วย Google
-            </button>
-        </form>
-        <p class="form-note">การคลิก "ดำเนินการต่อด้วย Google" หมายความว่าคุณยอมรับ <a href="/terms">ข้อกำหนดในการให้บริการ</a> และ <a href="/privacy">นโยบายความเป็นส่วนตัว</a> ของเรา</p>
+    <div class="footer">
+        <p>&copy; {% now "Y" %} MINDVIBE สงวนลิขสิทธิ์</p>
     </div>
 
 </body>

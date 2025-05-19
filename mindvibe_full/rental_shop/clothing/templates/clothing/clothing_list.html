@@ -1,7 +1,7 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"> {# Original lang was "en" for this page #}
 
 <head>
     <meta charset="UTF-8" />
@@ -9,7 +9,7 @@
     <title>MindVibe - Clothing Collection</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&display=swap" rel="stylesheet" /> {# Added 600 weight #}
 
     <style>
         body {
@@ -26,7 +26,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: #FDFD95; /* สีเหลือง */
+            background-color: #FDFD95;
             padding: 15px 30px;
             color: #333;
         }
@@ -41,12 +41,14 @@
             font-family: 'Bebas Neue', sans-serif;
             font-size: 2.5em;
             font-weight: bold;
-            color: #FF3377; /* สีชมพู */
+            color: #FF3377;
             margin: 0 0 2px 0;
         }
 
         .header .slogan {
+            font-family: 'Prompt', sans-serif; /* Explicitly set for slogan */
             font-size: 0.9em;
+            font-weight: 400; /* Regular prompt */
             color: #333;
             margin: 0;
         }
@@ -58,105 +60,151 @@
         }
 
         .header-right a {
-            display: block;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .header-right img {
-            width: 20px;
-            height: 20px;
-            opacity: 0.8;
-            transition: opacity 0.3s ease;
+            width: 22px;
+            height: 22px;
+            opacity: 0.7;
+            transition: opacity 0.3s ease, transform 0.2s ease;
         }
 
         .header-right img:hover {
             opacity: 1;
+            transform: scale(1.1);
         }
-
-        /* Home Icon */
-        .home-icon {
-            width: 20px;
-            height: 20px;
-        }
-
         /* Search Bar */
         .search-bar {
             margin: 25px auto;
             text-align: center;
             padding: 0 20px;
-            max-width: 600px;
+            max-width: 600px; /* Max width for the search bar container */
+        }
+        .search-bar form { /* Added to make the form itself flex for alignment */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px; /* Space between input and button */
         }
 
         .search-bar input[type="text"] {
             font-family: 'Prompt', sans-serif;
             font-size: 1em;
             padding: 12px 15px;
-            width: 70%;
-            max-width: 400px;
+            /* width: 70%; /* Replaced by flex-grow for better responsiveness */
+            /* max-width: 400px; */
+            flex-grow: 1; /* Allows input to take available space */
             border-radius: 8px;
             border: 1px solid #ddd;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            margin-right: 10px;
+            /* margin-right: 10px; /* Replaced by gap in parent form */
+            max-width: 450px; /* Optional: to prevent it from becoming too wide */
         }
 
         .search-bar button {
             font-family: 'Prompt', sans-serif;
             font-size: 1em;
+            font-weight: 500; /* Prompt medium */
             padding: 12px 22px;
             background-color: #FF3377;
             color: white;
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            flex-shrink: 0; /* Prevents button from shrinking */
         }
 
         .search-bar button:hover {
             background-color: #e6005c;
+            transform: translateY(-2px);
         }
 
-        /* Filter Buttons */
+        /* Filter Buttons - NEW DESIGN from previous response */
         .filter-buttons {
             text-align: center;
-            margin: 20px 0;
+            margin: 25px 20px 30px 20px;
+        }
+
+        .filter-buttons form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
         }
 
         .filter-buttons form button {
-            padding: 8px 16px;
-            margin: 5px;
-            border-radius: 20px;
-            border: none;
+            font-family: 'Prompt', sans-serif;
+            padding: 10px 22px;
+            margin: 0;
+            border-radius: 25px;
+            border: 1.5px solid #60C4B4;
             cursor: pointer;
-            background-color: #60C4B4;
-            color: white;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
+            background-color: #ffffff;
+            color: #60C4B4;
+            font-weight: 500;
+            font-size: 0.9em;
+            transition: all 0.25s ease-in-out;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
 
-        .filter-buttons form button.active,
         .filter-buttons form button:hover {
+            background-color: #e0f2f1;
+            color: #4a9d8e;
+            border-color: #50b4a4;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 6px rgba(0,0,0,0.08);
+        }
+
+        .filter-buttons form button.active {
             background-color: #FF3377;
+            border-color: #FF3377;
+            color: white;
+            font-weight: 500; /* Could be 600 for more emphasis */
+            box-shadow: 0 3px 7px rgba(255, 51, 119, 0.25);
+        }
+
+        .filter-buttons form button.active:hover {
+            background-color: #e6005c;
+            border-color: #e6005c;
+            transform: translateY(-2px);
         }
 
         .filter-buttons form a.clear-filter {
-            margin-left: 10px;
-            color: #FF3377;
-            font-weight: bold;
+            font-family: 'Prompt', sans-serif;
+            padding: 8px 15px;
+            margin: 0;
+            color: #777;
+            font-weight: 500;
             text-decoration: none;
-            font-size: 0.95em;
-            vertical-align: middle;
+            font-size: 0.85em;
+            border-radius: 15px;
+            border: 1px solid #ddd;
+            background-color: #f8f8f8;
+            transition: all 0.25s ease-in-out;
         }
 
         .filter-buttons form a.clear-filter:hover {
-            text-decoration: underline;
+            color: #FF3377;
+            border-color: #ffb8c7;
+            background-color: #fff5f7;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.07);
+            transform: translateY(-1px);
         }
+        /* --- END OF NEW FILTER BUTTON STYLES --- */
+
 
         /* Product Section */
         .products {
             display: flex;
-            justify-content: center;
-            gap: 30px;
+            justify-content: center; /* Center items if they don't fill the row */
+            gap: 25px; /* Slightly reduced gap */
             margin-top: 30px;
-            padding: 0 20px;
+            padding: 0 20px; /* Padding on the sides of the product grid */
             flex-wrap: wrap;
         }
 
@@ -164,74 +212,86 @@
             background-color: #ffffff;
             border-radius: 15px;
             padding: 20px;
-            width: 260px;
-            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+            width: 270px; /* Slightly adjusted width */
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.08); /* Softer shadow */
             text-align: center;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            /* justify-content: space-between; /* Removed to allow natural height based on content */
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
+            transform: translateY(-6px); /* Slightly more lift */
+            box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.12); /* More pronounced shadow on hover */
+        }
+
+        .product-card a { /* Generic link styling within product card */
+             text-decoration: none;
+             color: inherit; /* Links will inherit color unless specified */
         }
 
         .product-card img.product-image {
             width: 100%;
-            height: 280px;
+            height: 300px; /* Adjusted height */
             object-fit: cover;
-            border-radius: 10px;
+            border-radius: 10px; /* Rounded corners for the image */
             margin-bottom: 15px;
         }
 
+        .product-card .product-info { /* Wrapper for text content to manage spacing */
+            flex-grow: 1; /* Allows this section to grow and push actions down */
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start; /* Align text to top */
+        }
+
+
         .product-card h3 {
             font-family: 'Prompt', sans-serif;
-            margin: 0 0 10px 0;
-            font-size: 1.4em;
-            font-weight: 500;
+            margin: 0 0 8px 0; /* Adjusted margin */
+            font-size: 1.3em; /* Adjusted size */
+            font-weight: 600; /* Bolder for name */
             color: #60C4B4;
-            min-height: 2.8em;
-            line-height: 1.4em;
+            line-height: 1.3; /* Adjusted line height */
+            /* Multi-line clamp */
             overflow: hidden;
             text-overflow: ellipsis;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
-        }
-
-        .product-card p {
-            color: #555;
-            font-size: 1em;
-            margin-bottom: 10px;
+            min-height: calc(1.3em * 2); /* Ensure space for 2 lines */
         }
 
         .product-card .price {
             color: #FF3377;
-            font-size: 1.1em;
-            font-weight: 500;
-            margin-bottom: 15px;
+            font-size: 1.15em; /* Slightly larger price */
+            font-weight: 500; /* Medium weight */
+            margin-bottom: 15px; /* Space below price before actions */
         }
 
         .product-card .actions {
-            margin-top: 15px;
+            margin-top: auto; /* Pushes actions to the bottom of the card */
+            padding-top: 15px; /* Space above action buttons if product-info is short */
             display: flex;
             justify-content: space-between;
             align-items: center;
+            width: 100%; /* Ensure actions take full width */
         }
 
-        .product-card .btn {
+        .product-card .btn { /* "ดูรายละเอียด" button */
             font-family: 'Prompt', sans-serif;
             background-color: #60C4B4;
             color: white;
-            padding: 8px 15px;
+            padding: 9px 18px; /* Adjusted padding */
             text-decoration: none;
-            border-radius: 5px;
+            border-radius: 6px; /* Consistent with other buttons like search */
             font-size: 0.9em;
-            transition: background-color 0.3s ease;
+            font-weight: 500;
+            transition: background-color 0.3s ease, transform 0.2s ease;
             flex-grow: 1;
             margin-right: 10px;
+            border: none; /* Ensure no default border */
         }
 
         .product-card .btn:last-child {
@@ -240,13 +300,19 @@
 
         .product-card .btn:hover {
             background-color: #4aa090;
+            transform: translateY(-1px);
         }
 
         .product-card .heart-icon-link {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 5px;
+            padding: 5px; /* Clickable area */
+            border-radius: 50%; /* Make it circular for better hover target */
+            transition: background-color 0.2s ease;
+        }
+         .product-card .heart-icon-link:hover {
+            background-color: #f0f0f0; /* Light grey background on hover */
         }
 
         .product-card .heart-icon {
@@ -254,27 +320,30 @@
             height: 24px;
             transition: transform 0.2s ease-in-out;
         }
-
-        .product-card .heart-icon:hover {
-            transform: scale(1.2);
+        /* Hover for heart icon itself is managed by .heart-icon-link hover for background */
+        .product-card .heart-icon-link:hover .heart-icon{
+             transform: scale(1.15);
         }
+
 
         .no-products-message {
             width: 100%;
             text-align: center;
             font-size: 1.2em;
             color: #777;
-            margin-top: 30px;
+            margin-top: 40px; /* More margin if no products */
+            margin-bottom: 40px;
         }
 
         /* Footer */
         .footer {
             background-color: #A0D8F1;
-            color: white;
+            color: #333; /* White text was requested earlier for other pages, adjust if needed */
             text-align: center;
-            padding: 20px;
-            margin-top: 50px;
-            font-size: 0.8em;
+            padding: 20px 30px; /* Consistent padding */
+            margin-top: 50px; /* Space above footer */
+            font-family: 'Prompt', sans-serif; /* Ensure Prompt */
+            font-size: 0.9em; /* Consistent footer font size */
         }
     </style>
 </head>
@@ -287,26 +356,25 @@
             <p class="slogan">LOOK GOOD. FEEL RIGHT. LIVE TRUE. | MINDFULLY CURATED OUTFITS FOR EVERY EMOTION AND MOMENT.</p>
         </div>
         <div class="header-right">
-            <a href="{% url 'clothing:welcome' %}">
-                <img src="{% static 'images/home_icon.png' %}" alt="Home" class="home-icon" />
+            <a href="{% url 'clothing:welcome' %}" title="Home"> {# Added title attributes for consistency #}
+                <img src="{% static 'images/home_icon.png' %}" alt="Home" /> {# Removed .home-icon class as it's styled via .header-right img #}
             </a>
-            <a href="/search/"><img src="{% static 'images/search_icon.png' %}" alt="Search" /></a>
-            <a href="{% if user.is_authenticated %}{% url 'clothing:favorites_list' %}{% else %}{% url 'clothing:login' %}{% endif %}">
+            <a href="/search/" title="Search"><img src="{% static 'images/search_icon.png' %}" alt="Search" /></a>
+            <a href="{% if user.is_authenticated %}{% url 'clothing:favorites_list' %}{% else %}{% url 'clothing:login' %}{% endif %}" title="Wishlist">
                 <img src="{% static 'images/heart_icon.png' %}" alt="Wishlist" />
             </a>
-            <a href="{% if user.is_authenticated %}{% url 'clothing:cart' %}{% else %}{% url 'clothing:login' %}{% endif %}">
+            <a href="{% if user.is_authenticated %}{% url 'clothing:cart' %}{% else %}{% url 'clothing:login' %}{% endif %}" title="Cart">
                 <img src="{% static 'images/cart_icon.png' %}" alt="Cart" />
             </a>
-            <a href="{% if user.is_authenticated %}{% url 'clothing:status' %}{% else %}{% url 'clothing:login' %}{% endif %}">
+            <a href="{% if user.is_authenticated %}{% url 'clothing:status' %}{% else %}{% url 'clothing:login' %}{% endif %}" title="Order Status">
                 <img src="{% static 'images/status_icon.png' %}" alt="Status" />
             </a>
-            <a href="{% if user.is_authenticated %}{% url 'clothing:profile' %}{% else %}{% url 'clothing:login' %}{% endif %}">
+            <a href="{% if user.is_authenticated %}{% url 'clothing:profile' %}{% else %}{% url 'clothing:login' %}{% endif %}" title="Profile">
                 <img src="{% static 'images/profile_icon.png' %}" alt="Profile" />
             </a>
         </div>
     </div>
 
-    <!-- Search Bar -->
     <div class="search-bar">
         <form method="GET" action="{% url 'clothing:clothing_list' %}">
             {% if type_filter %}
@@ -317,41 +385,42 @@
         </form>
     </div>
 
-    <!-- Filter Buttons -->
     <div class="filter-buttons">
         <form method="GET" action="{% url 'clothing:clothing_list' %}">
+            {% if search_query %} {# Ensure search query is passed along if it exists #}
             <input type="hidden" name="search" value="{{ search_query }}" />
+            {% endif %}
             {% for ctype in clothing_types %}
-                <button 
-                    type="submit" 
-                    name="type" 
-                    value="{{ ctype.name }}" 
+                <button
+                    type="submit"
+                    name="type"
+                    value="{{ ctype.name }}"
                     class="{% if ctype.name == type_filter %}active{% endif %}">
                     {{ ctype.name }}
                 </button>
             {% endfor %}
             {% if type_filter %}
-                <a href="{% url 'clothing:clothing_list' %}?search={{ search_query }}" class="clear-filter">ล้างฟิลเตอร์</a>
+                {# Ensure search query is also part of the clear filter link if it exists #}
+                <a href="{% url 'clothing:clothing_list' %}{% if search_query %}?search={{ search_query }}{% endif %}" class="clear-filter">ล้างฟิลเตอร์</a>
             {% endif %}
         </form>
     </div>
 
-    <!-- Products -->
     <div class="products">
         {% for clothing in clothes %}
             <div class="product-card">
                 <a href="{% url 'clothing:clothing_detail' pk=clothing.pk %}">
                     <img src="{{ clothing.image.url }}" alt="{{ clothing.name }}" class="product-image" />
                 </a>
-                <div>
-                    <a href="{% url 'clothing:clothing_detail' pk=clothing.pk %}" style="text-decoration: none;">
+                <div class="product-info"> {# Added wrapper for text content #}
+                    <a href="{% url 'clothing:clothing_detail' pk=clothing.pk %}"> {# Removed inline style, handled by .product-card a #}
                         <h3>{{ clothing.name }}</h3>
                     </a>
                     <p class="price">ราคาเช่า 1 วัน: {{ clothing.price_per_day_1 }} บาท</p>
                 </div>
                 <div class="actions">
                     <a href="{% url 'clothing:clothing_detail' pk=clothing.pk %}" class="btn">ดูรายละเอียด</a>
-                    <a href="{% if user.is_authenticated %}{% url 'clothing:add_to_favorites' pk=clothing.pk %}{% else %}{% url 'clothing:login' %}{% endif %}" 
+                    <a href="{% if user.is_authenticated %}{% url 'clothing:add_to_favorites' pk=clothing.pk %}{% else %}{% url 'clothing:login' %}{% endif %}"
                         class="heart-icon-link" title="เพิ่มในรายการโปรด">
                         <img src="{% static 'images/heart_icon.png' %}" alt="Add to Favorites" class="heart-icon" />
                     </a>

@@ -1,27 +1,26 @@
-{% load static %} {# << ADDED for header icons #}
+{% load static %}
 {% load socialaccount %}
 
 <!DOCTYPE html>
-<html lang="en"> {# Kept "en" as per your original Sign Up page code #}
+<html lang="th">
 
 <head>
     <meta charset="UTF-8" />
-    <title>MindVibe - Sign Up</title> {# Kept original Sign Up title #}
+    <title>MindVibe - Sign Up</title>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-    {# National Park font link removed as it wasn't in the Sign Up code you wanted me to modify #}
-    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;700&display=swap" rel="stylesheet"> {# Added Prompt for the new header's slogan #}
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
         body {
-            font-family: 'Bebas Neue', sans-serif; /* << KEPT ORIGINAL Sign Up body font */
+            font-family: 'Prompt', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #FFF1E6; 
+            background-color: #FFF1E6;
             color: #333;
             line-height: 1.6;
         }
 
-        /* --- START: CSS FOR THE NEW HEADER (copied from Home Page code) --- */
+        /* --- START: CSS FOR THE NEW HEADER (Kept as is) --- */
         .header {
             display: flex;
             justify-content: space-between;
@@ -29,7 +28,7 @@
             background-color: #FDFD95;
             padding: 15px 30px;
             color: #333;
-            border-bottom: 1px solid #e0e0e0; /* Optional: from my prev suggestion, remove if not liked */
+            border-bottom: 1px solid #e0e0e0;
         }
 
         .header-left {
@@ -39,17 +38,17 @@
         }
 
         .header .logo {
-            font-family: 'Bebas Neue', sans-serif; 
-            font-size: 2.5em; 
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5em;
             font-weight: bold;
-            color: #FF3377; 
-            margin: 0 0 2px 0; 
+            color: #FF3377;
+            margin: 0 0 2px 0;
         }
 
         .header .slogan {
-            font-family: 'Prompt', sans-serif; /* Slogan uses Prompt, as per Home page header style */
-            font-size: 0.9em; 
-            font-weight: 300; /* Slogan font-weight */
+            font-family: 'Prompt', sans-serif;
+            font-size: 0.9em;
+            font-weight: 300;
             color: #333;
             margin: 0;
         }
@@ -57,19 +56,19 @@
         .header-right {
             display: flex;
             align-items: center;
-            gap: 20px; 
+            gap: 20px;
         }
 
-        .header-right a { /* This was 'block' in Home code, 'flex' in my last suggestion for sign up page. Using 'flex' for better icon centering. */
+        .header-right a {
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
         .header-right img {
-            width: 22px; 
+            width: 22px;
             height: 22px;
-            opacity: 0.7; 
+            opacity: 0.7;
             transition: opacity 0.3s ease, transform 0.2s ease;
         }
 
@@ -77,172 +76,210 @@
             opacity: 1;
             transform: scale(1.1);
         }
-        /* --- END: CSS FOR THE NEW HEADER --- */
 
-        /* --- START: CSS for Sign Up page content (EXACTLY AS YOU PROVIDED for Sign Up page) --- */
-        /* Header Section - THIS IS THE OLD SIGN UP HEADER STYLE - NOW REPLACED */
-        /*
-        .header { 
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #FDFD95; 
-            padding: 30px 20px;
-            color: #333;
-            flex-direction: column;
-            text-align: center;
-            gap: 5px;
-            max-width: 100%;
-            margin: 0 auto;
-        }
-
-        .header .logo {
-            font-size: 3em;
-            font-weight: bold;
-            color: #FF3377; 
-            margin: 0;
-        }
-
-        .header .slogan {
-            font-size: 1.4em;
-            color: #333;
-            margin: 0;
-        }
-        */
 
         /* Main Content Section */
         .main-content {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 30px;
-            padding: 50px 10px;
+            gap: 25px; /* Reduced gap from 30px */
+            padding: 30px 20px; /* Reduced vertical padding from 40px */
             background-color: #FFF1E6;
             max-width: 800px;
-            margin: 0 auto; /* Added margin auto for centering main-content block */
+            margin: 20px auto;
             flex-direction: column;
+            text-align: center;
         }
 
-        .main-content h1 {
-            font-size: 2.8em;
-            font-weight: bold;
-            color: #60C4B4; 
-            margin-bottom: 20px;
+        /* Two-line heading adjustments */
+        .signup-heading-block {
+            margin-bottom: 25px; /* Reduced from 30px */
+            line-height: 1.25; /* Slightly tighter line height for heading block */
         }
+
+        .main-title-en {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3.2em;
+            font-weight: bold;
+            color: #60C4B4;
+            margin: 0 0 3px 0; /* Reduced margin below "SIGN UP" from 5px */
+            text-transform: uppercase;
+        }
+
+        .sub-title-th {
+            font-family: 'Prompt', sans-serif;
+            font-size: 1.6em;
+            font-weight: 500;
+            color: #444;
+            margin: 0;
+        }
+        /* End of heading styles */
+
 
         .main-content .form-container {
             width: 100%;
+            max-width: 450px;
             background-color: #fff;
-            padding: 30px;
+            padding: 30px; /* Reduced padding from 35px */
             border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            text-align: left;
         }
 
-        /* Styling for Django Allauth form fields rendered with {{ form.as_p }} */
-        /* This assumes default rendering where each field (label+input+errors+help_text) is in a <p> */
         .form-container form p {
-            margin-bottom: 18px; /* Space between form fields */
+            margin-bottom: 16px; /* Reduced from 20px */
             text-align: left;
         }
         .form-container form label {
-            display: block; /* Make label take full width */
-            margin-bottom: 6px; /* Space between label and input */
-            font-weight: bold; /* Make labels bold, inheriting Bebas Neue from body */
-            font-size: 1.1em; /* Adjust label size */
+            display: block;
+            margin-bottom: 5px; /* Reduced from 8px */
+            font-weight: 500;
+            font-family: 'Prompt', sans-serif;
+            font-size: 1.05em;
             color: #444;
         }
 
-        .main-content .form-container input[type="text"], /* Applied to specific input types */
+        .main-content .form-container input[type="text"],
         .main-content .form-container input[type="email"],
         .main-content .form-container input[type="password"] {
             width: 100%;
-            padding: 12px;
-            font-size: 1.1em; /* Inherits Bebas Neue from body */
-            font-family: 'Prompt', sans-serif; /* << Explicitly set Prompt for input text for readability */
+            padding: 12px; /* Slightly reduced padding */
+            font-size: 1em;
+            font-family: 'Prompt', sans-serif;
             border-radius: 5px;
             border: 1px solid #ddd;
-            margin-bottom: 0; /* p tag handles bottom margin */
+            margin-bottom: 0;
             background-color: #F9F9F9;
-            box-sizing: border-box; /* Important for width and padding */
+            box-sizing: border-box;
+            color: #333;
         }
 
         .main-content .form-container input:focus {
             outline: none;
             border-color: #60C4B4;
+            box-shadow: 0 0 0 2px rgba(96, 196, 180, 0.2);
         }
 
-        /* Error messages from Django forms */
         .form-container form .errorlist {
             list-style-type: none;
             padding: 0;
-            margin: 5px 0 0 0; /* Margin above error list */
-            color: #D8000C; 
-            font-size: 0.9em; /* Inherits Bebas Neue */
-            font-family: 'Prompt', sans-serif; /* Use Prompt for errors for readability */
+            margin: 5px 0 0 0; /* Reduced top margin from 8px */
+            color: #D8000C;
+            font-size: 0.9em; /* Slightly smaller error text */
+            font-family: 'Prompt', sans-serif;
         }
          .form-container form .errorlist li {
-            padding: 2px 0;
+            padding: 2px 0; /* Reduced padding */
         }
 
 
-        .main-content .form-container button[type="submit"] { /* Target specifically the submit button */
+        .main-content .form-container button[type="submit"] {
             width: 100%;
-            padding: 15px;
-            background-color: #FFB6C1; 
+            padding: 14px; /* Slightly reduced padding */
+            background-color: #FFB6C1;
             color: white;
-            font-size: 1.2em; /* Inherits Bebas Neue */
-            font-family: 'Prompt', sans-serif; /* << Explicitly set Prompt for button text */
-            font-weight: bold;
+            font-size: 1.1em; /* Slightly reduced font size */
+            font-family: 'Prompt', sans-serif;
+            font-weight: 500;
             border-radius: 5px;
             border: none;
             cursor: pointer;
-            transition: background-color 0.3s;
-            margin-top: 10px; /* Add some space before the button */
+            transition: background-color 0.3s, transform 0.2s;
+            margin-top: 18px; /* Adjusted from 15px, considering other reductions */
         }
 
         .main-content .form-container button[type="submit"]:hover {
-            background-color: #FF3377; 
+            background-color: #FF3377;
+            transform: translateY(-2px);
         }
 
         .main-content .form-container .login-link {
             text-align: center;
-            margin-top: 20px;
-            font-size: 1.1em; /* Inherits Bebas Neue */
+            margin-top: 18px; /* Reduced from 25px */
+            font-size: 0.95em; /* Slightly reduced font size */
+            font-family: 'Prompt', sans-serif;
+            color: #555;
         }
         .main-content .form-container .login-link a {
-            color: #FF3377; /* Keep Bebas Neue, just change color */
-            font-weight: bold; /* Make link bold */
+            color: #FF3377;
+            font-weight: 500;
+            text-decoration: none;
+        }
+        .main-content .form-container .login-link a:hover {
+            text-decoration: underline;
         }
 
 
-        /* ปุ่ม Google Signup */
         .google-btn {
-            display: inline-block; /* Changed to inline-block to respect text-align:center of parent */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
             background-color: #4285F4;
             color: white;
-            padding: 12px 25px;
+            padding: 12px 20px; /* Slightly reduced padding */
             border-radius: 5px;
             text-decoration: none;
-            font-weight: bold; /* Inherits Bebas Neue */
-            font-family: 'Prompt', sans-serif; /* << Explicitly set Prompt for button text */
-            margin-top: 20px;
+            font-weight: 500;
+            font-family: 'Prompt', sans-serif;
+            margin-top: 15px; /* Reduced from 20px */
             text-align: center;
             cursor: pointer;
-            border: none; /* Added to remove default border */
+            border: none;
+            transition: background-color 0.3s, transform 0.2s;
+            width: 100%;
+            box-sizing: border-box;
+            font-size: 1.05em; /* Slightly reduced font size */
         }
         .google-btn:hover {
             background-color: #357AE8;
+            transform: translateY(-2px);
         }
 
         .footer {
-            background-color: #A0D8F1; 
-            color: white;
+            background-color: #A0D8F1;
+            color: #333;
             text-align: center;
-            padding: 20px;
-            margin-top: 50px;
-            /* font-family: 'Bebas Neue', sans-serif; -- Footer also inherits from body */
+            padding: 20px; /* Reduced padding from 25px */
+            margin-top: 40px; /* Reduced from 50px */
+            font-family: 'Prompt', sans-serif;
+            font-size: 0.9em; /* Slightly reduced font size */
         }
-        /* --- END: CSS for Sign Up page content --- */
+
+        .messages {
+            list-style-type: none;
+            padding: 0;
+            margin-bottom: 15px; /* Reduced from 20px */
+            text-align: left;
+        }
+        .messages li {
+            padding: 8px 12px; /* Reduced padding */
+            margin-bottom: 8px; /* Reduced margin */
+            border-radius: 5px;
+            font-family: 'Prompt', sans-serif;
+            font-size: 0.9em; /* Slightly reduced font size */
+        }
+        .messages li.success {
+            background-color: #D4EDDA;
+            color: #155724;
+            border: 1px solid #C3E6CB;
+        }
+        .messages li.error {
+            background-color: #F8D7DA;
+            color: #721C24;
+            border: 1px solid #F5C6CB;
+        }
+        .messages li.warning {
+            background-color: #FFF3CD;
+            color: #856404;
+            border: 1px solid #FFEEBA;
+        }
+        .messages li.info {
+            background-color: #D1ECF1;
+            color: #0C5460;
+            border: 1px solid #BEE5EB;
+        }
 
     </style>
 </head>
@@ -255,34 +292,38 @@
             <p class="slogan">LOOK GOOD. FEEL RIGHT. LIVE TRUE. | MINDFULLY CURATED OUTFITS FOR EVERY EMOTION AND MOMENT.</p>
         </div>
         <div class="header-right">
-            <a href="{% if user.is_authenticated %}{% url 'clothing:welcome' %}{% else %}{% url 'clothing:welcome' %}{% endif %}" title="หน้าหลัก">
-                <img src="{% static 'images/home_icon.png' %}" alt="หน้าหลัก">
+            <a href="{% if user.is_authenticated %}{% url 'clothing:welcome' %}{% else %}{% url 'clothing:welcome' %}{% endif %}" title="Home">
+                <img src="{% static 'images/home_icon.png' %}" alt="Home">
             </a>
-            <a href="/search/" title="ค้นหา">
-                <img src="{% static 'images/search_icon.png' %}" alt="ค้นหา">
+            <a href="{% url 'clothing:clothing_list' %}">
+                <img src="{% static 'images/search_icon.png' %}" alt="Search" />
             </a>
-            <a href="{% if user.is_authenticated %}{% url 'clothing:favorites_list' %}{% else %}{% url 'clothing:login' %}{% endif %}" title="รายการโปรด">
-                <img src="{% static 'images/heart_icon.png' %}" alt="รายการโปรด">
+            <a href="{% if user.is_authenticated %}{% url 'clothing:favorites_list' %}{% else %}{% url 'clothing:login' %}{% endif %}" title="Favorites">
+                <img src="{% static 'images/heart_icon.png' %}" alt="Favorites">
             </a>
-            <a href="{% if user.is_authenticated %}{% url 'clothing:cart' %}{% else %}{% url 'clothing:login' %}{% endif %}" title="ตะกร้าสินค้า">
-                <img src="{% static 'images/cart_icon.png' %}" alt="ตะกร้าสินค้า">
+            <a href="{% if user.is_authenticated %}{% url 'clothing:cart' %}{% else %}{% url 'clothing:login' %}{% endif %}" title="Cart">
+                <img src="{% static 'images/cart_icon.png' %}" alt="Cart">
             </a>
-            <a href="{% if user.is_authenticated %}{% url 'clothing:status' %}{% else %}{% url 'clothing:login' %}{% endif %}" title="สถานะการสั่งซื้อ">
-                <img src="{% static 'images/status_icon.png' %}" alt="สถานะ">
+            <a href="{% if user.is_authenticated %}{% url 'clothing:status' %}{% else %}{% url 'clothing:login' %}{% endif %}" title="Order Status">
+                <img src="{% static 'images/status_icon.png' %}" alt="Status">
             </a>
-            <a href="{% if user.is_authenticated %}{% url 'clothing:profile' %}{% else %}{% url 'clothing:login' %}{% endif %}" title="โปรไฟล์">
-                <img src="{% static 'images/profile_icon.png' %}" alt="โปรไฟล์">
+            <a href="{% if user.is_authenticated %}{% url 'clothing:profile' %}{% else %}{% url 'clothing:login' %}{% endif %}" title="Profile">
+                <img src="{% static 'images/profile_icon.png' %}" alt="Profile">
             </a>
         </div>
     </div>
+
     <div class="main-content">
-        <h1>Sign Up</h1> {# This will use Bebas Neue from body style #}
+        <div class="signup-heading-block">
+            <h1 class="main-title-en">SIGN UP</h1>
+            <p class="sub-title-th">สมัครสมาชิก</p>
+        </div>
         <div class="form-container">
             <form method="POST">
                 {% csrf_token %}
 
                 {% if messages %}
-                    <ul> {# Consider adding a class for styling messages e.g., <ul class="messages"> #}
+                    <ul class="messages">
                         {% for message in messages %}
                             <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
                         {% endfor %}
@@ -291,19 +332,19 @@
 
                 {{ form.as_p }}
 
-                <button type="submit">Sign Up</button> {# Removed class="btn", original had no class #}
+                <button type="submit">สมัครสมาชิก</button>
             </form>
 
             <a href="{% provider_login_url 'google' process='login' %}" class="google-btn">
                 สมัครด้วย Google
             </a>
 
-            <p class="login-link">Already have an account? <a href="{% url 'clothing:login' %}">Login here</a></p>
+            <p class="login-link">มีบัญชีอยู่แล้ว? <a href="{% url 'clothing:login' %}">เข้าสู่ระบบที่นี่</a></p>
         </div>
     </div>
 
     <div class="footer">
-        <p>&copy; 2025 MindVibe. All rights reserved.</p>
+        <p>&copy; 2025 MINDVIBE. ALL RIGHTS RESERVED.</p>
     </div>
 
 </body>

@@ -1,0 +1,148 @@
+{% load socialaccount %}
+{% load static %} {# เพิ่ม load static เผื่อต้องการใช้รูปภาพในอนาคต #}
+
+<!DOCTYPE html>
+<html lang="th"> {# เปลี่ยนเป็น lang="th" เพื่อความสอดคล้อง #}
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> {# เพิ่ม viewport #}
+    <title>เข้าสู่ระบบผ่าน Google - MindVibe</title> {# เปลี่ยนเป็นภาษาไทย #}
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+
+
+    <style>
+        body {
+            font-family: 'Prompt', sans-serif; /* เปลี่ยนเป็น Prompt */
+            background-color: #FFF1E6;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center; /* จัดให้อยู่กลางแนวตั้ง */
+            min-height: 100vh; /* ให้ body เต็มความสูงของหน้าจอ */
+            margin: 0;
+            padding: 2rem;
+            box-sizing: border-box; /* ช่วยในการจัดการ padding และ border */
+        }
+
+        .container { /* เพิ่ม container เพื่อครอบเนื้อหา */
+            background-color: #ffffff;
+            padding: 2.5rem 3rem; /* เพิ่ม padding ภายใน container */
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 500px; /* กำหนดความกว้างสูงสุด */
+            width: 100%;
+        }
+
+        .mindvibe-logo { /* สไตล์สำหรับโลโก้ MindVibe */
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.8em;
+            color: #FF3377; /* สีชมพูจากธีม */
+            margin-bottom: 1rem;
+        }
+
+        h1 { /* หัวข้อ "เข้าสู่ระบบผ่าน Google" */
+            font-family: 'Prompt', sans-serif; /* ใช้ Prompt */
+            font-weight: 500;
+            color: #60C4B4; /* สีเขียวอมฟ้าจากธีม */
+            font-size: 1.8em; /* ปรับขนาด */
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            margin-bottom: 1.5rem; /* ปรับ margin */
+            font-size: 1rem; /* ปรับขนาด */
+            color: #555; /* ปรับสีให้อ่อนลงเล็กน้อย */
+            line-height: 1.6;
+        }
+
+        .google-signin-button { /* เปลี่ยนชื่อ class เพื่อความชัดเจน */
+            background-color: #4285F4;
+            color: white;
+            border: none;
+            padding: 0.9rem 1.8rem; /* ปรับ padding */
+            font-size: 1rem; /* ปรับขนาดฟอนต์ */
+            font-weight: 500; /* เพิ่มน้ำหนักตัวอักษร */
+            border-radius: 8px; /* เพิ่มความโค้งมน */
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            display: inline-flex; /* สำหรับจัดไอคอน (ถ้ามี) และ text */
+            align-items: center;
+            gap: 0.8rem; /* ระยะห่างระหว่างไอคอน (ถ้ามี) กับ text */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .google-signin-button:hover {
+            background-color: #357ae8;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        .google-signin-button img { /* สไตล์สำหรับไอคอน Google (ถ้ามี) */
+            width: 20px;
+            height: 20px;
+        }
+
+        nav {
+            position: absolute; /* จัดให้อยู่มุมขวาบน */
+            top: 20px;
+            right: 30px;
+            background-color: rgba(255, 255, 255, 0.8); /* พื้นหลังโปร่งแสงเล็กน้อย */
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        nav a {
+            margin-left: 1.5rem; /* ปรับ margin เป็น left */
+            color: #FF3377;
+            text-decoration: none;
+            font-weight: 500; /* ปรับน้ำหนัก */
+            font-size: 0.95rem; /* ปรับขนาด */
+            transition: color 0.3s ease;
+        }
+        nav a:first-child {
+            margin-left: 0; /* link แรกไม่ต้องมี margin-left */
+        }
+
+        nav a:hover {
+            color: #e6005c; /* สีเข้มขึ้นเมื่อ hover */
+            text-decoration: underline;
+        }
+
+        .form-note { /* เพิ่ม class สำหรับข้อความอธิบายเพิ่มเติม */
+            font-size: 0.85rem;
+            color: #777;
+            margin-top: 1.5rem;
+        }
+
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="{% provider_login_url 'google' %}?next=/">กลับไปหน้าหลัก</a> {# เพิ่มลิงก์กลับ (ถ้าต้องการ) #}
+        <a href="{% url 'account_login' %}">เข้าสู่ระบบด้วยวิธีอื่น</a>
+        <a href="{% url 'account_signup' %}">สมัครสมาชิก</a>
+    </nav>
+
+    <div class="container">
+        <div class="mindvibe-logo">MindVibe</div>
+        <h1>ยืนยันการเข้าสู่ระบบผ่าน Google</h1>
+        <p>คุณกำลังจะเข้าสู่ระบบ MindVibe โดยใช้บัญชีบุคคลที่สามจาก Google</p>
+
+        <form method="POST" action="{% provider_login_url 'google' process='login' %}"> {# action ควรจะชี้ไปที่ URL ของ allauth #}
+            {% csrf_token %}
+            <button type="submit" class="google-signin-button">
+                {# ถ้าต้องการใส่ไอคอน Google: <img src="{% static 'images/google_icon.svg' %}" alt="Google icon"> #}
+                ดำเนินการต่อด้วย Google
+            </button>
+        </form>
+        <p class="form-note">การคลิก "ดำเนินการต่อด้วย Google" หมายความว่าคุณยอมรับ <a href="/terms">ข้อกำหนดในการให้บริการ</a> และ <a href="/privacy">นโยบายความเป็นส่วนตัว</a> ของเรา</p>
+    </div>
+
+</body>
+</html>

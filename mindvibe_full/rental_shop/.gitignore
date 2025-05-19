@@ -1,0 +1,16 @@
+# ไฟล์ Python
+*.pyc
+__pycache__/
+
+# ไฟล์ db SQLite
+db.sqlite3
+
+# ไฟล์ environment variables
+.env
+
+# ไฟล์ static ที่ build แล้ว
+staticfiles/
+
+# IDE configs
+.vscode/
+.idea/

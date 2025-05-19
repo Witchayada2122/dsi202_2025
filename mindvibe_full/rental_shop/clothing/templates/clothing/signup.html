@@ -1,28 +1,92 @@
+{% load static %} {# << ADDED for header icons #}
 {% load socialaccount %}
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"> {# Kept "en" as per your original Sign Up page code #}
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MindVibe - Sign Up</title>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=National+Park&display=swap" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <title>MindVibe - Sign Up</title> {# Kept original Sign Up title #}
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    {# National Park font link removed as it wasn't in the Sign Up code you wanted me to modify #}
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;700&display=swap" rel="stylesheet"> {# Added Prompt for the new header's slogan #}
+
     <style>
         body {
-            font-family: 'Bebas Neue', sans-serif;
+            font-family: 'Bebas Neue', sans-serif; /* << KEPT ORIGINAL Sign Up body font */
             margin: 0;
             padding: 0;
-            background-color: #FFF1E6; /* เบจอ่อน */
+            background-color: #FFF1E6; 
             color: #333;
             line-height: 1.6;
         }
 
-        /* Header Section */
+        /* --- START: CSS FOR THE NEW HEADER (copied from Home Page code) --- */
         .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #FDFD95;
+            padding: 15px 30px;
+            color: #333;
+            border-bottom: 1px solid #e0e0e0; /* Optional: from my prev suggestion, remove if not liked */
+        }
+
+        .header-left {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .header .logo {
+            font-family: 'Bebas Neue', sans-serif; 
+            font-size: 2.5em; 
+            font-weight: bold;
+            color: #FF3377; 
+            margin: 0 0 2px 0; 
+        }
+
+        .header .slogan {
+            font-family: 'Prompt', sans-serif; /* Slogan uses Prompt, as per Home page header style */
+            font-size: 0.9em; 
+            font-weight: 300; /* Slogan font-weight */
+            color: #333;
+            margin: 0;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px; 
+        }
+
+        .header-right a { /* This was 'block' in Home code, 'flex' in my last suggestion for sign up page. Using 'flex' for better icon centering. */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header-right img {
+            width: 22px; 
+            height: 22px;
+            opacity: 0.7; 
+            transition: opacity 0.3s ease, transform 0.2s ease;
+        }
+
+        .header-right img:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+        /* --- END: CSS FOR THE NEW HEADER --- */
+
+        /* --- START: CSS for Sign Up page content (EXACTLY AS YOU PROVIDED for Sign Up page) --- */
+        /* Header Section - THIS IS THE OLD SIGN UP HEADER STYLE - NOW REPLACED */
+        /*
+        .header { 
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #FDFD95; /* สีเหลือง */
+            background-color: #FDFD95; 
             padding: 30px 20px;
             color: #333;
             flex-direction: column;
@@ -35,7 +99,7 @@
         .header .logo {
             font-size: 3em;
             font-weight: bold;
-            color: #FF3377; /* สีชมพู */
+            color: #FF3377; 
             margin: 0;
         }
 
@@ -44,6 +108,7 @@
             color: #333;
             margin: 0;
         }
+        */
 
         /* Main Content Section */
         .main-content {
@@ -54,14 +119,14 @@
             padding: 50px 10px;
             background-color: #FFF1E6;
             max-width: 800px;
-            margin: 0 auto;
+            margin: 0 auto; /* Added margin auto for centering main-content block */
             flex-direction: column;
         }
 
         .main-content h1 {
             font-size: 2.8em;
             font-weight: bold;
-            color: #60C4B4; /* โลโก้สีฟ้า */
+            color: #60C4B4; 
             margin-bottom: 20px;
         }
 
@@ -73,14 +138,32 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
-        .main-content .form-container input {
+        /* Styling for Django Allauth form fields rendered with {{ form.as_p }} */
+        /* This assumes default rendering where each field (label+input+errors+help_text) is in a <p> */
+        .form-container form p {
+            margin-bottom: 18px; /* Space between form fields */
+            text-align: left;
+        }
+        .form-container form label {
+            display: block; /* Make label take full width */
+            margin-bottom: 6px; /* Space between label and input */
+            font-weight: bold; /* Make labels bold, inheriting Bebas Neue from body */
+            font-size: 1.1em; /* Adjust label size */
+            color: #444;
+        }
+
+        .main-content .form-container input[type="text"], /* Applied to specific input types */
+        .main-content .form-container input[type="email"],
+        .main-content .form-container input[type="password"] {
             width: 100%;
             padding: 12px;
-            font-size: 1.1em;
+            font-size: 1.1em; /* Inherits Bebas Neue from body */
+            font-family: 'Prompt', sans-serif; /* << Explicitly set Prompt for input text for readability */
             border-radius: 5px;
             border: 1px solid #ddd;
-            margin-bottom: 15px;
+            margin-bottom: 0; /* p tag handles bottom margin */
             background-color: #F9F9F9;
+            box-sizing: border-box; /* Important for width and padding */
         }
 
         .main-content .form-container input:focus {
@@ -88,90 +171,130 @@
             border-color: #60C4B4;
         }
 
-        .main-content .form-container button {
+        /* Error messages from Django forms */
+        .form-container form .errorlist {
+            list-style-type: none;
+            padding: 0;
+            margin: 5px 0 0 0; /* Margin above error list */
+            color: #D8000C; 
+            font-size: 0.9em; /* Inherits Bebas Neue */
+            font-family: 'Prompt', sans-serif; /* Use Prompt for errors for readability */
+        }
+         .form-container form .errorlist li {
+            padding: 2px 0;
+        }
+
+
+        .main-content .form-container button[type="submit"] { /* Target specifically the submit button */
             width: 100%;
             padding: 15px;
-            background-color: #FFB6C1; /* สีชมพูพีช */
+            background-color: #FFB6C1; 
             color: white;
-            font-size: 1.2em;
+            font-size: 1.2em; /* Inherits Bebas Neue */
+            font-family: 'Prompt', sans-serif; /* << Explicitly set Prompt for button text */
+            font-weight: bold;
             border-radius: 5px;
             border: none;
             cursor: pointer;
             transition: background-color 0.3s;
+            margin-top: 10px; /* Add some space before the button */
         }
 
-        .main-content .form-container button:hover {
-            background-color: #FF3377; /* สีชมพูสด */
+        .main-content .form-container button[type="submit"]:hover {
+            background-color: #FF3377; 
         }
 
         .main-content .form-container .login-link {
             text-align: center;
             margin-top: 20px;
-            font-size: 1.1em;
+            font-size: 1.1em; /* Inherits Bebas Neue */
         }
+        .main-content .form-container .login-link a {
+            color: #FF3377; /* Keep Bebas Neue, just change color */
+            font-weight: bold; /* Make link bold */
+        }
+
 
         /* ปุ่ม Google Signup */
         .google-btn {
-            display: inline-block;
+            display: inline-block; /* Changed to inline-block to respect text-align:center of parent */
             background-color: #4285F4;
             color: white;
             padding: 12px 25px;
             border-radius: 5px;
             text-decoration: none;
-            font-weight: bold;
-            font-family: 'Bebas Neue', sans-serif;
+            font-weight: bold; /* Inherits Bebas Neue */
+            font-family: 'Prompt', sans-serif; /* << Explicitly set Prompt for button text */
             margin-top: 20px;
             text-align: center;
             cursor: pointer;
+            border: none; /* Added to remove default border */
         }
         .google-btn:hover {
             background-color: #357AE8;
         }
 
         .footer {
-            background-color: #A0D8F1; /* สีฟ้าอ่อน */
+            background-color: #A0D8F1; 
             color: white;
             text-align: center;
             padding: 20px;
             margin-top: 50px;
+            /* font-family: 'Bebas Neue', sans-serif; -- Footer also inherits from body */
         }
+        /* --- END: CSS for Sign Up page content --- */
+
     </style>
 </head>
 
 <body>
 
-    <!-- Header with Logo and Slogan -->
     <div class="header">
-        <div>
-            <h1 class="logo">MindVibe</h1>
-            <p class="slogan">Look good. Feel right. Live true. | Mindfully curated outfits for every emotion and moment.</p>
+        <div class="header-left">
+            <h1 class="logo">MINDVIBE</h1>
+            <p class="slogan">LOOK GOOD. FEEL RIGHT. LIVE TRUE. | MINDFULLY CURATED OUTFITS FOR EVERY EMOTION AND MOMENT.</p>
+        </div>
+        <div class="header-right">
+            <a href="{% if user.is_authenticated %}{% url 'clothing:welcome' %}{% else %}{% url 'clothing:welcome' %}{% endif %}" title="หน้าหลัก">
+                <img src="{% static 'images/home_icon.png' %}" alt="หน้าหลัก">
+            </a>
+            <a href="/search/" title="ค้นหา">
+                <img src="{% static 'images/search_icon.png' %}" alt="ค้นหา">
+            </a>
+            <a href="{% if user.is_authenticated %}{% url 'clothing:favorites_list' %}{% else %}{% url 'clothing:login' %}{% endif %}" title="รายการโปรด">
+                <img src="{% static 'images/heart_icon.png' %}" alt="รายการโปรด">
+            </a>
+            <a href="{% if user.is_authenticated %}{% url 'clothing:cart' %}{% else %}{% url 'clothing:login' %}{% endif %}" title="ตะกร้าสินค้า">
+                <img src="{% static 'images/cart_icon.png' %}" alt="ตะกร้าสินค้า">
+            </a>
+            <a href="{% if user.is_authenticated %}{% url 'clothing:status' %}{% else %}{% url 'clothing:login' %}{% endif %}" title="สถานะการสั่งซื้อ">
+                <img src="{% static 'images/status_icon.png' %}" alt="สถานะ">
+            </a>
+            <a href="{% if user.is_authenticated %}{% url 'clothing:profile' %}{% else %}{% url 'clothing:login' %}{% endif %}" title="โปรไฟล์">
+                <img src="{% static 'images/profile_icon.png' %}" alt="โปรไฟล์">
+            </a>
         </div>
     </div>
-
-    <!-- Main Content Section -->
     <div class="main-content">
-        <h1>Sign Up</h1>
+        <h1>Sign Up</h1> {# This will use Bebas Neue from body style #}
         <div class="form-container">
             <form method="POST">
                 {% csrf_token %}
 
-                <!-- แสดงข้อความข้อผิดพลาดหากมี -->
                 {% if messages %}
-                    <ul>
+                    <ul> {# Consider adding a class for styling messages e.g., <ul class="messages"> #}
                         {% for message in messages %}
-                            <li>{{ message }}</li>
+                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
                         {% endfor %}
                     </ul>
                 {% endif %}
 
-                <!-- แสดงฟอร์มการสมัครสมาชิก -->
                 {{ form.as_p }}
 
-                <button type="submit" class="btn">Sign Up</button>
+                <button type="submit">Sign Up</button> {# Removed class="btn", original had no class #}
             </form>
 
-            <!-- ปุ่มสมัครด้วย Google -->
-            <a href="{% provider_login_url 'google' %}" class="google-btn">
+            <a href="{% provider_login_url 'google' process='login' %}" class="google-btn">
                 สมัครด้วย Google
             </a>
 
@@ -179,11 +302,9 @@
         </div>
     </div>
 
-    <!-- Footer -->
     <div class="footer">
         <p>&copy; 2025 MindVibe. All rights reserved.</p>
     </div>
 
 </body>
-
 </html>

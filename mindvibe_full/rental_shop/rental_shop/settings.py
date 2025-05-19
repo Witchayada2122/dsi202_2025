@@ -1,16 +1,20 @@
 import os
 from pathlib import Path
+from dotenv import load_dotenv
 
 # กำหนด Path หลักของโปรเจค
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# ความลับของโปรเจค
-SECRET_KEY = 'django-insecure-+i(ay40(up!g-7!uhe%lzma6xoa(4ncwkp8jd%j7b0b4=9&+jn'
+# โหลดไฟล์ .env
+load_dotenv(dotenv_path=BASE_DIR / '.env')
+
+# ความลับของโปรเจค อ่านจาก environment variables
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # เปิดโหมด debug สำหรับพัฒนา (ปิดใน production)
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 # แอปพลิเคชันที่ติดตั้ง
 INSTALLED_APPS = [
@@ -114,7 +118,7 @@ LOGIN_REDIRECT_URL = '/'      # หลัง login สำเร็จ
 ACCOUNT_LOGOUT_REDIRECT_URL = '/'  # หลัง logout
 
 # ตั้งค่า SITE_ID จำเป็นสำหรับ django-allauth
-SITE_ID = 1
+SITE_ID = 3
 
 # กำหนด Authentication backends
 AUTHENTICATION_BACKENDS = [
@@ -124,3 +128,14 @@ AUTHENTICATION_BACKENDS = [
 
 # ตั้งค่า default primary key field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# ตั้งค่า social account provider โดยใช้ค่า client_id และ secret จาก environment variables
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id': os.getenv('GOOGLE_CLIENT_ID'),
+            'secret': os.getenv('GOOGLE_SECRET'),
+            'key': ''
+        }
+    }
+}

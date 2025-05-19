@@ -1,54 +1,90 @@
-{% load static %}
+{% load static %} {# << ADDED for header icons #}
 {% load socialaccount %}
+
 <!DOCTYPE html>
-<html lang="th"> {# เปลี่ยนเป็น lang="th" ถ้าเนื้อหาส่วนใหญ่เป็นภาษาไทย #}
+<html lang="th">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MindVibe - Login</title>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Sarabun:wght@400;700&display=swap" rel="stylesheet">
-    {# ^^^ เปลี่ยน National Park เป็น Sarabun เพื่อรองรับภาษาไทยได้ดีขึ้น ถ้าต้องการ #}
-    
-    {# ถ้าคุณมีไฟล์ CSS ที่จัดการ static files ให้ยกเลิกคอมเมนต์บรรทัดด้านล่างและแก้ path ให้ถูกต้อง #}
-    {# <link rel="stylesheet" type="text/css" href="{% static 'clothing/css/your_style.css' %}"> #}
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;700&display=swap" rel="stylesheet"> {# Added Prompt for the new header's slogan #}
     
     <style>
         body {
-            font-family: 'Sarabun', sans-serif; /* เปลี่ยนเป็น Sarabun เพื่อภาษาไทย */
+            font-family: 'Sarabun', sans-serif; /* << KEPT ORIGINAL Login page body font */
             margin: 0;
             padding: 0;
-            background-color: #FFF1E6; /* เบจอ่อน */
+            background-color: #FFF1E6; 
             color: #333;
             line-height: 1.6;
         }
 
+        /* --- START: CSS FOR THE NEW HEADER (copied from Home Page code) --- */
         .header {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            background-color: #FDFD95; /* สีเหลือง */
-            padding: 20px; /* ลด padding ลงเล็กน้อย */
+            background-color: #FDFD95;
+            padding: 15px 30px;
             color: #333;
+            border-bottom: 1px solid #e0e0e0; /* From your liked Home page header */
+        }
+
+        .header-left {
+            display: flex;
             flex-direction: column;
-            text-align: center;
-            gap: 5px;
+            align-items: flex-start;
         }
 
         .header .logo {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 2.8em; /* ปรับขนาดให้เหมาะสม */
+            font-family: 'Bebas Neue', sans-serif; 
+            font-size: 2.5em; 
             font-weight: bold;
-            color: #FF3377; /* สีชมพู */
-            margin: 0;
+            color: #FF3377; 
+            margin: 0 0 2px 0; 
         }
 
         .header .slogan {
-            font-size: 1.2em; /* ปรับขนาด */
+            font-family: 'Prompt', sans-serif; /* Slogan uses Prompt, as per Home page header style */
+            font-size: 0.9em; 
+            font-weight: 300; 
             color: #333;
             margin: 0;
-            padding: 0 15px; /* เพิ่ม padding ซ้ายขวาให้สโลแกน */
         }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px; 
+        }
+
+        .header-right a {
+            display: flex; 
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header-right img {
+            width: 22px; 
+            height: 22px;
+            opacity: 0.7; 
+            transition: opacity 0.3s ease, transform 0.2s ease;
+        }
+
+        .header-right img:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+        /* --- END: CSS FOR THE NEW HEADER --- */
+
+        /* --- START: CSS for Login page content (EXACTLY AS YOU PROVIDED for Login page, except old header) --- */
+        /* Old Header CSS from Login Page - REMOVED/REPLACED 
+        .header { (old styles for login page header) }
+        .header .logo { (old styles) }
+        .header .slogan { (old styles) }
+        */
 
         .main-content {
             display: flex;
@@ -56,34 +92,34 @@
             align-items: center;
             flex-direction: column;
             padding: 30px 20px;
-            background-color: transparent; /* ทำให้กลืนไปกับ body */
-            max-width: 450px; /* ปรับความกว้างสูงสุด */
+            background-color: transparent; 
+            max-width: 450px; 
             margin: 30px auto;
         }
 
         .main-content h1 {
-            font-family: 'Bebas Neue', sans-serif;
+            font-family: 'Bebas Neue', sans-serif; /* This h1 is part of main-content, not header */
             font-size: 2.5em;
             font-weight: bold;
-            color: #60C4B4; /* สีเขียวมิ้นต์ */
+            color: #60C4B4; 
             margin-bottom: 25px;
         }
 
         .form-container {
             width: 100%;
             background-color: #ffffff;
-            padding: 25px 30px; /* ปรับ padding */
+            padding: 25px 30px; 
             border-radius: 10px;
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
         }
         
-        .form-container p { /* สำหรับ {{ form.as_p }} */
+        .form-container p { 
             margin-bottom: 18px;
         }
         .form-container label {
             display: block;
             margin-bottom: 6px;
-            font-weight: bold;
+            font-weight: bold; /* Will inherit Sarabun from body */
             color: #444;
             font-size: 0.95em;
         }
@@ -94,19 +130,19 @@
             width: 100%;
             padding: 10px 12px;
             font-size: 1em;
-            font-family: 'Sarabun', sans-serif;
+            font-family: 'Sarabun', sans-serif; /* Stays Sarabun */
             border-radius: 5px;
             border: 1px solid #ccc;
-            margin-bottom: 5px;
+            margin-bottom: 5px; /* p tag below will create more space if form.as_p */
             background-color: #fdfdfd;
             box-sizing: border-box;
         }
         .form-container ul.errorlist {
             list-style-type: none;
             padding: 0;
-            color: #d9534f; /* สีแดงสำหรับ error */
-            font-size: 0.85em;
-            margin-top: -10px;
+            color: #d9534f; 
+            font-size: 0.85em; /* Will inherit Sarabun */
+            margin-top: -10px; /* Adjusted from -10px to be less aggressive if input has margin-bottom: 5px */
             margin-bottom: 12px;
         }
         .form-container ul.errorlist li {
@@ -122,10 +158,10 @@
         .form-container button[type="submit"] {
             width: 100%;
             padding: 12px 15px;
-            background-color: #FFB6C1; /* สีชมพูพีช */
+            background-color: #FFB6C1; 
             color: white;
             font-size: 1.1em;
-            font-family: 'Bebas Neue', sans-serif;
+            font-family: 'Bebas Neue', sans-serif; /* Button text Bebas Neue */
             letter-spacing: 0.5px;
             border-radius: 5px;
             border: none;
@@ -135,24 +171,23 @@
         }
 
         .form-container button[type="submit"]:hover {
-            background-color: #FF3377; /* สีชมพูสด */
+            background-color: #FF3377; 
         }
 
-        .signup-link-container { /* เปลี่ยนชื่อคลาสเพื่อให้ชัดเจน */
+        .signup-link-container { 
             text-align: center;
             margin-top: 25px;
-            font-size: 1em;
+            font-size: 1em; /* Will inherit Sarabun */
         }
         .signup-link-container a {
             color: #FF3377;
             text-decoration: none;
-            font-weight: bold;
+            font-weight: bold; /* Will inherit Sarabun */
         }
         .signup-link-container a:hover {
             text-decoration: underline;
         }
 
-        /* ปุ่ม Google Login */
         .google-btn {
             display: inline-block;
             background-color: #4285F4;
@@ -161,10 +196,11 @@
             border-radius: 5px;
             text-decoration: none;
             font-weight: bold;
-            font-family: 'Bebas Neue', sans-serif;
+            font-family: 'Bebas Neue', sans-serif; /* Google button Bebas Neue */
             margin-top: 20px;
             text-align: center;
             cursor: pointer;
+            border: none; /* Added to ensure no default border */
         }
 
         .google-btn:hover {
@@ -172,27 +208,47 @@
         }
 
         .footer {
-            background-color: #A0D8F1; /* สีฟ้าอ่อน */
+            background-color: #A0D8F1; 
             color: #333;
             text-align: center;
             padding: 15px 20px;
-            margin-top: 40px; /* ลด margin บน */
-            font-size: 0.9em;
+            margin-top: 40px; 
+            font-size: 0.9em; /* Will inherit Sarabun */
         }
+        /* --- END: CSS for Login page content --- */
     </style>
 </head>
 
 <body>
 
-    <header class="header">
-        <div>
-            <h1 class="logo">MindVibe</h1>
-            <p class="slogan">Look good. Feel right. Live true. | Mindfully curated outfits for every emotion and moment.</p>
+    <div class="header">
+        <div class="header-left">
+            <h1 class="logo">MINDVIBE</h1>
+            <p class="slogan">LOOK GOOD. FEEL RIGHT. LIVE TRUE. | MINDFULLY CURATED OUTFITS FOR EVERY EMOTION AND MOMENT.</p>
         </div>
-    </header>
-
+        <div class="header-right">
+            <a href="{% if user.is_authenticated %}{% url 'clothing:welcome' %}{% else %}{% url 'clothing:welcome' %}{% endif %}" title="หน้าหลัก">
+                <img src="{% static 'images/home_icon.png' %}" alt="หน้าหลัก">
+            </a>
+            <a href="/search/" title="ค้นหา">
+                <img src="{% static 'images/search_icon.png' %}" alt="ค้นหา">
+            </a>
+            <a href="{% if user.is_authenticated %}{% url 'clothing:favorites_list' %}{% else %}{% url 'clothing:login' %}{% endif %}" title="รายการโปรด">
+                <img src="{% static 'images/heart_icon.png' %}" alt="รายการโปรด">
+            </a>
+            <a href="{% if user.is_authenticated %}{% url 'clothing:cart' %}{% else %}{% url 'clothing:login' %}{% endif %}" title="ตะกร้าสินค้า">
+                <img src="{% static 'images/cart_icon.png' %}" alt="ตะกร้าสินค้า">
+            </a>
+            <a href="{% if user.is_authenticated %}{% url 'clothing:status' %}{% else %}{% url 'clothing:login' %}{% endif %}" title="สถานะการสั่งซื้อ">
+                <img src="{% static 'images/status_icon.png' %}" alt="สถานะ">
+            </a>
+            <a href="{% if user.is_authenticated %}{% url 'clothing:profile' %}{% else %}{% url 'clothing:login' %}{% endif %}" title="โปรไฟล์">
+                <img src="{% static 'images/profile_icon.png' %}" alt="โปรไฟล์">
+            </a>
+        </div>
+    </div>
     <main class="main-content">
-        <h1>Login</h1>
+        <h1>Login</h1> {# This H1 will use Sarabun (from body) if not overridden, but Login page CSS sets it to Bebas Neue #}
         <section class="form-container">
             <form method="POST" action="{% url 'clothing:login' %}">
                 {% csrf_token %}
@@ -206,8 +262,7 @@
                 <button type="submit">Login</button>
             </form>
 
-            <!-- ปุ่มเข้าสู่ระบบด้วย Google -->
-            <a href="{% provider_login_url 'google' %}" class="google-btn">
+            <a href="{% provider_login_url 'google' process='login' %}" class="google-btn"> {# process='login' for login page #}
                 เข้าสู่ระบบด้วย Google
             </a>
 
@@ -222,5 +277,4 @@
     </footer>
 
 </body>
-
 </html>

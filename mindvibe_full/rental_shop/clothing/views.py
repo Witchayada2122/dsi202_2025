@@ -336,8 +336,7 @@ def cart(request):
 # ฟังก์ชันสำหรับหน้าชำระเงิน
 def payment(request):
     cart_items = get_cart_items(request)
-    total_price = sum(item['total'] for item in cart_items)
-    formatted_total_price = f"฿ {total_price:,.2f}"
+    total_price = sum(item['total'] for item in cart_items)  # เป็นตัวเลข (Decimal หรือ float)
 
     if request.method == 'POST':
         full_name = request.POST.get('full_name')
@@ -357,8 +356,9 @@ def payment(request):
 
     return render(request, 'clothing/payment.html', {
         'cart_items': cart_items,
-        'total_price': formatted_total_price
+        'total_price': total_price  # ส่งเป็นตัวเลขเลย
     })
+
 
 @login_required
 def status(request):

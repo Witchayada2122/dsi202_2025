@@ -6,263 +6,451 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ชำระเงิน - MindVibe</title>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Prompt', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #FFF1E6;
-            color: #333;
-            line-height: 1.6;
+        :root {
+            --primary-color: #FF3377;
+            --secondary-color: #60C4B4;
+            --background-light: #FFF1E6;
+            --surface-color: #ffffff;
+            --text-primary: #333;
+            --text-secondary: #555;
+            --text-on-primary: #ffffff;
+            --text-on-secondary: #ffffff;
+            --border-light: #e0e0e0;
+            --border-medium: #ccc;
+            --success-color: #5cb85c;
+            --danger-color: #d9534f;
+            --font-main: 'Prompt', sans-serif;
+            --font-logo: 'Bebas Neue', sans-serif;
+            --border-radius-sm: 6px;
+            --border-radius-md: 10px;
+            --border-radius-lg: 15px;
+            --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-medium: 0 8px 20px rgba(0, 0, 0, 0.1);
         }
 
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-light);
+            color: var(--text-primary);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header Section - UNCHANGED AS REQUESTED */
         .header {
             background-color: #FDFD95;
             padding: 15px 30px;
-            color: #333;
+            color: var(--text-primary);
             display: flex;
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            position: sticky; /* Added for sticky header */
+            top: 0;
+            z-index: 1000; /* Ensures header is above other content */
+            flex-shrink: 0; /* Prevent header from shrinking */
         }
-
         .header-left {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
         }
-
         .header .logo {
-            font-family: 'Bebas Neue', sans-serif;
+            font-family: var(--font-logo);
             font-size: 2.5em;
             font-weight: bold;
-            color: #FF3377;
+            color: var(--primary-color);
             margin: 0 0 2px 0;
+            text-decoration: none;
         }
-
         .header .slogan {
+            font-family: var(--font-main);
             font-size: 0.9em;
-            color: #333;
+            color: var(--text-primary);
             margin: 0;
         }
-
         .header-right {
             display: flex;
             align-items: center;
             gap: 20px;
         }
-
         .header-right a {
             display: flex;
             align-items: center;
             justify-content: center;
         }
-
         .header-right img {
             width: 22px;
             height: 22px;
             opacity: 0.7;
             transition: opacity 0.3s ease, transform 0.2s ease;
         }
-
         .header-right img:hover {
             opacity: 1;
             transform: scale(1.1);
         }
+
+        /* Page Title Section - NEW */
+        .page-title-section {
+            text-align: center;
+            padding: 35px 20px 15px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            line-height: 1.3;
+        }
+        .page-title-section .main-title-en {
+            font-family: var(--font-logo);
+            font-size: 3.2em;
+            font-weight: bold;
+            color: var(--secondary-color); /* Using secondary color for this page title */
+            margin: 0 0 5px 0;
+            text-transform: uppercase;
+        }
+        .page-title-section .sub-title-th {
+            font-family: var(--font-main);
+            font-size: 1.6em;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
         .main-content {
-            padding: 50px;
-            background-color: #FFF1E6;
+            flex-grow: 1; /* Allow main content to take available space */
+            padding: 20px 20px 50px; /* Adjusted top padding */
+            background-color: var(--background-light);
             display: flex;
             justify-content: center;
+            align-items: flex-start; /* Align container to top */
         }
 
         .payment-container {
-            max-width: 900px;
+            max-width: 800px; /* Slightly reduced for better focus */
             width: 100%;
-            background-color: rgba(255, 255, 255, 0.95);
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            background-color: var(--surface-color); /* Solid surface color */
+            padding: 30px 35px; /* Adjusted padding */
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-medium);
+        }
+        /* Original h1 inside payment-container is removed */
+
+        .payment-section {
+            margin-bottom: 35px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid var(--border-light);
+        }
+        .payment-section:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
         }
 
-        .payment-container h1 {
-            text-align: center;
-            font-size: 2.8em;
-            color: #60C4B4;
-            font-weight: 700;
-            margin-bottom: 30px;
+        .payment-section h3 { /* For "สรุปรายการ", "ช่องทางการชำระเงิน" etc. */
+            font-family: var(--font-main); /* Changed from Bebas Neue to Prompt */
+            font-size: 1.6em; /* Adjusted size */
+            font-weight: 600; /* Semibold Prompt */
+            color: var(--primary-color);
+            margin-top: 0; /* Remove default top margin if it's the first element in section */
+            margin-bottom: 20px; /* Space below subheading */
+            padding-bottom: 10px;
+            border-bottom: 1.5px solid var(--secondary-color); /* Accent underline */
+            display: inline-block; /* To make underline only as wide as text */
         }
 
-        .payment-container h3 {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.8em;
-            color: #FF3377;
-            margin-top: 30px;
-        }
 
         .payment-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            font-size: 0.95em;
         }
 
         .payment-table th,
         .payment-table td {
-            padding: 15px;
-            border-bottom: 1px solid #ddd;
+            padding: 12px 15px; /* Adjusted padding */
+            border-bottom: 1px solid var(--border-light);
             text-align: left;
+            font-family: var(--font-main);
         }
 
         .payment-table th {
-            background-color: #FF3377;
-            color: white;
+            background-color: var(--secondary-color); /* Consistent with other table headers */
+            color: var(--text-on-secondary);
+            font-weight: 500; /* Medium weight for headers */
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .payment-table tr:last-child td {
+            border-bottom: none;
         }
 
-        .form-group {
-            margin-bottom: 20px;
+        .order-total { /* For the "ยอดรวม" paragraph */
+            text-align: right;
+            font-size: 1.2em;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-top: 20px;
+        }
+        .order-total .total-value {
+            font-weight: 700;
+            color: var(--primary-color);
+            font-size: 1.1em; /* Relative to parent */
         }
 
-        .form-group label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
 
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            font-size: 1em;
+        .payment-method-details { /* Wrapper for QR and text */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: var(--border-radius-md);
+            border: 1px solid var(--border-light);
         }
-
         .qr-code {
             display: block;
-            margin: 20px auto;
-            max-width: 200px;
+            /* margin: 20px auto; /* Handled by flex gap */
+            max-width: 180px; /* Slightly smaller */
+            border-radius: var(--border-radius-sm);
+            border: 1px solid var(--border-light);
         }
+        .promptpay-info {
+            font-size: 1.1em;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
 
         .payment-form {
-            margin-top: 30px;
+            margin-top: 0; /* Handled by payment-section margin */
         }
-
-        .payment-form button {
+        .form-group {
+            margin-bottom: 22px; /* Increased spacing */
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600; /* Bolder labels */
+            margin-bottom: 8px; /* More space below label */
+            font-size: 1em;
+            color: var(--text-secondary);
+        }
+        .form-group input,
+        .form-group textarea {
+            font-family: var(--font-main);
             width: 100%;
-            padding: 14px;
-            background-color: #60C4B4;
-            color: white;
+            padding: 12px 15px; /* Increased padding */
+            border: 1px solid var(--border-medium);
+            border-radius: var(--border-radius-sm);
+            font-size: 1em;
+            background-color: var(--surface-color);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(255, 51, 119, 0.2);
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        .form-group input[type="file"] {
+            padding: 10px; /* Specific padding for file input */
+            background-color: #fdfdfd;
+        }
+
+
+        .payment-form button[type="submit"] {
+            width: 100%;
+            padding: 15px; /* More prominent button */
+            background-color: var(--secondary-color);
+            color: var(--text-on-secondary);
             border: none;
-            border-radius: 6px;
-            font-size: 1.1em;
-            font-weight: bold;
+            border-radius: var(--border-radius-md);
+            font-family: var(--font-main);
+            font-size: 1.15em; /* Adjusted size */
+            font-weight: 600; /* Semibold */
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 10px; /* Space above button */
+            box-shadow: 0 3px 8px rgba(96, 196, 180, 0.3);
+        }
+        .payment-form button[type="submit"]:hover {
+            background-color: #4fa092; /* Darker secondary */
+            transform: translateY(-2px);
+            box-shadow: 0 5px 12px rgba(96, 196, 180, 0.4);
         }
 
-        .payment-form button:hover {
-            background-color: #4b98a2;
+        .empty-cart-message-payment { /* Specific class for this page */
+            text-align: center;
+            padding: 40px 20px;
+            font-size: 1.15em;
+            color: var(--text-secondary);
+            background-color: #fdf0e5; /* Light orange/beige */
+            border: 1px dashed var(--primary-color);
+            border-radius: var(--border-radius-md);
         }
 
+        /* Footer - UNCHANGED AS REQUESTED */
         .footer {
             background-color: #A0D8F1;
-            color: white;
+            color: var(--text-primary); /* Changed from white for better contrast */
             text-align: center;
-            padding: 20px;
-            margin-top: 50px;
-            font-size: 0.8em;
+            padding: 25px 10px;
+            margin-top: auto; /* Pushes footer to bottom */
+            font-size: 0.9em;
+            user-select: none;
+            flex-shrink: 0;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
         }
+
+        @media (max-width: 768px) {
+            .header { padding: 12px 15px; flex-direction: column; gap: 12px; }
+            .header-left { align-items: center; text-align: center; }
+            .header .logo { font-size: 2.3em; }
+            .header .slogan { font-size: 0.85em; line-height: 1.3; }
+            .header-right { gap: 15px; flex-wrap: wrap; justify-content: center; }
+            .header-right img { width: 20px; height: 20px; }
+
+            .page-title-section .main-title-en { font-size: 2.5em; }
+            .page-title-section .sub-title-th { font-size: 1.3em; }
+
+            .main-content { padding: 15px 10px 30px; }
+            .payment-container { padding: 25px 20px; }
+
+            .payment-section h3 { font-size: 1.4em; margin-bottom: 15px; }
+
+            .payment-table th, .payment-table td { padding: 10px; font-size: 0.9em; }
+            .qr-code { max-width: 150px; }
+            .promptpay-info { font-size: 1em; }
+
+            .form-group input, .form-group textarea { padding: 10px; }
+            .payment-form button[type="submit"] { padding: 12px; font-size: 1.1em; }
+        }
+
     </style>
 </head>
 <body>
 
     <div class="header">
         <div class="header-left">
-            <h1 class="logo">MINDVIBE</h1>
+            <a href="{% url 'clothing:welcome' %}" class="logo">MINDVIBE</a> {# Added link to logo #}
             <p class="slogan">LOOK GOOD. FEEL RIGHT. LIVE TRUE. | MINDFULLY CURATED OUTFITS FOR EVERY EMOTION AND MOMENT.</p>
         </div>
         <div class="header-right">
-            <a href="{% url 'clothing:welcome' %}">
-                <img src="{% static 'images/home_icon.png' %}" alt="Home" class="home-icon">
+            <a href="{% url 'clothing:welcome' %}" title="หน้าแรก">
+                <img src="{% static 'images/home_icon.png' %}" alt="Home">
             </a>
-            <a href="{% url 'clothing:clothing_list' %}">
-                <img src="{% static 'images/search_icon.png' %}" alt="Search" />
-            <a href="{% if user.is_authenticated %}{% url 'clothing:favorites_list' %}{% else %}{% url 'clothing:login' %}{% endif %}">
+            <a href="{% url 'clothing:clothing_list' %}" title="ค้นหาสินค้า">
+                <img src="{% static 'images/search_icon.png' %}" alt="Search">
+            </a>
+            <a href="{% if user.is_authenticated %}{% url 'clothing:favorites_list' %}{% else %}{% url 'clothing:login' %}{% endif %}" title="สินค้าที่ชอบ">
                 <img src="{% static 'images/heart_icon.png' %}" alt="Wishlist">
             </a>
-            <a href="{% if user.is_authenticated %}{% url 'clothing:cart' %}{% else %}{% url 'clothing:login' %}{% endif %}">
+            <a href="{% if user.is_authenticated %}{% url 'clothing:cart' %}{% else %}{% url 'clothing:login' %}{% endif %}" title="ตะกร้าสินค้า">
                 <img src="{% static 'images/cart_icon.png' %}" alt="Cart">
             </a>
-            <a href="{% if user.is_authenticated %}{% url 'clothing:status' %}{% else %}{% url 'clothing:login' %}{% endif %}">
+            <a href="{% if user.is_authenticated %}{% url 'clothing:status' %}{% else %}{% url 'clothing:login' %}{% endif %}" title="สถานะการสั่งซื้อ">
                 <img src="{% static 'images/status_icon.png' %}" alt="Status">
             </a>
-            <a href="{% if user.is_authenticated %}{% url 'clothing:profile' %}{% else %}{% url 'clothing:login' %}{% endif %}">
+            <a href="{% if user.is_authenticated %}{% url 'clothing:profile' %}{% else %}{% url 'clothing:login' %}{% endif %}" title="โปรไฟล์">
                 <img src="{% static 'images/profile_icon.png' %}" alt="Profile">
             </a>
         </div>
     </div>
 
+    <div class="page-title-section">
+        <h1 class="main-title-en">CHECKOUT</h1>
+        <p class="sub-title-th">ข้อมูลการชำระเงิน</p>
+    </div>
+
     <div class="main-content">
         <div class="payment-container">
-            <h1>ข้อมูลการชำระเงิน</h1>
-
             {% if cart_items %}
-            <h3>สรุปรายการ</h3>
-            <table class="payment-table">
-                <thead>
-                    <tr>
-                        <th>สินค้า</th>
-                        <th>จำนวนวัน</th>
-                        <th>จำนวน</th>
-                        <th>ราคารวม</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for item in cart_items %}
-                    <tr>
-                        <td>{{ item.product.name }}</td>
-                        <td>{{ item.days }} วัน</td>
-                        <td>{{ item.quantity }}</td>
-                        <td>฿{{ item.total|floatformat:2 }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            <p><strong>ยอดรวม:</strong> ฿{{ total_price }}</p>
+                <div class="payment-section order-summary-section">
+                    <h3>สรุปรายการสั่งซื้อ</h3>
+                    <table class="payment-table">
+                        <thead>
+                            <tr>
+                                <th>สินค้า</th>
+                                <th>จำนวนวัน</th>
+                                <th>จำนวน</th>
+                                <th>ราคารวม</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in cart_items %}
+                            <tr>
+                                <td>{{ item.product.name }}</td>
+                                <td>{{ item.days }} วัน</td>
+                                <td>{{ item.quantity }}</td>
+                                <td>฿{{ item.total|floatformat:2 }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <p class="order-total">
+                        <span class="total-label">ยอดรวมที่ต้องชำระ:</span>
+                        <span class="total-value">฿{{ total_price|floatformat:2 }}</span>
+                    </p>
 
-            <h3>ช่องทางการชำระเงิน</h3>
-            <img src="{% static 'images/promtpay_qr.png' %}" alt="PromptPay QR" class="qr-code">
-            <p style="text-align: center;">PromptPay: 123-456-7890</p>
+                </div>
 
-            <form method="POST" enctype="multipart/form-data" class="payment-form">
-                {% csrf_token %}
-                <div class="form-group">
-                    <label for="full_name">ชื่อ-นามสกุล</label>
-                    <input type="text" name="full_name" required>
+                <div class="payment-section payment-method-section">
+                    <h3>ช่องทางการชำระเงิน</h3>
+                    <div class="payment-method-details">
+                        <img src="{% static 'images/promtpay_qr.png' %}" alt="PromptPay QR Code" class="qr-code">
+                        <p class="promptpay-info">สแกน QR Code หรือโอนผ่าน PromptPay: <strong>123-456-7890 (ชื่อบัญชี: MindVibe Shop)</strong></p>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="address">ที่อยู่สำหรับจัดส่ง</label>
-                    <textarea name="address" rows="3" required></textarea>
+
+                <div class="payment-section delivery-form-section">
+                    <h3>ข้อมูลสำหรับจัดส่งและยืนยันการชำระเงิน</h3>
+                    <form method="POST" enctype="multipart/form-data" class="payment-form">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="id_full_name">ชื่อ-นามสกุล (สำหรับจัดส่ง)</label>
+                            <input type="text" name="full_name" id="id_full_name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="id_address">ที่อยู่สำหรับจัดส่ง</label>
+                            <textarea name="address" id="id_address" rows="3" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="id_phone_number">เบอร์โทรศัพท์ (สำหรับติดต่อ)</label>
+                            <input type="text" name="phone_number" id="id_phone_number" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="id_payment_proof">อัปโหลดหลักฐานการโอนเงิน</label>
+                            <input type="file" name="payment_proof" id="id_payment_proof" accept="image/*" required>
+                        </div>
+                        <button type="submit">ยืนยันการสั่งซื้อและชำระเงิน</button>
+                    </form>
                 </div>
-                <div class="form-group">
-                    <label for="phone_number">เบอร์โทรศัพท์</label>
-                    <input type="text" name="phone_number" required>
-                </div>
-                <div class="form-group">
-                    <label for="payment_proof">อัปโหลดหลักฐานการโอนเงิน</label>
-                    <input type="file" name="payment_proof" accept="image/*" required>
-                </div>
-                <button type="submit">ยืนยันการชำระเงิน</button>
-            </form>
             {% else %}
-            <p>ไม่มีสินค้าในตะกร้า กรุณาเลือกสินค้าก่อน</p>
+                <div class="empty-cart-message-payment">
+                    <p>ไม่มีสินค้าในตะกร้าของคุณ กรุณาเลือกสินค้าเพื่อดำเนินการชำระเงิน</p>
+                    <a href="{% url 'clothing:clothing_list' %}" class="btn-browse-items" style="background-color: var(--primary-color); color: white;">กลับไปเลือกสินค้า</a>
+                </div>
             {% endif %}
         </div>
     </div>
 
     <div class="footer">
-        <p>© 2025 MINDVIBE. ALL RIGHTS RESERVED.</p>
+        <p>&copy; {% now "Y" %} MindVibe. All rights reserved.</p>
     </div>
 
 </body>

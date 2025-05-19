@@ -15,7 +15,9 @@
             padding: 0;
             background-color: #FFF1E6;
             color: #333;
+            line-height: 1.6;
         }
+
         .header {
             display: flex;
             justify-content: space-between;
@@ -23,13 +25,15 @@
             background-color: #FDFD95;
             padding: 15px 30px;
             color: #333;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
+
         .header-left {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
         }
+
         .header .logo {
             font-family: 'Bebas Neue', sans-serif;
             font-size: 2.5em;
@@ -38,11 +42,13 @@
             margin: 0 0 2px 0;
             text-decoration: none;
         }
+
         .header .slogan {
             font-size: 0.9em;
             color: #333;
             margin: 0;
         }
+
         .header-right {
             display: flex;
             align-items: center;
@@ -66,69 +72,214 @@
             opacity: 1;
             transform: scale(1.1);
         }
+
+        /* Page Title Area (like Shopping Cart) */
+        .page-title-area {
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 30px;
+        }
+
+        .page-title-main {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.8em; /* Adjusted size */
+            color: #FF3377; /* Pink */
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        .page-title-sub {
+            font-family: 'Prompt', sans-serif;
+            font-size: 1.4em; /* Adjusted size */
+            color: #333; /* Dark grey */
+            margin-top: 5px;
+        }
+
         .profile-container {
-            max-width: 900px;
-            margin: 50px auto;
-            background-color: rgba(255,255,255,0.9);
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            max-width: 800px; /* Consistent width */
+            margin: 0 auto 40px auto; /* Centered with bottom margin */
+            background-color: #FFFFFF;
+            padding: 30px 40px;
+            border-radius: 15px; /* Softer radius like cart page */
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08); /* Subtle shadow */
         }
-        h1, h2 {
-            color: #60C4B4;
+
+        .user-basic-info {
+            text-align: center;
+            margin-bottom: 35px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #f0f0f0;
         }
+
+        .profile-image {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 4px solid #60C4B4; /* Teal border */
+            display: inline-block;
+        }
+
+        .user-basic-info .username {
+            font-size: 1.5em;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .user-basic-info .email {
+            font-size: 1em;
+            color: #666;
+        }
+
+        .profile-section-title {
+            font-family: 'Prompt', sans-serif;
+            font-size: 1.3em;
+            font-weight: 500;
+            color: #444;
+            margin-top: 25px;
+            margin-bottom: 20px;
+            text-align: left;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        form {
+            text-align: left;
+        }
+
         form label {
             display: block;
-            margin-top: 10px;
-            font-weight: 600;
-        }
-        form input[type="text"], form textarea {
-            width: 100%;
-            padding: 8px;
-            margin-top: 5px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-            font-size: 1em;
-        }
-        form button {
             margin-top: 15px;
-            background-color: #60C4B4;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+            font-size: 0.95em;
+        }
+
+        form input[type="text"],
+        form textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            box-sizing: border-box;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        form input[type="text"]:focus,
+        form textarea:focus {
+            border-color: #60C4B4;
+            box-shadow: 0 0 0 3px rgba(96, 196, 180, 0.2);
+            outline: none;
+        }
+
+
+        form textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        form button.btn-save {
+            background-color: #60C4B4; /* Teal button */
             color: white;
             border: none;
-            padding: 12px 20px;
-            border-radius: 6px;
+            padding: 12px 25px;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 1em;
+            font-size: 1.05em;
+            font-weight: 500;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            margin-top: 10px;
         }
-        form button:hover {
-            background-color: #4b98a2;
+
+        form button.btn-save:hover {
+            background-color: #4b9b9f; /* Darker Teal */
+            transform: translateY(-2px);
         }
+
+        .table-container {
+            margin-top: 10px;
+            border: 1px solid #e8e8e8;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 30px;
         }
-        th, td {
-            padding: 12px 8px;
-            border-bottom: 1px solid #ddd;
-            text-align: left;
-        }
+
         th {
-            background-color: #FF3377;
-            color: white;
+            background-color: #60C4B4; /* Teal background */
+            color: white; /* White text for contrast */
+            font-weight: 600; /* Slightly bolder */
+            padding: 12px 15px;
+            text-align: left;
+            font-size: 0.95em;
+            border-bottom: 1px solid #4a9a9e; /* Optional: darker teal border for definition */
         }
+
+        td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 0.95em;
+            color: #555;
+        }
+
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #fdfdfd; /* Very subtle striping for even rows */
+        }
+        tbody tr:hover {
+            background-color: #f5faff; /* Light blueish hover for better UX */
+        }
+
+
+        .no-orders-message {
+            text-align: center;
+            padding: 30px 20px;
+            background-color: #fffaf0; /* FloralWhite or similar light warm color */
+            border: 1px dashed #ffe0b2; /* Light orange border */
+            border-radius: 8px;
+            margin-top: 20px;
+            color: #795548; /* Brownish text */
+        }
+        .no-orders-message p {
+            margin:0;
+            font-size: 1.05em;
+        }
+
+        .logout-section {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #f0f0f0; /* Separator line */
+        }
+
         .logout-link {
             display: inline-block;
-            margin-top: 20px;
-            background-color: #E74C3C;
+            background-color: #FF3377; /* Pink, consistent with main title */
             color: white;
-            padding: 10px 18px;
-            border-radius: 6px;
+            padding: 10px 22px;
+            border-radius: 8px;
             text-decoration: none;
-            font-weight: 600;
+            font-weight: 500;
+            font-size: 1em;
+            transition: background-color 0.3s ease, transform 0.2s ease;
         }
+
         .logout-link:hover {
-            background-color: #c0392b;
+            background-color: #e6005c; /* Darker pink */
+            transform: translateY(-2px);
         }
     </style>
 </head>
@@ -140,33 +291,28 @@
             <p class="slogan">LOOK GOOD. FEEL RIGHT. LIVE TRUE. | MINDFULLY CURATED OUTFITS FOR EVERY EMOTION AND MOMENT.</p>
         </div>
         <div class="header-right">
-            <a href="{% url 'clothing:welcome' %}">
-                <img src="{% static 'images/home_icon.png' %}" alt="Home" />
-            </a>
-            <a href="{% url 'clothing:clothing_list' %}">
-                <img src="{% static 'images/search_icon.png' %}" alt="Search" />
-            </a>
-            <a href="{% if user.is_authenticated %}{% url 'clothing:favorites_list' %}{% else %}{% url 'clothing:login' %}{% endif %}">
-                <img src="{% static 'images/heart_icon.png' %}" alt="Wishlist" />
-            </a>
-            <a href="{% if user.is_authenticated %}{% url 'clothing:cart' %}{% else %}{% url 'clothing:login' %}{% endif %}">
-                <img src="{% static 'images/cart_icon.png' %}" alt="Cart" />
-            </a>
-            <a href="{% if user.is_authenticated %}{% url 'clothing:status' %}{% else %}{% url 'clothing:login' %}{% endif %}">
-                <img src="{% static 'images/status_icon.png' %}" alt="Status" />
-            </a>
-            <a href="{% if user.is_authenticated %}{% url 'clothing:profile' %}{% else %}{% url 'clothing:login' %}{% endif %}">
-                <img src="{% static 'images/profile_icon.png' %}" alt="Profile" />
-            </a>
+            <a href="{% url 'clothing:welcome' %}"><img src="{% static 'images/home_icon.png' %}" alt="Home" /></a>
+            <a href="{% url 'clothing:clothing_list' %}"><img src="{% static 'images/search_icon.png' %}" alt="Search" /></a>
+            <a href="{% if user.is_authenticated %}{% url 'clothing:favorites_list' %}{% else %}{% url 'clothing:login' %}{% endif %}"><img src="{% static 'images/heart_icon.png' %}" alt="Wishlist" /></a>
+            <a href="{% if user.is_authenticated %}{% url 'clothing:cart' %}{% else %}{% url 'clothing:login' %}{% endif %}"><img src="{% static 'images/cart_icon.png' %}" alt="Cart" /></a>
+            <a href="{% if user.is_authenticated %}{% url 'clothing:status' %}{% else %}{% url 'clothing:login' %}{% endif %}"><img src="{% static 'images/status_icon.png' %}" alt="Status" /></a>
+            <a href="{% if user.is_authenticated %}{% url 'clothing:profile' %}{% else %}{% url 'clothing:login' %}{% endif %}"><img src="{% static 'images/profile_icon.png' %}" alt="Profile" /></a>
         </div>
     </div>
 
-    <div class="profile-container">
-        <h1>ข้อมูลโปรไฟล์ของคุณ</h1>
-        <h2>ชื่อผู้ใช้: {{ user.username }}</h2>
-        <p>อีเมล์: {{ user.email }}</p>
+    <div class="page-title-area">
+        <h1 class="page-title-main">YOUR PROFILE</h1>
+        <h2 class="page-title-sub">ข้อมูลโปรไฟล์ของคุณ</h2>
+    </div>
 
-        <h2>ข้อมูลที่อยู่</h2>
+    <div class="profile-container">
+        <div class="user-basic-info">
+            <img src="{{ gravatar_url }}" alt="Profile Picture" class="profile-image" />
+            <div class="username">{{ user.username }}</div>
+            <div class="email">{{ user.email }}</div>
+        </div>
+
+        <div class="profile-section-title">ข้อมูลที่อยู่</div>
         <form method="post" action="{% url 'clothing:profile' %}">
             {% csrf_token %}
             <label for="full_name">ชื่อ-นามสกุล</label>
@@ -178,61 +324,55 @@
             <label for="phone_number">เบอร์โทรศัพท์</label>
             <input type="text" name="phone_number" id="phone_number" value="{{ latest_payment.phone_number|default:"" }}" required>
 
-            <button type="submit">บันทึกที่อยู่</button>
+            <button type="submit" class="btn-save">บันทึกที่อยู่</button>
         </form>
 
-        <h2>ประวัติคำสั่งซื้อ</h2>
+        <div class="profile-section-title">ประวัติคำสั่งซื้อ</div>
         {% if payments %}
-        <table>
-            <thead>
-                <tr>
-                    <th>วันที่สั่งซื้อ</th>
-                    <th>ชื่อผู้รับ</th>
-                    <th>ที่อยู่</th>
-                    <th>เบอร์โทร</th>
-                    <th>ยอดรวม (฿)</th>
-                    <th>สถานะล่าสุด</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for payment in payments %}
-                <tr>
-                    <td>{{ payment.payment_date|date:"d/m/Y H:i" }}</td>
-                    <td>{{ payment.full_name }}</td>
-                    <td>{{ payment.address }}</td>
-                    <td>{{ payment.phone_number }}</td>
-                    <td>{{ payment.total_price|floatformat:2 }}</td>
-                    <td>
-                        {% if status_dict.payment.id %}
-                            {{ status_dict.payment.id.get_status_display }}
-                        {% else %}
-                            ยังไม่มีสถานะ
-                        {% endif %}
-                        {% comment %}
-                        เนื่องจากเราเก็บ status_dict ด้วย payment.id เป็น key,
-                        ต้องใช้ status_dict[payment.id] ใน Django template
-                        แต่ Django template ไม่มี bracket notation,
-                        ดังนั้นเราใช้ with ช่วยแทน
-                        {% endcomment %}
-                        {% with status=status_dict.payment.id %}
-                            {% if status %}
-                                {{ status.get_status_display }}
-                            {% else %}
-                                ยังไม่มีสถานะ
-                            {% endif %}
-                        {% endwith %}
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>วันที่สั่งซื้อ</th>
+                        <th>ชื่อผู้รับ</th>
+                        <th>ที่อยู่</th>
+                        <th>เบอร์โทร</th>
+                        <th>ยอดรวม (฿)</th>
+                        <th>สถานะล่าสุด</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for payment in payments %}
+                    <tr>
+                        <td>{{ payment.payment_date|date:"d/m/Y H:i" }}</td>
+                        <td>{{ payment.full_name }}</td>
+                        <td>{{ payment.address }}</td>
+                        <td>{{ payment.phone_number }}</td>
+                        <td>{{ payment.total_price|floatformat:2 }}</td>
+                        <td>
+                            {% with status=status_dict.payment.id %} {# Assuming status_dict logic is as intended #}
+                                {% if status %}
+                                    {{ status.get_status_display }}
+                                {% else %}
+                                    ยังไม่มีสถานะ
+                                {% endif %}
+                            {% endwith %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
         {% else %}
-        <p>คุณยังไม่มีคำสั่งซื้อ</p>
+        <div class="no-orders-message">
+             <p>คุณยังไม่มีคำสั่งซื้อ</p>
+        </div>
         {% endif %}
 
-        <a href="{% url 'clothing:welcome' %}" class="logout-link">ออกจากระบบ</a>
+        <div class="logout-section">
+            <a href="{% url 'clothing:welcome' %}" class="logout-link">ออกจากระบบ</a>
+        </div>
     </div>
 
 </body>
-
 </html>

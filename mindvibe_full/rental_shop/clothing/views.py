@@ -328,11 +328,9 @@ def remove_from_cart(request, pk, days):
 def cart(request):
     cart_items = get_cart_items(request)
     total_price = sum(item['total'] for item in cart_items)
-    formatted_total_price = f"฿ {total_price:,.2f}"
-    
     return render(request, 'clothing/cart.html', {
         'cart_items': cart_items,
-        'total_price': formatted_total_price
+        'total_price': total_price  # เป็น float หรือ Decimal
     })
 
 # ฟังก์ชันสำหรับหน้าชำระเงิน

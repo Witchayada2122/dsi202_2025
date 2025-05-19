@@ -1,7 +1,7 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 
 <head>
     <meta charset="UTF-8" />
@@ -10,24 +10,50 @@
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;700&display=swap" rel="stylesheet" />
     <style>
-        body {
-            font-family: 'Prompt', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #FFF1E6;
-            color: #333;
-            line-height: 1.6;
+        :root {
+            --primary-color: #FF3377;
+            --secondary-color: #60C4B4;
+            --background-light: #FFF1E6;
+            --surface-color: #ffffff;
+            --text-primary: #333;
+            --text-secondary: #555;
+            --border-light: #e0e0e0;
+            --border-medium: #ccc;
+            --success-color: #5cb85c;
+            --danger-color: #d9534f;
+            --font-main: 'Prompt', sans-serif;
+            --font-logo: 'Bebas Neue', sans-serif;
         }
 
-        /* Header Section */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-light);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header Section (Based on Status Page) */
         .header {
-            background-color: #FDFD95;
-            padding: 15px 30px;
-            color: #333;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            background-color: #FDFD95;
+            padding: 15px 30px;
+            color: var(--text-primary);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            flex-shrink: 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
         .header-left {
@@ -37,16 +63,17 @@
         }
 
         .header .logo {
-            font-family: 'Bebas Neue', sans-serif;
+            font-family: var(--font-logo);
             font-size: 2.5em;
             font-weight: bold;
-            color: #FF3377;
+            color: var(--primary-color);
             margin: 0 0 2px 0;
+            text-decoration: none;
         }
 
         .header .slogan {
             font-size: 0.9em;
-            color: #333;
+            color: var(--text-primary);
             margin: 0;
         }
 
@@ -73,161 +100,389 @@
             opacity: 1;
             transform: scale(1.1);
         }
-        /* Main Content */
+
+        /* Main Content - Cart Specific */
         .main-content {
-            padding: 30px 20px;
-            background-color: #FFF1E6;
+            flex-grow: 1;
+            padding: 30px 20px 50px;
+            background-color: var(--background-light);
             display: flex;
             justify-content: center;
+            align-items: flex-start;
         }
 
         .cart-container {
-            max-width: 950px;
+            max-width: 1000px;
             width: 100%;
-            margin: 25px auto;
-            background-color: #ffffff;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            margin: 0 auto;
+            background-color: var(--surface-color);
+            padding: 35px 40px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
         }
 
         .cart-container h1 {
-            font-family: 'Prompt', sans-serif;
-            font-size: 2.3em;
-            color: #FF3377;
+            font-family: var(--font-main);
+            font-size: 2.6em;
+            color: var(--primary-color);
             text-align: center;
-            margin-bottom: 30px;
+            margin-top: 0;
+            margin-bottom: 40px;
             font-weight: 700;
         }
 
+        /* Table Styling - Cart Specific */
         .cart-table {
             width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 30px;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            border-collapse: separate;
+            border-spacing: 0 12px;
+            margin-bottom: 35px;
         }
 
-        .cart-table th,
-        .cart-table td {
-            padding: 12px 18px;
-            text-align: left;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .cart-table th {
-            background-color: #60C4B4;
-            color: white;
+        .cart-table thead th {
+            background-color: var(--secondary-color);
+            color: var(--surface-color);
             font-weight: 500;
+            text-align: left;
+            padding: 16px 20px;
+            font-size: 1em;
+            letter-spacing: 0.5px;
+        }
+        .cart-table thead th:first-child {
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+        }
+        .cart-table thead th:last-child {
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+        .cart-table thead tr {
+             background-color: transparent;
         }
 
-        .cart-table tr:last-child td {
+        .cart-table tbody tr {
+            background-color: #fdfdfd;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+            border-radius: 10px;
+            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+        }
+
+        .cart-table tbody tr:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .cart-table tbody td {
+            padding: 16px 20px;
+            vertical-align: middle;
             border-bottom: none;
         }
-
-        .cart-table tr:nth-child(even) {
-            background-color: #f9f9f9;
+        .cart-table .product-image-cell {
+            width: 100px;
+            padding-left: 20px;
         }
-
-        .cart-table tr:hover {
-            background-color: #f5f5f5;
-        }
-
-        .cart-table td img {
-            vertical-align: middle;
-            margin-right: 10px;
-            border-radius: 5px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-            width: 70px;
-            height: 70px;
+        .cart-table .product-image-cell img {
+            width: 75px;
+            height: 75px;
             object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            display: block;
+        }
+        .cart-table .product-name {
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+        .cart-table .price-value { /* This class is still in CSS, but not used in HTML for total if you use the new snippet directly */
+            font-weight: 500;
+            color: var(--text-secondary);
         }
 
+        /* Forms inside table - Action Cell - Cart Specific */
+        .cart-table .actions-cell {
+            min-width: 230px;
+        }
+        .cart-table .action-forms-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: stretch;
+        }
+
+        .cart-table .update-form {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .cart-table .remove-form {
+            display: flex;
+        }
+
+        .cart-table input[type="number"],
+        .cart-table select {
+            padding: 9px 12px;
+            border: 1px solid var(--border-medium);
+            border-radius: 6px;
+            width: auto;
+            min-width: 65px;
+            font-size: 0.95em;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .cart-table select {
+            min-width: 85px;
+            flex-grow: 1;
+        }
+        .cart-table input[type="number"] {
+            flex-basis: 70px;
+            flex-grow: 0;
+        }
+
+        .cart-table input[type="number"]:focus,
+        .cart-table select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(255, 51, 119, 0.2);
+        }
+
+        .cart-table .btn-action {
+            padding: 9px 15px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: 500;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            width: 100%;
+        }
+        .cart-table .update-form .btn-action {
+            flex-shrink: 0;
+            width: auto;
+        }
+
+        .cart-table .btn-update {
+            background-color: var(--success-color);
+            color: white;
+        }
+        .cart-table .btn-update:hover {
+            background-color: #4a9d4a;
+            transform: translateY(-1px);
+        }
+
+        .cart-table .btn-remove {
+            background-color: var(--danger-color);
+            color: white;
+        }
+        .cart-table .btn-remove:hover {
+            background-color: #c04642;
+            transform: translateY(-1px);
+        }
+
+        /* Cart summary - Cart Specific */
         .cart-summary {
             text-align: right;
             margin-top: 30px;
+            padding-top: 25px;
+            border-top: 1px dashed var(--border-light);
         }
 
-        .cart-summary p {
-            font-size: 1.1em;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 15px;
+        .cart-summary p { /* This will style "ยอดรวมทั้งหมด: ฿{{ total_price }}" */
+            font-size: 1.25em;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+        }
+        /* .cart-summary .total-price-value rule below is no longer applied if <span> is removed from HTML */
+        .cart-summary .total-price-value {
+             color: var(--primary-color);
+             font-size: 1.1em;
         }
 
         .btn-checkout {
             display: inline-block;
-            padding: 10px 22px;
-            background-color: #FF3377;
+            padding: 14px 30px;
+            background-color: var(--primary-color);
             color: white;
             text-decoration: none;
-            border-radius: 8px;
-            font-size: 1em;
-            transition: background-color 0.3s ease, transform 0.2s;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            font-size: 1.15em;
+            font-weight: 600;
+            transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 12px rgba(255, 51, 119, 0.35);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
         }
 
         .btn-checkout:hover {
             background-color: #e6005c;
-            transform: translateY(-2px);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 6px 16px rgba(255, 51, 119, 0.45);
         }
 
         .empty-cart-message {
             text-align: center;
-            font-size: 1.1em;
-            color: #777;
-            padding: 40px 0;
+            font-size: 1.25em;
+            color: var(--text-secondary);
+            padding: 60px 20px;
+            font-style: italic;
+            background-color: #f9f9f9;
+            border: 1px dashed var(--border-medium);
+            border-radius: 12px;
         }
 
         /* Footer */
         .footer {
             background-color: #A0D8F1;
-            color: white;
+            color: var(--text-primary);
             text-align: center;
-            padding: 20px;
-            margin-top: 50px;
-            font-size: 0.8em;
-        }
-
-        /* Form ในตาราง */
-        .cart-table form {
-            display: inline-block;
-            margin-right: 8px;
-        }
-
-        .cart-table input[type="number"],
-        .cart-table select {
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            width: 60px;
-            box-sizing: border-box;
-            margin-right: 5px;
+            padding: 25px 10px;
+            margin-top: auto;
             font-size: 0.9em;
+            user-select: none;
+            flex-shrink: 0;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
         }
 
-        .cart-table button {
-            background-color: #5cb85c;
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.9em;
-            transition: background-color 0.3s ease;
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            .cart-table .actions-cell {
+                 min-width: auto;
+            }
+            .cart-table .action-forms-container {
+                align-items: flex-end;
+            }
+             .cart-table .update-form {
+                flex-wrap: wrap;
+            }
+             .cart-table .update-form input[type="number"],
+             .cart-table .update-form select {
+                flex-basis: calc(50% - 4px);
+             }
+             .cart-table .update-form .btn-action {
+                flex-basis: 100%;
+             }
         }
 
-        .cart-table button:hover {
-            background-color: #4cae4c;
-        }
+        @media (max-width: 768px) {
+            /* Header Responsive (New Style) */
+            .header {
+                padding: 10px 15px;
+                flex-direction: column;
+                gap: 10px;
+            }
+            .header-left {
+                align-items: center;
+                text-align: center;
+            }
+             .header .logo {
+                font-size: 2.2em;
+            }
+            .header .slogan {
+                max-width: 100%;
+                font-size: 0.8em;
+                line-height: 1.2;
+            }
+            .header-right {
+                gap: 10px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .header-right img {
+                width: 22px;
+                height: 22px;
+            }
 
-        .cart-table button[onclick] {
-            background-color: #d9534f;
-        }
+            .main-content {
+                padding: 20px 10px 30px;
+            }
+            .cart-container {
+                padding: 25px 15px;
+            }
+            .cart-container h1 {
+                font-size: 2em;
+                margin-bottom: 30px;
+            }
 
-        .cart-table button[onclick]:hover {
-            background-color: #c9302c;
+            .cart-table thead {
+                display: none;
+            }
+
+            .cart-table tbody tr {
+                display: block;
+                margin-bottom: 20px;
+                padding: 15px;
+                box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            }
+
+            .cart-table tbody td {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 10px 0;
+                border-bottom: 1px solid var(--border-light);
+                text-align: right;
+            }
+            .cart-table tbody td:last-child {
+                border-bottom: none;
+            }
+
+            .cart-table .product-image-cell {
+                justify-content: center;
+                padding: 10px 0;
+                width: auto;
+            }
+            .cart-table .product-image-cell img {
+                margin-bottom: 5px;
+            }
+
+            .cart-table tbody td::before {
+                content: attr(data-label);
+                font-weight: 600;
+                color: var(--text-secondary);
+                text-align: left;
+                margin-right: 10px;
+            }
+
+            .cart-table .product-image-cell::before,
+            .cart-table .actions-cell::before {
+                 display: none;
+            }
+            .cart-table .actions-cell {
+                 padding-top: 15px;
+            }
+
+            .cart-table .action-forms-container {
+                width: 100%;
+                align-items: stretch;
+            }
+            .cart-table .update-form, .cart-table .remove-form {
+                width: 100%;
+            }
+             .cart-table .update-form {
+                flex-direction: column;
+                gap: 8px;
+             }
+             .cart-table .update-form input[type="number"],
+             .cart-table .update-form select,
+             .cart-table .update-form .btn-action {
+                width: 100%;
+                flex-basis: auto;
+             }
+
+            .cart-summary { /* This is for the div container */
+                text-align: center; /* Adjusted from original responsive to match new HTML if needed */
+                padding-top: 20px;
+                margin-top: 20px;
+            }
+            .cart-summary p { /* This will apply to "ยอดรวมทั้งหมด" */
+                font-size: 1.15em; /* This was from original responsive, applies to the <p> tag */
+            }
+            .btn-checkout { /* This will apply to the checkout button */
+                width: 100%;
+                font-size: 1.1em; /* Adjusted from 1.2em to 1.1em to match previous checkout button styling more closely */
+                padding: 15px 0; /* Adjusted padding */
+            }
         }
     </style>
 </head>
@@ -235,26 +490,26 @@
 <body>
     <div class="header">
         <div class="header-left">
-            <h1 class="logo">MINDVIBE</h1>
+            <a href="{% url 'clothing:welcome' %}" class="logo">MINDVIBE</a>
             <p class="slogan">LOOK GOOD. FEEL RIGHT. LIVE TRUE. | MINDFULLY CURATED OUTFITS FOR EVERY EMOTION AND MOMENT.</p>
         </div>
         <div class="header-right">
-            <a href="{% url 'clothing:welcome' %}">
+            <a href="{% url 'clothing:welcome' %}" title="หน้าแรก">
                 <img src="{% static 'images/home_icon.png' %}" alt="Home" class="home-icon" />
             </a>
-            <a href="{% url 'clothing:clothing_list' %}">
+            <a href="{% url 'clothing:clothing_list' %}" title="ค้นหาสินค้า">
                 <img src="{% static 'images/search_icon.png' %}" alt="Search" />
             </a>
-            <a href="{% if user.is_authenticated %}{% url 'clothing:favorites_list' %}{% else %}{% url 'clothing:login' %}{% endif %}">
+            <a href="{% if user.is_authenticated %}{% url 'clothing:favorites_list' %}{% else %}{% url 'clothing:login' %}{% endif %}" title="สินค้าที่ชอบ">
                 <img src="{% static 'images/heart_icon.png' %}" alt="Wishlist" />
             </a>
-            <a href="{% if user.is_authenticated %}{% url 'clothing:cart' %}{% else %}{% url 'clothing:login' %}{% endif %}">
+            <a href="{% if user.is_authenticated %}{% url 'clothing:cart' %}{% else %}{% url 'clothing:login' %}{% endif %}" title="ตะกร้าสินค้า">
                 <img src="{% static 'images/cart_icon.png' %}" alt="Cart" />
             </a>
-            <a href="{% if user.is_authenticated %}{% url 'clothing:status' %}{% else %}{% url 'clothing:login' %}{% endif %}">
+            <a href="{% if user.is_authenticated %}{% url 'clothing:status' %}{% else %}{% url 'clothing:login' %}{% endif %}" title="สถานะการสั่งซื้อ">
                 <img src="{% static 'images/status_icon.png' %}" alt="Status" />
             </a>
-            <a href="{% if user.is_authenticated %}{% url 'clothing:profile' %}{% else %}{% url 'clothing:login' %}{% endif %}">
+            <a href="{% if user.is_authenticated %}{% url 'clothing:profile' %}{% else %}{% url 'clothing:login' %}{% endif %}" title="โปรไฟล์">
                 <img src="{% static 'images/profile_icon.png' %}" alt="Profile" />
             </a>
         </div>
@@ -264,62 +519,64 @@
         <div class="cart-container">
             <h1>ตะกร้าสินค้าของคุณ</h1>
             {% if cart_items %}
-            <table class="cart-table">
+            <table class="cart-table" role="table" aria-label="Cart Items">
                 <thead>
                     <tr>
-                        <th>รูปสินค้า</th>
-                        <th>สินค้า</th>
-                        <th>จำนวนวัน</th>
-                        <th>จำนวน</th>
-                        <th>ราคาต่อหน่วย</th>
-                        <th>ราคารวม</th>
-                        <th></th>
+                        <th scope="col" class="product-image-header">รูปสินค้า</th>
+                        <th scope="col">สินค้า</th>
+                        <th scope="col">จำนวนวัน</th>
+                        <th scope="col">จำนวน</th>
+                        <th scope="col">ราคาต่อหน่วย</th>
+                        <th scope="col">ราคารวม</th>
+                        <th scope="col" class="actions-header" aria-label="Actions">จัดการ</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for item in cart_items %}
                     <tr>
-                        <td>
+                        <td data-label="รูปสินค้า" class="product-image-cell">
                             {% if item.product.image %}
-                                <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" width="70" height="70" />
+                                <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" />
                             {% else %}
                                 <span>ไม่มีรูป</span>
                             {% endif %}
                         </td>
-                        <td>{{ item.product.name }}</td>
-                        <td>{{ item.days }} วัน</td>
-                        <td>{{ item.quantity }}</td>
-                        <td>฿{{ item.price_per_unit|floatformat:2 }}</td>
-                        <td>฿{{ item.total|floatformat:2 }}</td>
-                        <td>
-                            <form action="{% url 'clothing:update_cart' pk=item.product.pk %}" method="POST">
-                                {% csrf_token %}
-                                <input type="number" name="quantity" value="{{ item.quantity }}" min="1" />
-                                <select name="days">
-                                    <option value="1" {% if item.days == 1 %}selected{% endif %}>1 วัน</option>
-                                    <option value="3" {% if item.days == 3 %}selected{% endif %}>3 วัน</option>
-                                    <option value="5" {% if item.days == 5 %}selected{% endif %}>5 วัน</option>
-                                    <option value="7" {% if item.days == 7 %}selected{% endif %}>7 วัน</option>
-                                </select>
-                                <button type="submit">แก้ไข</button>
-                            </form>
-                            <form action="{% url 'clothing:remove_from_cart' pk=item.product.pk days=item.days %}" method="POST" style="display:inline;">
-                                {% csrf_token %}
-                                <button type="submit" onclick="return confirm('ต้องการลบสินค้านี้หรือไม่?')">ลบ</button>
-                            </form>
+                        <td data-label="สินค้า" class="product-name">{{ item.product.name }}</td>
+                        <td data-label="จำนวนวัน">{{ item.days }} วัน</td>
+                        <td data-label="จำนวน">{{ item.quantity }}</td>
+                        <td data-label="ราคาต่อหน่วย" class="price-value">฿{{ item.price_per_unit|floatformat:2 }}</td>
+                        <td data-label="ราคารวม" class="price-value">฿{{ item.total|floatformat:2 }}</td>
+                        <td data-label="จัดการ" class="actions-cell">
+                            <div class="action-forms-container">
+                                <form class="update-form" action="{% url 'clothing:update_cart' pk=item.product.pk %}" method="POST" aria-label="แก้ไขสินค้า {{ item.product.name }}">
+                                    {% csrf_token %}
+                                    <input type="number" name="quantity" value="{{ item.quantity }}" min="1" aria-label="จำนวน" />
+                                    <select name="days" aria-label="จำนวนวัน">
+                                        <option value="1" {% if item.days == 1 %}selected{% endif %}>1 วัน</option>
+                                        <option value="3" {% if item.days == 3 %}selected{% endif %}>3 วัน</option>
+                                        <option value="5" {% if item.days == 5 %}selected{% endif %}>5 วัน</option>
+                                        <option value="7" {% if item.days == 7 %}selected{% endif %}>7 วัน</option>
+                                    </select>
+                                    <button type="submit" class="btn-action btn-update" title="แก้ไขข้อมูลสินค้า">แก้ไข</button>
+                                </form>
+                                <form class="remove-form" action="{% url 'clothing:remove_from_cart' pk=item.product.pk days=item.days %}" method="POST" aria-label="ลบสินค้า {{ item.product.name }}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn-action btn-remove" onclick="return confirm('ต้องการลบสินค้านี้ออกจากตะกร้าหรือไม่?')" title="ลบสินค้าออกจากตะกร้า">ลบ</button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
             <div class="cart-summary">
-                <p>ยอดรวมทั้งหมด: ฿{{ total_price }}</p>
-                <a href="{% url 'clothing:payment' %}" class="btn-checkout">ดำเนินการชำระเงิน</a>
+                <p>ยอดรวมทั้งหมด: ฿{{ total_price|floatformat:2 }}</p>
+                <a href="{% url 'clothing:payment' %}" class="btn-checkout" aria-label="ดำเนินการชำระเงิน">ดำเนินการชำระเงิน</a>
             </div>
             {% else %}
             <p class="empty-cart-message">ตะกร้าของคุณยังว่างอยู่ ไปเลือกสินค้าที่ชอบกันเลย!</p>
             {% endif %}
-        </div>
+            </div>
     </div>
 
     <div class="footer">

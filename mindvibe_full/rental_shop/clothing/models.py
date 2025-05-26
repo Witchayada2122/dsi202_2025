@@ -1,5 +1,7 @@
+import uuid
 from django.db import models
-from django.contrib.auth.models import User  # <--- เพิ่มบรรทัดนี้!
+from django.contrib.auth.models import User
+
 
 # สร้างคลาส ClothingType ที่เก็บประเภทเสื้อผ้า
 class ClothingType(models.Model):
@@ -60,6 +62,15 @@ class Payment(models.Model):
     payment_date = models.DateTimeField(auto_now_add=True)
     return_proof = models.ImageField(upload_to='return_proofs/', blank=True, null=True)
     return_item_code = models.CharField(max_length=100, blank=True, null=True)
+    payment_ref = models.UUIDField(default=uuid.uuid4, unique=True)
+    qr_base64 = models.TextField(blank=True, null=True)
+
+    def get_qr_base64(self):
+        if not self.qr_base64:
+            from .views import generate_promptpay_qr
+            self.qr_base64 = generate_promptpay_qr(self)
+            self.save()
+        return self.qr_base64
 
     def __str__(self):
         return f"Payment for {self.user.username} - {self.total_price} THB"

@@ -46,7 +46,7 @@
             min-height: 100vh;
         }
 
-        /* Header Section - UNCHANGED AS REQUESTED */
+        /* Header Section */
         .header {
             background-color: #FDFD95;
             padding: 15px 30px;
@@ -55,10 +55,10 @@
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-            position: sticky; /* Added for sticky header */
+            position: sticky;
             top: 0;
-            z-index: 1000; /* Ensures header is above other content */
-            flex-shrink: 0; /* Prevent header from shrinking */
+            z-index: 1000;
+            flex-shrink: 0;
         }
         .header-left {
             display: flex;
@@ -100,7 +100,7 @@
             transform: scale(1.1);
         }
 
-        /* Page Title Section - NEW */
+        /* Page Title Section */
         .page-title-section {
             text-align: center;
             padding: 35px 20px 15px 20px;
@@ -112,7 +112,7 @@
             font-family: var(--font-logo);
             font-size: 3.2em;
             font-weight: bold;
-            color: var(--secondary-color); /* Using secondary color for this page title */
+            color: var(--secondary-color);
             margin: 0 0 5px 0;
             text-transform: uppercase;
         }
@@ -125,23 +125,22 @@
         }
 
         .main-content {
-            flex-grow: 1; /* Allow main content to take available space */
-            padding: 20px 20px 50px; /* Adjusted top padding */
+            flex-grow: 1;
+            padding: 20px 20px 50px;
             background-color: var(--background-light);
             display: flex;
             justify-content: center;
-            align-items: flex-start; /* Align container to top */
+            align-items: flex-start;
         }
 
         .payment-container {
-            max-width: 800px; /* Slightly reduced for better focus */
+            max-width: 800px;
             width: 100%;
-            background-color: var(--surface-color); /* Solid surface color */
-            padding: 30px 35px; /* Adjusted padding */
+            background-color: var(--surface-color);
+            padding: 30px 35px;
             border-radius: var(--border-radius-lg);
             box-shadow: var(--shadow-medium);
         }
-        /* Original h1 inside payment-container is removed */
 
         .payment-section {
             margin-bottom: 35px;
@@ -154,18 +153,17 @@
             border-bottom: none;
         }
 
-        .payment-section h3 { /* For "สรุปรายการ", "ช่องทางการชำระเงิน" etc. */
-            font-family: var(--font-main); /* Changed from Bebas Neue to Prompt */
-            font-size: 1.6em; /* Adjusted size */
-            font-weight: 600; /* Semibold Prompt */
+        .payment-section h3 {
+            font-family: var(--font-main);
+            font-size: 1.6em;
+            font-weight: 600;
             color: var(--primary-color);
-            margin-top: 0; /* Remove default top margin if it's the first element in section */
-            margin-bottom: 20px; /* Space below subheading */
+            margin-top: 0;
+            margin-bottom: 20px;
             padding-bottom: 10px;
-            border-bottom: 1.5px solid var(--secondary-color); /* Accent underline */
-            display: inline-block; /* To make underline only as wide as text */
+            border-bottom: 1.5px solid var(--secondary-color);
+            display: inline-block;
         }
-
 
         .payment-table {
             width: 100%;
@@ -176,16 +174,16 @@
 
         .payment-table th,
         .payment-table td {
-            padding: 12px 15px; /* Adjusted padding */
+            padding: 12px 15px;
             border-bottom: 1px solid var(--border-light);
             text-align: left;
             font-family: var(--font-main);
         }
 
         .payment-table th {
-            background-color: var(--secondary-color); /* Consistent with other table headers */
+            background-color: var(--secondary-color);
             color: var(--text-on-secondary);
-            font-weight: 500; /* Medium weight for headers */
+            font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
@@ -193,7 +191,7 @@
             border-bottom: none;
         }
 
-        .order-total { /* For the "ยอดรวม" paragraph */
+        .order-total {
             text-align: right;
             font-size: 1.2em;
             font-weight: 500;
@@ -203,11 +201,11 @@
         .order-total .total-value {
             font-weight: 700;
             color: var(--primary-color);
-            font-size: 1.1em; /* Relative to parent */
+            font-size: 1.1em;
         }
 
 
-        .payment-method-details { /* Wrapper for QR and text */
+        .payment-method-details {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -217,30 +215,33 @@
             border-radius: var(--border-radius-md);
             border: 1px solid var(--border-light);
         }
+        
+        /***** START: โค้ดที่แก้ไข *****/
         .qr-code {
             display: block;
-            /* margin: 20px auto; /* Handled by flex gap */
-            max-width: 180px; /* Slightly smaller */
+            max-width: 180px; /* ปรับขนาด QR Code ให้ใหญ่ขึ้นเล็กน้อย */
+            width: 100%;
+            height: auto;
             border-radius: var(--border-radius-sm);
             border: 1px solid var(--border-light);
         }
+        
         .promptpay-info {
             font-size: 1.1em;
             font-weight: 500;
             color: var(--text-secondary);
         }
 
-
         .payment-form {
-            margin-top: 0; /* Handled by payment-section margin */
+            margin-top: 0;
         }
         .form-group {
-            margin-bottom: 22px; /* Increased spacing */
+            margin-bottom: 22px;
         }
         .form-group label {
             display: block;
-            font-weight: 600; /* Bolder labels */
-            margin-bottom: 8px; /* More space below label */
+            font-weight: 600;
+            margin-bottom: 8px;
             font-size: 1em;
             color: var(--text-secondary);
         }
@@ -248,7 +249,7 @@
         .form-group textarea {
             font-family: var(--font-main);
             width: 100%;
-            padding: 12px 15px; /* Increased padding */
+            padding: 12px 15px;
             border: 1px solid var(--border-medium);
             border-radius: var(--border-radius-sm);
             font-size: 1em;
@@ -266,51 +267,51 @@
             min-height: 80px;
         }
         .form-group input[type="file"] {
-            padding: 10px; /* Specific padding for file input */
+            padding: 10px;
             background-color: #fdfdfd;
         }
 
 
         .payment-form button[type="submit"] {
             width: 100%;
-            padding: 15px; /* More prominent button */
+            padding: 15px;
             background-color: var(--secondary-color);
             color: var(--text-on-secondary);
             border: none;
             border-radius: var(--border-radius-md);
             font-family: var(--font-main);
-            font-size: 1.15em; /* Adjusted size */
-            font-weight: 600; /* Semibold */
+            font-size: 1.15em;
+            font-weight: 600;
             cursor: pointer;
             transition: background-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            margin-top: 10px; /* Space above button */
+            margin-top: 10px;
             box-shadow: 0 3px 8px rgba(96, 196, 180, 0.3);
         }
         .payment-form button[type="submit"]:hover {
-            background-color: #4fa092; /* Darker secondary */
+            background-color: #4fa092;
             transform: translateY(-2px);
             box-shadow: 0 5px 12px rgba(96, 196, 180, 0.4);
         }
 
-        .empty-cart-message-payment { /* Specific class for this page */
+        .empty-cart-message-payment {
             text-align: center;
             padding: 40px 20px;
             font-size: 1.15em;
             color: var(--text-secondary);
-            background-color: #fdf0e5; /* Light orange/beige */
+            background-color: #fdf0e5;
             border: 1px dashed var(--primary-color);
             border-radius: var(--border-radius-md);
         }
 
-        /* Footer - UNCHANGED AS REQUESTED */
+        /* Footer */
         .footer {
             background-color: #A0D8F1;
-            color: var(--text-primary); /* Changed from white for better contrast */
+            color: var(--text-primary);
             text-align: center;
             padding: 25px 10px;
-            margin-top: auto; /* Pushes footer to bottom */
+            margin-top: auto;
             font-size: 0.9em;
             user-select: none;
             flex-shrink: 0;
@@ -334,7 +335,11 @@
             .payment-section h3 { font-size: 1.4em; margin-bottom: 15px; }
 
             .payment-table th, .payment-table td { padding: 10px; font-size: 0.9em; }
-            .qr-code { max-width: 150px; }
+            
+            /***** START: โค้ดที่แก้ไข *****/
+            .qr-code { max-width: 120px; } /* ปรับขนาด QR Code สำหรับมือถือ */
+            /***** END: โค้ดที่แก้ไข *****/
+            
             .promptpay-info { font-size: 1em; }
 
             .form-group input, .form-group textarea { padding: 10px; }
@@ -347,7 +352,7 @@
 
     <div class="header">
         <div class="header-left">
-            <a href="{% url 'clothing:welcome' %}" class="logo">MINDVIBE</a> {# Added link to logo #}
+            <a href="{% url 'clothing:welcome' %}" class="logo">MINDVIBE</a>
             <p class="slogan">LOOK GOOD. FEEL RIGHT. LIVE TRUE. | MINDFULLY CURATED OUTFITS FOR EVERY EMOTION AND MOMENT.</p>
         </div>
         <div class="header-right">
@@ -409,13 +414,16 @@
 
                 </div>
 
+                {% if qr_base64 %}
                 <div class="payment-section payment-method-section">
                     <h3>ช่องทางการชำระเงิน</h3>
                     <div class="payment-method-details">
-                        <img src="{% static 'images/promtpay_qr.png' %}" alt="PromptPay QR Code" class="qr-code">
-                        <p class="promptpay-info">สแกน QR Code หรือโอนผ่าน PromptPay: <strong>123-456-7890 (ชื่อบัญชี: MindVibe Shop)</strong></p>
+                    
+                    <img class="qr-code" src="data:image/png;base64,{{ qr_base64 }}" alt="PromptPay QR">
+                    <p class="promptpay-info">สแกน QR Code เพื่อชำระเงินผ่าน PromptPay</p>
                     </div>
                 </div>
+                {% endif %}
 
                 <div class="payment-section delivery-form-section">
                     <h3>ข้อมูลสำหรับจัดส่งและยืนยันการชำระเงิน</h3>

@@ -1,14 +1,15 @@
 from django.shortcuts import render, get_object_or_404, redirect, resolve_url
-from .models import Clothing, Favorite, ClothingType
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth import login, authenticate
+from .models import Clothing, Favorite, ClothingType, Payment, OrderStatus
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
+from django.contrib.auth import login, authenticate, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
-from .forms import CustomUserCreationForm
-from .models import Payment
-from .models import OrderStatus
 from django.db.models import Max
 import hashlib
+import uuid
+import qrcode, io, base64
+from promptpay import qrcode as pp
+
 
 
 
@@ -319,9 +320,21 @@ def cart(request):
     })
 
 # ฟังก์ชันสำหรับหน้าชำระเงิน
+def generate_promptpay_qr(payment):
+    promptpay_id = "0971735759"
+    amount = float(payment.total_price)
+    payload = pp.generate_payload(promptpay_id, amount)
+
+    img = qrcode.make(payload)
+    buffer = io.BytesIO()
+    img.save(buffer, format="PNG")
+    return base64.b64encode(buffer.getvalue()).decode()
+
 def payment(request):
     cart_items = get_cart_items(request)
-    total_price = sum(item['total'] for item in cart_items)  # เป็นตัวเลข (Decimal หรือ float)
+    total_price = sum(item['total'] for item in cart_items)
+
+    qr_base64 = None
 
     if request.method == 'POST':
         full_name = request.POST.get('full_name')
@@ -329,7 +342,7 @@ def payment(request):
         phone_number = request.POST.get('phone_number')
         proof = request.FILES.get('payment_proof')
 
-        Payment.objects.create(
+        payment = Payment.objects.create(
             user=request.user,
             full_name=full_name,
             address=address,
@@ -337,11 +350,20 @@ def payment(request):
             proof=proof,
             total_price=total_price
         )
+
+        payment.qr_base64 = generate_promptpay_qr(payment)
+        payment.save()
+
         return redirect('clothing:status')
+    else:
+        mock_payment = Payment(user=request.user, total_price=total_price)
+        mock_payment.payment_ref = uuid.uuid4()
+        qr_base64 = generate_promptpay_qr(mock_payment)
 
     return render(request, 'clothing/payment.html', {
         'cart_items': cart_items,
-        'total_price': total_price  # ส่งเป็นตัวเลขเลย
+        'total_price': total_price,
+        'qr_base64': qr_base64
     })
 
 
